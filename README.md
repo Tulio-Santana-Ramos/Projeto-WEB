@@ -8,13 +8,13 @@ Tulio Santana Ramos             11795526
 
 ## Conteúdos:
 - [Requisitos](#requisitos)
-- [Descrição](#descricao)
-- [Comentários sobre o Código](#comentarios-sobre-codigo)
+- [Descrição](#descrição)
+- [Comentários sobre o Código](#comentários-sobre-o-código)
 - [Plano de Teste](#plano-de-teste)
 - [Reultados dos Testes](#resultados-dos-testes)
 - [Building](#building)
 - [Problemas](#problemas)
-- [Comentários](#comentarios)
+- [Comentários](#comentários)
 
 ## Requisitos:
 O sistema deve ter 2 tipos de usuários: clientes e administradores.
