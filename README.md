@@ -2,11 +2,11 @@
 Repositório destinado ao projeto final da disciplina de Introdução ao Desenvolvimento WEB - SCC0219. Este projeto visa o desenvolvimento de uma plataforma de venda de Ebooks
 
 ## Integrantes:
-Ana Clara Amorim Andrade              10691992
+- 10691992 &nbsp; Ana Clara Amorim Andrade
 
-Eduardo Henrique Porto Silva          11796656
+- 11796656 &nbsp; Eduardo Henrique Porto Silva
 
-Tulio Santana Ramos                   11795526
+- 11795526  &nbsp; Tulio Santana Ramos 
 
 ## Conteúdos:
 - [Requisitos](#requisitos)
