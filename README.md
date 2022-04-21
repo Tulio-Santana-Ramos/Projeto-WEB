@@ -47,6 +47,7 @@ WEBOOK é uma plataforma online de venda de livros digitais. O sistema conterá 
 ## Comentários sobre o código:
 
 ## Plano de teste:
+Pretendemos usar o Insomnia para verificar a validade das requisições (GET, POST, DELETE) no back-end. Além disso, serão efetuados testes nos navegadores Microsoft Edge, Firefox e Google Chrome, navegadores utilizados amplamente no mercado, assim como nos sistemas operacionais Windows e Linux (Ubuntu).
 
 ## Resultados dos testes:
 
