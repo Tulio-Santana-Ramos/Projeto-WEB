@@ -43,6 +43,8 @@ O sistema é responsivo e visa uma boa acessibilidade e usabilidade para os usu�
 WEBOOK é uma plataforma online de venda de livros digitais. O sistema conterá obras de diferentes categorias, visando entreter o público em geral. Implementado com HTML, CSS, JavaScript e <FrameWork> no front-end. Já para o back-end, foi utilizado Node.js e MongoDB para o banco de dados.
 
 ### Diagrama de Navegação:
+  
+As diferentes telas criadas como mockup podem ser encontradas em [/mockup](https://github.com/Tulio-Santana-Ramos/WEBOOK/tree/main/mockups)
 
 ## Comentários sobre o código:
 
