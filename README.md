@@ -8,7 +8,7 @@ Repositório destinado ao projeto final da disciplina de Introdução ao Desenvo
 
 - 11795526  &nbsp; Tulio Santana Ramos 
 
-## Conteúdos:
+## Conteúdo:
 - [Requisitos](#requisitos)
 - [Descrição](#descrição)
 - [Comentários sobre o Código](#comentários-sobre-o-código)
