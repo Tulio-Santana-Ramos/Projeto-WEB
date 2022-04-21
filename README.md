@@ -7,14 +7,14 @@ Eduardo Henrique Porto Silva    11796656
 Tulio Santana Ramos             11795526
 
 ## Conteúdos:
-- [here](#requisitos)
-- [here](#descricao)
-- [here](#comentarios-sobre-codigo)
-- [here](#plano-de-teste)
-- [here](#resultados-dos-testes)
-- [here](#building)
-- [here](#problemas)
-- [here](#comentarios)
+- [Requisitos](#requisitos)
+- [Descrição](#descricao)
+- [Comentários sobre o Código](#comentarios-sobre-codigo)
+- [Plano de Teste](#plano-de-teste)
+- [Reultados dos Testes](#resultados-dos-testes)
+- [Building](#building)
+- [Problemas](#problemas)
+- [Comentários](#comentarios)
 
 ## Requisitos:
 O sistema deve ter 2 tipos de usuários: clientes e administradores.
