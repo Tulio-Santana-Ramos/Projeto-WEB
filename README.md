@@ -3,7 +3,9 @@ Repositório destinado ao projeto final da disciplina de Introdução ao Desenvo
 
 ## Integrantes:
 Ana Clara Amorim Andrade        10691992
+
 Eduardo Henrique Porto Silva    11796656
+
 Tulio Santana Ramos             11795526
 
 ## Conteúdos:
@@ -42,7 +44,7 @@ WEBOOK é uma plataforma online de venda de livros digitais. O sistema conterá 
 
 ### Diagrama de Navegação:
 
-## Comentários sobre código:
+## Comentários sobre o código:
 
 ## Plano de teste:
 
