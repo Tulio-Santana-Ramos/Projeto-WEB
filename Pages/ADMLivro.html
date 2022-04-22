@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <title>WeBook</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="ADMLivro.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="shortcut icon" href="./img/Logo-icone.png">
+        <link href="https://fonts.googleapis.com/css2?family=Grape+Nuts&family=Open+Sans&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="navbar">
+            <a href="#home"><img src="./img/logo.png" width="60px" style="padding: 10px;"></a>
+            
+            <a href="#home"><img src="./img/livro.png" width="60px" style="padding: 10px;"><p style="font-size: xx-large;"></p></a>
+            
+
+            <select name="livros" id="book-select" style=" margin-left: 80px; ">
+                <option value="" disabled selected hidden>Selecione a categoria</option>
+                <option value="romance">Romance</option>
+                <option value="scifi">Sci-Fi</option>
+                <option value="aventura">Aventura</option>
+                <option value="juvenil">Juvenil</option>
+            </select>
+           
+            <div id="input-container" style="margin-right: auto; margin-left: auto;">
+                <img src="./img/research.png">
+                <input class="research">
+            </div>
+
+
+            <a href="#home"><img src="./img/plus.png" width="60px" style="padding: 20px;"><p1 style="font-size: xx-large; text-align: left;">Adicionar<br>itens</p1></a>
+            <a href="#home"><img src="./img/admin-with-cogwheels.png" width="60px" style="padding: 10px; margin: 10px;"></a>
+
+        </div>
+
+        <div class="operations">
+            <div class="promo" style="font-size: large; text-align: left;"><h3>Quantidade de livros <br>promocionais disponíveis: 10</h3></div>
+            <div class="addition"><img src="./img/addition.png" width="80px" height="80px" style="align-self: center;"><h style="float: right; font-size: xx-large; padding-left: 10px;">Adicionar<br>promoção</h></div>
+            <div class="removal"><img src="./img/remove.png" width="80px" height="80px" style="align-self: center;"><h style="float: right; font-size: xx-large; padding-left: 10px;">Excluir<br>livro</h></div>
+        </div>
+
+        <div class="book">
+
+            <img src="./img/harry.jpg" width="250px" style="margin-left: 30px; float: left; padding: 10px;">
+            <div class="book-basics">
+                <p class="title">HARRY POTTER E A PEDRA FILOSOFAL</p> 
+                <ul class="category">
+                    <li>Aventura</li>
+                    <li>Juvenil</li>
+                </ul>
+                <p class="price">R$ 30,90</p>
+            </div>
+            <br>
+            <div class="synopsis">
+                Quando virou o envelope, com a mão trêmula, Harry viu um lacre de cera púrpura com um brasão; um leão, uma águia, um texugo e uma cobra circulando uma grande letra "H".
+                Harry Potter nunca havia ouvido falar de Hogwarts quando as cartas começaram a aparecer no capacho da Rua dos Alfeneiros, nº 4. Escritos a tinta verde-esmeralda em pergaminho amarelado com um lacre de cera púrpura, as cartas eram rapidamente confiscadas por seus pavorosos tio e tia. 
+                Então, no aniversário de onze anos de Harry, um gigante com olhos que luziam como besouros negros chamado Rúbeo Hagrid surge com notícias surpreendentes: Harry Potter é um bruxo e tem uma vaga na Escola de Magia e Bruxaria de Hogwarts. Uma incrível aventura está para começar!
+            </div>
+
+        </div>
+
+        <div class="operations">
+            <div class="adm-edit"><img src="./img/settings.png" width="70px" style="float:left; padding-left: 75px"><p>Editar informações</p></div>
+        </div>
+
+        <div class="book-specifics">
+            <div class="info-blue"><p>Editora:</p><p style="text-align: right;">Pottermore Publishing</p></div>
+            <div class="info-white"><p>Autor(a):</p><p style="text-align: right;">MOSS | J.K. ROWLING</p></div>
+            <div class="info-blue"><p>Tradutor(a):</p><p style="text-align: right;">LIA WYLER</p></div>
+            <div class="info-white"><p>Ano:</p><p style="text-align: right;">2015</p></div>
+        </div>
+
+    </body>
+
+</html>
