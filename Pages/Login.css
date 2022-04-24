@@ -1,3 +1,8 @@
+body{
+    font-family: 'Grape Nuts', cursive;
+    font-family: 'Open Sans', sans-serif;
+}
+
 #centerDiv {
   display: flex;
   justify-content: center;  
