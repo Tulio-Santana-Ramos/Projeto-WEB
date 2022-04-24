@@ -1,7 +1,7 @@
 # WEBOOK - Plataforma Online para Venda de Ebooks
 ![Screenshot](Logo.png)
 
-Repositório destinado ao projeto final da disciplina de Introdução ao Desenvolvimento WEB - SCC0219. Este projeto visa o desenvolvimento de uma plataforma de venda de Ebooks
+Repositório destinado ao projeto final da disciplina de Introdução ao Desenvolvimento WEB - SCC0219. Este projeto visa o desenvolvimento de uma plataforma de venda e leitura de Ebooks
 
 ## Integrantes:
 - 10691992 &nbsp; Ana Clara Amorim Andrade
@@ -45,8 +45,9 @@ O sistema é responsivo e visa uma boa acessibilidade e usabilidade para os usu�
 WEBOOK é uma plataforma online de venda de livros digitais. O sistema conterá obras de diferentes categorias, visando entreter o público em geral. Implementado com HTML, CSS, JavaScript e <FrameWork> no front-end. Já para o back-end, foi utilizado Node.js e MongoDB para o banco de dados.
 
 ### Diagrama de Navegação:
+![Screenshot](Diagrama.png)
   
-As diferentes telas criadas como mockup podem ser encontradas em [/mockup](https://github.com/Tulio-Santana-Ramos/WEBOOK/tree/main/mockups)
+As diferentes telas criadas como mockup podem ser encontradas em [/mockup](https://github.com/Tulio-Santana-Ramos/WEBOOK/tree/main/mockups) ou diretamente no [Figma](https://www.figma.com/file/q7jnpJB5LKc1Gr9y7ymZ2c/WEBOOK?node-id=0%3A1)
 
 ## Comentários sobre o código:
 
