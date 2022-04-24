@@ -27,6 +27,11 @@
     font-size: 1vw;
     height: 11vh;
   }
+
+  .navbar-txt{
+    font-size: 1em; 
+    text-align: left;
+  }
   
   /* Change background on mouse-over */
   .navbar a:hover {
@@ -50,6 +55,12 @@
       padding: 0em 2vw;
       display: flex;
       flex-wrap: wrap;
+  }
+
+  .edit{
+    font-family: 'Grape Nuts', cursive;
+    font-family: 'Open Sans', sans-serif;
+    cursor: pointer;
   }
 
   #input-container {
@@ -97,9 +108,17 @@
     color: black;
     text-align: left;
     border-radius: 10px;
-    padding: 0px 250px 0px 60px;
+    padding: 0px 5vw 0px 60px;
     margin-top: 10px;
-    margin-left: 270px;
+    margin-left: 15vw;
+  }
+
+  .promo:hover{
+    background-color: #094b0b;
+  }
+
+  .promo h3:hover{
+    background-color: #094b0b;
   }
 
   .addition{
@@ -123,6 +142,7 @@
   .book{
       margin-top: 20px;
       margin-left: 20px;
+      width: 80vw;
       font-family: 'Grape Nuts', cursive;
       font-family: 'Open Sans', sans-serif;
   }
@@ -136,25 +156,28 @@
     color: #0B859F;
     padding-left: 300px;
     font-size: large;
+    margin-left: 200px;
   }
 
   .title{
     font-size: 1.5em;
+    padding-left:150px;
+    margin-left: 170px;
   }
-
+  
   .price{
     font-size: 1.5em;
-    padding-left: 1300px;
+    text-align: right;
+    padding-right: 20px;
   }
 
   .synopsis{
     font-size: x-large;
     max-width: 1076px;
-    max-height: 157px;
     margin-left: 200px;
     padding-top:5px;
     padding-left:150px;
-    padding-bottom:10px;
+    padding-bottom:5px;
     word-wrap: break-word;
   }
 
@@ -165,10 +188,10 @@
     font-family: 'Open Sans', sans-serif;
     font-size: x-large;
     text-align: center;
-    margin-top: 150px;
+    margin-top: 100px;
     margin-left: 375px;
     border-radius: 10px;
-    padding: 10px 5px 0px 5px;
+    padding: 10px 5px 10px 5px;
     width: 55%;
   }
 
@@ -192,3 +215,33 @@
     padding-right: 10px;
     height: 90px;
   }
+
+  .adm-edit:hover{
+    background-color: #1872a7;
+  }
+
+  .adm-edit p:hover{
+    background-color: #1872a7;
+  }
+
+  @media screen and (max-width: 1350px) {
+    .promo{
+      margin-left: 2vw;
+    }
+  }
+
+  @media screen and (max-width: 1200px) {
+    .promo{
+      margin-left: 0vw;
+    }
+
+    .research{
+      width: 200px;
+    }
+  
+    .img-navbar{
+      width: 40px;
+    }
+  }
+
+  
