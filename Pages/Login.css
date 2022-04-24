@@ -1,6 +1,9 @@
 #centerDiv {
-    margin: 18.5% 39%;
-    width: 450px;
+  display: flex;
+  justify-content: center;  
+  align-content: center;
+  height: 100vh;
+  flex-direction: column;
 }
 
 .input-container {
@@ -44,18 +47,40 @@
     padding-left: 40px;
 }
 
-#login-btn{
+.login-btn{
     background-color: #38B6FF;
     border: none;
-    padding: 25px 184px;
-    margin: 25px;
+    padding: 20px 185px;
+    margin: 25px 0;
+    margin-left: 22px ;
     border-radius: 15px;
     color: white;
     font-weight: bolder;
+    cursor: pointer;  
+}
+
+.login-btn:hover{
+    background-color: #1872a7;
+     
+}
+
+.login-options:hover{
+    background-color: #ddd;
+    
+}
+
+.login-btn p{
+    margin: 0;
 }
 
 .login-options{
     font-weight: bolder;
     color: black;
     text-decoration: none;
+    padding: 1em;
+    border-radius: 5px;
+    margin-left: 22px ;
+}
+button p{
+    margin: 0;
 }

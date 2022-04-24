@@ -7,28 +7,39 @@
 </head>
 <body>
     <div id="centerDiv">
-        <img src="./img/Logo-icone.png" width="250px" style="padding: 10px; margin-left: 100px">
-        <!-- TODO: Mudar as imagens dos inputs, ta tudo com a lupa -->
+        <img src="./img/Logo-icone.png" width="250px" style="padding: 10px; margin-left: 100px; margin-right: auto; margin-left: auto;">
+       
         <div class="input-container" style="margin-right: auto; margin-left: auto;">
             <img class="left-image" src="./img/email.png">
             <input class="loginFields" placeholder="Email">
         </div>
+
         <br>
         <div class="input-container" style="margin-right: auto; margin-left: auto;">
             <img class="left-image" src="./img/password.png">
             <input class="loginFields" placeholder="Senha">
             <img class="right-image" src="./img/eye.png">
         </div>
-        <button id="login-btn">
-            Entrar
-        </button>
-        <div style="width: 185px">
-            <a class="login-options" href="#esqueci">
-                ESQUECI A SENHA
-            </a>
-            <a class="login-options" href="#nova">
-                CRIAR NOVA CONTA
-            </a>
+
+        <div style="margin-right: auto; margin-left: auto;">
+            <div class="login-btn" >
+                <p>Entrar</p>
+            </div>
+
+        </div>
+
+        <div style="display: flex; justify-content:space-around; width: 500px; margin-right: auto; margin-left: auto; ">
+            <div>
+                <a class="login-options" href="#esqueci">
+                    ESQUECI A SENHA
+                </a>
+            </div>
+            <div>
+                <a class="login-options" href="#nova">
+                    CRIAR NOVA CONTA
+                </a>
+
+            </div>
         </div>
     </div>
 </body>
