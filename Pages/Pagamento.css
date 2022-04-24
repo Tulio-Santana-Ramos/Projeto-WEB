@@ -179,3 +179,13 @@ body{
     background-color: #ddd;
     border-radius: 5px;
 }
+.btn-finaliza-escolha{
+    background-color: #38B6FF;
+    border-radius: 5px;
+    border: none;
+    height: 60px;
+    width: 90%;
+}
+.btn-finaliza-escolha:hover{
+    background-color: #19F;
+}
