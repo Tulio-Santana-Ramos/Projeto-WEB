@@ -1,0 +1,179 @@
+body{
+    margin: 0
+}
+
+.navbar {
+    justify-content: space-between;
+    overflow: hidden;
+    background-color: #F1F1F1;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+    display: flex;
+    align-items: center;
+    font-family: 'Grape Nuts', cursive;
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* Links inside the navbar */
+.navbar a {
+    float: left;
+    display: block;
+    color: #38B6FF;
+    text-align: center;
+    align-items: center;
+    text-decoration: none;
+    display: flex;
+    font-size: 1vw;
+    height: 11vh;
+}
+
+/* Change background on mouse-over */
+.navbar a:hover {
+    background: #ddd;
+}
+
+
+#book-select{
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.05);
+    width: 350px;
+    height: 50px;
+    border-radius: 8px;
+    text-decoration: none;
+    padding: 8px 12px;
+    margin-left: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.books{
+    margin-top: 120px;
+    padding: 0em 2vw;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.home-book:hover{
+    border-radius: 0.5em;
+    box-shadow: 2px 2px 2px 2px lightgray;
+    cursor: pointer;
+}
+
+.home-book{
+    display: flex;
+    max-width: 29vw !important;
+    min-width: 28vw;
+    margin: 2vw 0;
+    margin-right: 2vw ;
+}
+
+.home-book-info{
+    padding-left: 2em  ;
+    font-family: 'Grape Nuts', cursive;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.category{
+    color: #0B859F;
+}
+
+#input-container {
+    position: relative;
+    margin-left: 40px;
+}
+
+.research{
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.05);
+    width: 350px;
+    height: 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    padding: 8px 12px;
+    margin-left: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    font-size: 1.5vw;
+}
+
+#input-container > img {
+    position: absolute;
+    top: 10px;
+    left: 30px;
+    width: 30px;
+
+}
+
+#input-container > input {
+    padding-left: 40px;
+}
+
+
+
+.txt-navbar{
+    font-size: xx-large;
+}
+
+/* Media query para deixar o site minimamente responsivo */
+@media screen and (max-width: 1200px) {
+
+    .research{
+        width: 200px;
+    }
+
+    .img-navbar{
+        width: 40px;
+    }
+
+    .home-book{
+        display: flex;
+        max-width: 40vw !important;
+        min-width: 28vw;
+        margin: 2vw 0;
+        margin-right: 2vw ;
+    }
+
+    .txt-navbar{
+        font-size: large;
+    }
+}
+
+
+.division-bar{
+    --division-bar-width: 95vw;
+    height: 0px;
+    width: var(--division-bar-width);
+    border: 1px solid #38B6FF;
+    margin: 20px calc((100vw - var(--division-bar-width))/2) 20px calc((100vw - var(--division-bar-width))/2);
+
+
+}
+.cards-label{
+    font-size: 40px;
+}
+
+.radio-payment {
+    --radio-dimensions: 25px;
+    box-sizing: border-box;
+    appearance: none;
+    background: white;
+    outline: 2px solid #38B6FF;
+    border: 3px solid white;
+    width: var(--radio-dimensions);
+    height: var(--radio-dimensions);
+    border-radius: 5px;
+}
+
+.radio-payment:checked {
+    background: #38B6FF;
+}
+
+.normal-text{
+    font-size: 40px;
+    text-decoration: none;
+    color: black;
+}
+.add-card:hover{
+    background-color: #ddd;
+    border-radius: 5px;
+}

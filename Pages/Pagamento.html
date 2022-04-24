@@ -2,9 +2,79 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="Pagamento.css">
+    <title>Pagamento</title>
 </head>
-<body>
+    <body>
+        <div class="navbar">
+            <a href="#home"><img class="img-navbar" src="./img/logo.png" width="60px" style="padding: 10px;"></a>
 
-</body>
+            <a href="#home"><img class="img-navbar" src="./img/livro.png" width="60px" style="padding: 10px;"><p class="txt-navbar" >Biblioteca</p></a>
+
+
+            <select name="livros" id="book-select" style=" margin-left: 80px; ">
+                <option value="" disabled selected hidden>Selecione a categoria</option>
+                <option value="romance">Romance</option>
+                <option value="scifi">Sci-Fi</option>
+                <option value="aventura">Aventura</option>
+                <option value="juvenil">Juvenil</option>
+            </select>
+
+            <div id="input-container" style="margin-right: auto; margin-left: auto;">
+                <img src="./img/research.png">
+                <input class="research">
+            </div>
+
+
+            <a href="#home"><img class="img-navbar" src="./img/carrinho-carrinho.png" width="60px" style="padding: 10px;"> </a>
+            <a href="#home"><img class="img-navbar" src="./img/user.png" width="60px" style="padding: 10px;"></a>
+
+        </div>
+        <div style="text-align: center; padding-top: 120px; padding-bottom: 20px">
+            <span style="color: #38B6FF; font-size: 50px">Finalizar sua compra</span>
+        </div>
+        <div>
+            <span style="padding-left: 50px" class="normal-text">
+                1. Selecione um metodo de pagamento:
+            </span><br>
+            <span style="padding-left: 100px" class="normal-text">
+                Seus cartões de crédito:
+            </span>
+            <div class="division-bar">
+            </div>
+            <div style="padding-left: 150px">
+                <input type="radio" id="cartao1" name="card" value="card1" class="radio-payment">
+                <label for="cartao1" class="cards-label">Nubank terminado em 1010 - Harry Potter</label>
+                <br>
+                <input type="radio" id="cartao2" name="card" value="card2" class="radio-payment">
+                <label for="cartao2" class="cards-label">Banco do Brasil em 2020 - Hermione </label>
+                <br>
+                <span style="padding-left: 50px" > <a href="#addCard" class="normal-text add-card">+Adicionar novo cartão</a></span>
+            </div>
+            <br>
+            <div style="padding-left: 100px">
+                <span class="normal-text">
+                    Boleto: <br>
+                </span>
+            </div>
+            <div class="division-bar">
+            </div>
+            <div style="padding-left: 150px">
+                <input type="radio" id="boleto" name="card" value="boleto" class="radio-payment">
+                <label for="cartao1" class="cards-label">Vencimento em 1 dia útil</label>
+            </div>
+            <br>
+            <div style="padding-left: 100px">
+                <span class="normal-text">
+                    PIX: <br>
+                </span>
+            </div>
+            <div class="division-bar">
+            </div>
+            <div style="padding-left: 150px">
+                <input type="radio" id="pix" name="card" value="pix" class="radio-payment">
+                <label for="cartao1" class="cards-label">Vencimento em 30 minutos</label>
+            </div>
+        </div>
+    </body>
 </html>
