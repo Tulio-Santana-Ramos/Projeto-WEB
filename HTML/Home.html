@@ -10,10 +10,11 @@
     </head>
 
     <body>
+        <!-- navbar -->
         <div class="navbar">
-            <a href="#home"><img src="./img/logo.png" width="60px" style="padding: 10px;"></a>
+            <a href="#home"><img class="img-navbar" src="./img/logo.png" width="60px" style="padding: 10px;"></a>
             
-            <a href="#home"><img src="./img/livro.png" width="60px" style="padding: 10px;"><p style="font-size: xx-large;">Biblioteca</p></a>
+            <a href="#home"><img class="img-navbar" src="./img/livro.png" width="60px" style="padding: 10px;"><p class="txt-navbar" >Biblioteca</p></a>
             
 
             <select name="livros" id="book-select" style=" margin-left: 80px; ">
@@ -30,18 +31,17 @@
             </div>
 
 
-            <a href="#home"><img src="./img/carrinho-carrinho.png" width="60px" style="padding: 10px;"> </a>
-            <a href="#home"><img src="./img/user.png" width="60px" style="padding: 10px;"></a>
+            <a href="#home"><img class="img-navbar" src="./img/carrinho-carrinho.png" width="60px" style="padding: 10px;"> </a>
+            <a href="#home"><img class="img-navbar" src="./img/user.png" width="60px" style="padding: 10px;"></a>
             
-           
         </div>
 
 
 
-
+        <!-- mostrando os livros disponiveis -->
         <div class="books">
             <div class="home-book">
-                <img src="./img/harry.jpg" width="40%"> 
+                <img  class="img-livro" src="./img/harry.jpg" width="200vw"> 
                 <div class="home-book-info">
                     <p class="title">HARRY POTTER E A PEDRA FILOSOFAL</p>
                     <ul class="category">
@@ -54,7 +54,7 @@
             </div>
 
             <div class="home-book">
-                <img src="./img/harry.jpg" width="40%"> 
+                 <img src="./img/harry.jpg" width="200vw"> 
                 <div class="home-book-info">
                     <p class="title">HARRY POTTER E A PEDRA FILOSOFAL</p>
                     <ul class="category">
@@ -67,7 +67,7 @@
             </div>
 
             <div class="home-book">
-                <img src="./img/harry.jpg" width="40%"> 
+                 <img src="./img/harry.jpg" width="200vw"> 
                 <div class="home-book-info">
                     <p class="title">HARRY POTTER E A PEDRA FILOSOFAL</p>
                     <ul class="category">
@@ -79,7 +79,7 @@
             </div>
 
             <div class="home-book">
-                <img src="./img/harry.jpg" width="40%"> 
+                 <img src="./img/harry.jpg" width="200vw"> 
                 <div class="home-book-info">
                     <p class="title">HARRY POTTER E A PEDRA FILOSOFAL</p>
                     <ul class="category">
@@ -90,7 +90,7 @@
                 </div>
             </div>
             <div class="home-book">
-                <img src="./img/harry.jpg" width="40%"> 
+                 <img src="./img/harry.jpg" width="200vw"> 
                 <div class="home-book-info">
                     <p class="title">HARRY POTTER E A PEDRA FILOSOFAL</p>
                     <ul class="category">
@@ -101,7 +101,7 @@
                 </div>
             </div>
             <div class="home-book">
-                <img src="./img/harry.jpg" width="40%"> 
+                 <img src="./img/harry.jpg" width="200vw"> 
                 <div class="home-book-info">
                     <p class="title">HARRY POTTER E A PEDRA FILOSOFAL</p>
                     <ul class="category">
@@ -112,7 +112,7 @@
                 </div>
             </div>
             <div class="home-book">
-                <img src="./img/harry.jpg" width="40%"> 
+                 <img src="./img/harry.jpg" width="200vw"> 
                 <div class="home-book-info">
                     <p class="title">HARRY POTTER E A PEDRA FILOSOFAL</p>
                     <ul class="category">
@@ -123,7 +123,7 @@
                 </div>
             </div>
             <div class="home-book">
-                <img src="./img/harry.jpg" width="40%"> 
+                <img src="./img/harry.jpg" width="200vw"> 
                 <div class="home-book-info">
                     <p class="title">HARRY POTTER E A PEDRA FILOSOFAL</p>
                     <ul class="category">
@@ -135,7 +135,7 @@
             </div>
 
             <div class="home-book">
-                <img src="./img/harry.jpg" width="40%"> 
+                 <img src="./img/harry.jpg" width="200vw"> 
                 <div class="home-book-info">
                     <p class="title">HARRY POTTER E A PEDRA FILOSOFAL</p>
                     <ul class="category">
@@ -147,5 +147,27 @@
             </div>
 
         </div> 
+
+        <!-- TODO: Adicionar eventos OnClick nas divs para faze-las clicaveis-->
+        <div class="navigate">
+            <div class="navigate-button">
+                <a href="#home/anterior" >Anterior</a>
+            </div>
+            <div class="navigate-button-number">
+                <a href="#home/1">1</a>
+            </div>
+            <div class="navigate-button-number">
+                <a href="#home/2">2</a>
+            </div>
+            <div class="navigate-button-number">
+                <a href="#home/3">3</a>
+            </div>
+            <div class="navigate-button-number">
+                <a href="#home/4">4</a>
+            </div>
+            <div class="navigate-button">
+                <a href="#home/proxima">Próxima</a>
+            </div>
+        </div>
     </body>
 </html>
