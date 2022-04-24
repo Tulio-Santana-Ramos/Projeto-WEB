@@ -1,5 +1,6 @@
 #centerDiv {
-margin: 200px 750px;
+    margin: 18.5% 39%;
+    width: 450px;
 }
 
 .input-container {
@@ -13,7 +14,7 @@ margin: 200px 750px;
     font-size: 20px;
 }
 
-.researcher{
+.loginFields{
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.05);
     width: 350px;
     height: 30px;
@@ -35,7 +36,7 @@ margin: 200px 750px;
 .input-container > .right-image {
     position: absolute;
     top: 10px;
-    right: -15px;
+    right: 7%;
     width: 30px;
 }
 
