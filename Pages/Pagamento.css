@@ -150,9 +150,6 @@ body{
 
 
 }
-.cards-label{
-    font-size: 40px;
-}
 
 .radio-payment {
     --radio-dimensions: 25px;
@@ -171,7 +168,7 @@ body{
 }
 
 .normal-text{
-    font-size: 40px;
+    font-size: 1.5em;
     text-decoration: none;
     color: black;
 }

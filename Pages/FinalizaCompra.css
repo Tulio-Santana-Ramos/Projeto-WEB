@@ -1,8 +1,11 @@
 body{
-    margin: 0
+    margin: 0;
+    font-family: 'Grape Nuts', cursive;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .navbar {
+    z-index: 100000;
     justify-content: space-between;
     overflow: hidden;
     background-color: #F1F1F1;
@@ -181,7 +184,7 @@ body{
 
     .home-book{
         display: flex;
-        max-width: 98vw;
+        max-width: calc(85vw - 50px);
         margin: 2vw 0;
         margin-right: 2vw ;
     }
@@ -190,4 +193,44 @@ body{
         font-size: large;
     }
 }
+.footer{
+    display: flex;
+    justify-content: space-between;
+    background-color: #38B6FF;
+    padding: 2em 0;
+    color: white;
+}
 
+.txt-footer{
+    display: flex;
+    flex-direction: column;
+    width: 30vw;
+}
+
+.txt-footer.link{
+    width: 10vw;
+}
+
+.txt-footer a{
+    text-decoration: none;
+    color: white;
+}
+
+.txt-footer a:hover{
+    color: rgb(68, 67, 67);
+}
+.btn-finaliza-escolha{
+    background-color: #38B6FF;
+    border-radius: 5px;
+    border: none;
+    padding: 2em 0;
+    width: 50vw;
+}
+.btn-finaliza-escolha:hover{
+    background-color: #19F;
+}
+.normal-text{
+    font-size: 40px;
+    text-decoration: none;
+    color: black;
+}
