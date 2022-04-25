@@ -36,7 +36,7 @@ Produto: nome, id, foto, descrição, preço, qtde vendida, se o livro está em 
 
 Venda de produtos: Os produtos são selecionados, são incluídos em um carrinho e sua quantidade escolhida. Os produtos são comprados usando um número de cartão de crédito (qualquer número é aceito pelo sistema). A quantidade de produto vendida é subtraída da quantidade em estoque (em caso de promoção) e adicionada à quantidade vendida. Os carrinhos são esvaziados somente quando o pagamento é efetuado ou quando os clientes removem todos os produtos.
 
-Gerenciamento de produto: os administradores podem criar/atualizar/ler/excluir/adicionar promoção Ebooks. Por exemplo, eles podem alterar a quantidade em estoque.
+Gerenciamento de produto: os administradores podem criar/atualizar/ler/excluir/adicionar Ebooks e promoções. Por exemplo, eles podem alterar a quantidade em estoque.
 
 Como funcionalidade extra, optamos por implementar a visualização da preview do ebook em sua página. O usuário poderá ler o Epílogo ou as páginas iniciais do primeiro capítulo, dependendo da constituição do produto. Além disso, em nossa plataforma, o usuário terá acesso aos ebooks comprados por meio de sua “biblioteca”, dessa forma, a leitura pré e pós compra do produto poderá ser efetuada de maneira direta dentro do ambiente criado.
 
