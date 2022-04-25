@@ -189,3 +189,30 @@ body{
 .btn-finaliza-escolha:hover{
     background-color: #19F;
 }
+
+.footer{
+    display: flex;
+    justify-content: space-between;
+    background-color: #38B6FF;
+    padding: 2em 0;
+    color: white;
+  }
+  
+  .txt-footer{
+    display: flex;
+    flex-direction: column;
+    width: 30vw;
+  }
+  
+  .txt-footer.link{
+    width: 10vw;
+  }
+  
+  .txt-footer a{
+    text-decoration: none;
+    color: white;
+  }
+  
+  .txt-footer a:hover{
+    color: rgb(68, 67, 67);
+  }
