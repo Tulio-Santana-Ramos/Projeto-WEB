@@ -38,7 +38,7 @@ Venda de produtos: Os produtos são selecionados, são incluídos em um carrinho
 
 Gerenciamento de produto: os administradores podem criar/atualizar/ler/excluir/adicionar Ebooks e promoções. Por exemplo, eles podem alterar a quantidade em estoque.
 
-Como funcionalidade extra, optamos por implementar a visualização da preview do ebook em sua página. O usuário poderá ler o Epílogo ou as páginas iniciais do primeiro capítulo, dependendo da constituição do produto. Além disso, em nossa plataforma, o usuário terá acesso aos ebooks comprados por meio de sua “biblioteca”, dessa forma, a leitura pré e pós compra do produto poderá ser efetuada de maneira direta dentro do ambiente criado.
+Como funcionalidade extra, optamos por implementar a visualização da preview do ebook em sua página. O usuário poderá ler o Epílogo ou as páginas iniciais do primeiro capítulo, dependendo da constituição do produto. Além disso, em nossa plataforma, o usuário terá acesso aos ebooks comprados por meio de sua “biblioteca”, dessa forma, a leitura pré e pós compra do produto poderá ser efetuada de maneira direta dentro do ambiente criado. E outra funcionalidade extra é o sistema de avaliação dos livros por parte do cliente, que pode escrever um review e dar uma nota para cada livro comprado.
 
 O sistema é responsivo e visa uma boa acessibilidade e usabilidade para os usuários.
 
