@@ -1,6 +1,6 @@
 <template>
   <div class="home-book">
-    <img class="img-livro" src="./img/harry.jpg" width="200vw" />
+    <img class="img-livro" src="@/components/icons/harry.jpg" width="200vw" />
     <div class="home-book-info">
       <p class="title">HARRY POTTER E A PEDRA FILOSOFAL</p>
       <ul class="category">

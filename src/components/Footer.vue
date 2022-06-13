@@ -1,10 +1,11 @@
 <template>
   <div class="footer">
     <div style="margin-top: auto;margin-bottom: auto; padding-left:10px ;">
-      <img src="./img/icon-branco.png" width="200vw">
+      <img src="@/components/icons/icon-branco.png" width="200vw">
     </div>
     <div class="txt-footer">
       <h2>Sobre nós</h2>
+      <!-- TODO: Mudar o Lorem Ipsulum -->
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse lacinia,
         nunc et hendrerit ullamcorper, nibh ligula laoreet arcu, imperdiet ultrices lacus mi id turpis.
         Etiam cursus finibus magna consequat sagittis. Aenean viverra elit lectus, eu consectetur sapien lacinia ullamcorper.
