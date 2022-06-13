@@ -1,8 +1,8 @@
 <template>
   <div class="home-book">
-    <img class="img-livro" src="./img/harry.jpg" width="200vw" />
+    <img class="img-livro" v-bind:src="'/src/components/icons/' + filename"/>
     <div class="home-book-info">
-      <p class="title">{{ name }}</p>
+      <p class="title">{{ name }} </p>
       <ul v-for="category in categories" class="category">
         <li>{{ category }}</li>
       </ul>
@@ -24,6 +24,12 @@ export default {
 </script>
 
 <style scoped>
+
+.img-livro{
+  height: 400px;
+}
+
+
 .home-book:hover{
   border-radius: 0.5em;
   box-shadow: 2px 2px 2px 2px lightgray;

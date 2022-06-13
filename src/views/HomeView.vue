@@ -34,7 +34,7 @@ export default {
           categories: ["Aventura", "Juvenil"],
           price: "30.90",
           promo: true ,
-          img: "crepusculo.jpg"
+          img: "harry.jpg"
         },
         {
           name: "Crepusculo",
