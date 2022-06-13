@@ -17,11 +17,7 @@ export default {
   name: 'app',
   data () {
     return {
-    
-      checkedHemograma: ['Harry', 'Crepusculo'],
-      
-      
-     
+      checkedHemograma: ['Harry Potter e a pedra filosofal', 'Crepusculo'],   
     }
   }
 }
