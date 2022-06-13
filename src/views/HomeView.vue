@@ -6,7 +6,7 @@ import Menu from "@/components/Menu.vue";
 </script>
 
 <template>
-<Menu/>
+  <Menu></Menu>
   <div class="books">
     <div v-for="book in books">
       <Books
@@ -16,6 +16,7 @@ import Menu from "@/components/Menu.vue";
         :Isinpromo = "book.promo"
         :filename = "book.img"
       />
+    </div>
     </div>
   <Footer>
 
