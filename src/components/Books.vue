@@ -1,6 +1,6 @@
 <template>
   <div class="home-book">
-    <img class="img-livro" src="./img/harry.jpg" width="200vw" />
+    <img class="img-livro" :src="'@/assets/' + filename + ''" width="200vw" />
     <div class="home-book-info">
       <p class="title">{{ name }}</p>
       <ul v-for="category in categories" class="category">
@@ -16,7 +16,7 @@
 <script>
 export default {
   name: "books",
-  props: ["name", "price", "categories","Isinpromo"],
+  props: ["name", "price", "categories","Isinpromo","filename"],
   data() {
     return {};
   },

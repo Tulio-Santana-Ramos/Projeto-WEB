@@ -12,6 +12,7 @@ import Footer from "../components/Footer.vue";
         :price="book.price"
         :categories="book.categories"
         :Isinpromo = "book.promo"
+        :filename = "book.img"
       />
     </div>
   </div>
@@ -28,50 +29,17 @@ export default {
           name: "Harry Potter e a pedra filosofal",
           categories: ["Aventura", "Juvenil"],
           price: "30.90",
-          promo: true
+          promo: true ,
+          img: "crepusculo.jpg"
         },
         {
           name: "Crepusculo",
           categories: ["Aventura", "Juvenil"],
           price: "30.90",
-          promo: true
-        },
-        {
-          name: "Harry Potter e a pedra filosofal",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: false
-        },
-        {
-          name: "Crepusculo",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: false
-        },
-        {
-          name: "Harry Potter e a pedra filosofal",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: false
-        },
-        {
-          name: "Crepusculo",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: false
-        },
-        {
-          name: "Harry Potter e a pedra filosofal",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: false
-        },
-        {
-          name: "Crepusculo",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: false
-        },
+          promo: false,
+          img: "crepusculo.jpg"
+        }
+       
       ],
     };
   },
