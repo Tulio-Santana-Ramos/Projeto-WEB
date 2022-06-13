@@ -5,9 +5,10 @@ import Books from '@/components/Books.vue'
 
 <template>
 
-
-    <div  class="books">
-      <Books v-for="analito in checkedHemograma"/>
+    <div class="books">
+        <div v-for="book in books">
+          <Books  :name="book.name" :price="book.price" :categoria = "book.categorias"/>
+        </div>
     </div>
   
 </template>
@@ -17,7 +18,10 @@ export default {
   name: 'app',
   data () {
     return {
-      checkedHemograma: ['Harry Potter e a pedra filosofal', 'Crepusculo'],   
+      books: [
+        {name:'Harry Potter e a pedra filosofal',categorias:["Aventura","Juvenil"],price: "30.90"}, 
+        {name:'Crepusculo',categorias:["Aventura","Juvenil"],price: "30.90"}
+        ],   
     }
   }
 }
