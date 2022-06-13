@@ -1,6 +1,8 @@
 <script setup>
 import TheWelcome from '@/components/TheWelcome.vue'
 import Books from '@/components/Books.vue'
+import Footer from "../components/Footer.vue";
+
 </script>
 
 <template>
@@ -10,7 +12,9 @@ import Books from '@/components/Books.vue'
           <Books  :name="book.name" :price="book.price" :categoria = "book.categorias"/>
         </div>
     </div>
-  
+  <Footer>
+
+  </Footer>
 </template>
 
 <script>
