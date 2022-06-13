@@ -1,0 +1,260 @@
+<template>
+  <!-- navbar -->
+  <div class="navbar">
+    <a href="#home"><img class="img-navbar" src="@/components/icons/logo.png" width="60px" style="padding: 10px;"></a>
+
+    <a href="#home"><img class="img-navbar" src="@/components/icons/livro.png" width="60px" style="padding: 10px;"><p class="txt-navbar" >Biblioteca</p></a>
+
+
+    <select name="livros" id="book-select" style=" margin-left: 80px; ">
+      <option value="" disabled selected hidden>Selecione a categoria</option>
+      <option value="romance">Romance</option>
+      <option value="scifi">Sci-Fi</option>
+      <option value="aventura">Aventura</option>
+      <option value="juvenil">Juvenil</option>
+    </select>
+
+    <div id="input-container" style="margin-right: auto; margin-left: auto;">
+      <img src="@/components/icons/research.png">
+      <input class="research">
+    </div>
+
+
+    <a href="#home"><img class="img-navbar" src="@/components/icons/carrinho-carrinho.png" width="60px" style="padding: 10px;"> </a>
+    <a href="#home"><img class="img-navbar" src="@/components/icons/user.png" width="60px" style="padding: 10px;"></a>
+
+  </div>
+</template>
+
+<script>
+export default {
+  name: "Menu"
+}
+</script>
+
+<style scoped>
+body{
+  margin: 0;
+  font-family: 'Grape Nuts', cursive;
+  font-family: 'Open Sans', sans-serif;font-family: 'Grape Nuts', cursive;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.navbar {
+  justify-content: space-between;
+  overflow: hidden;
+  background-color: #F1F1F1;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
+  display: flex;
+  align-items: center;
+  font-family: 'Grape Nuts', cursive;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* Links inside the navbar */
+.navbar a {
+  float: left;
+  display: block;
+  color: #38B6FF;
+  text-align: center;
+  align-items: center;
+  text-decoration: none;
+  display: flex;
+  font-size: 1vw;
+  height: 11vh;
+}
+
+/* Change background on mouse-over */
+.navbar a:hover {
+  background: #ddd;
+}
+
+
+#book-select{
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.05);
+  width: 350px;
+  height: 50px;
+  border-radius: 8px;
+  text-decoration: none;
+  padding: 8px 12px;
+  margin-left: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.books{
+  margin-top: 120px;
+  padding: 0em 2vw;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.home-book:hover{
+  border-radius: 0.5em;
+  box-shadow: 2px 2px 2px 2px lightgray;
+  cursor: pointer;
+}
+
+.home-book{
+  display: flex;
+  max-width: 29vw !important;
+  min-width: 28vw;
+  margin: 2vw 0;
+  margin-right: 2vw ;
+}
+
+.home-book-info{
+  padding-left: 2em  ;
+  font-family: 'Grape Nuts', cursive;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.category{
+  color: #0B859F;
+}
+
+.title{
+  font-size: 1.5em;
+}
+
+.price{
+  font-size: 1.5em;
+}
+
+#input-container {
+  position: relative;
+  margin-left: 40px;
+}
+
+.research{
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.05);
+  width: 350px;
+  height: 30px;
+  border-radius: 5px;
+  text-decoration: none;
+  padding: 8px 12px;
+  margin-left: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  font-size: 1.5vw;
+}
+
+#input-container > img {
+  position: absolute;
+  top: 10px;
+  left: 30px;
+  width: 30px;
+
+}
+
+#input-container > input {
+  padding-left: 40px;
+}
+
+.promo{
+  background-color: #1B8C1F;
+  color: white;
+  text-align: center;
+  border-radius: 5px;
+  padding: 2px 0;
+}
+
+.txt-navbar{
+  font-size: xx-large;
+}
+
+.navigate{
+  display: flex;
+  justify-content: right;
+  padding-bottom: 2em ;
+}
+
+.navigate a{
+  margin:0  1em;
+  padding: 1em 0;
+}
+
+.navigate-button{
+  background-color:#38B6FF;
+  padding: 1em;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.navigate-button:hover{
+  background-color:#227cb0;
+}
+
+.navigate-button a{
+  text-decoration: none;
+  color: black;
+}
+
+.navigate-button-number{
+  padding: 1em 0;
+  cursor: pointer;
+}
+
+.navigate-button-number a{
+  text-decoration: none;
+}
+
+.navigate-button-number:hover{
+  background-color: #F1F1F1;
+}
+
+.footer{
+  display: flex;
+  justify-content: space-between;
+  background-color: #38B6FF;
+  padding: 2em 0;
+  color: white;
+}
+
+.txt-footer{
+  display: flex;
+  flex-direction: column;
+  width: 30vw;
+}
+
+.txt-footer.link{
+  width: 10vw;
+}
+
+.txt-footer a{
+  text-decoration: none;
+  color: white;
+}
+
+.txt-footer a:hover{
+  color: rgb(68, 67, 67);
+}
+/* Media query para deixar o site minimamente responsivo */
+@media screen and (max-width: 1200px) {
+
+  .research{
+    width: 200px;
+  }
+
+  .img-navbar{
+    width: 40px;
+  }
+
+  .home-book{
+    display: flex;
+    max-width: 40vw !important;
+    min-width: 28vw;
+    margin: 2vw 0;
+    margin-right: 2vw ;
+  }
+
+  .txt-navbar{
+    font-size: large;
+  }
+}
+
+
+</style>
