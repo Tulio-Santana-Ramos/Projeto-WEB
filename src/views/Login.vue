@@ -4,19 +4,26 @@ import Modal from "@/components/Modal.vue";
 </script>
 
 <template>
- <div id="centerDiv">
+ <div id="centerDiv" >
         <img src="@/components/icons/Logo-icone.png" width="250px" style="padding: 10px; margin-left: 100px; margin-right: auto; margin-left: auto;">
-       
-        <div class="input-container" style="margin-right: auto; margin-left: auto;">
-            <img class="left-image" src="@/components/icons/email.png">
-            <input class="loginFields" placeholder="Email">
-        </div>
+        <div style="align-items: center">
+          <div class="input-group input-container" style="margin-right: auto; margin-left: auto;">
+            <span class="input-group-text" style="max-height: 45px; max-width: 60px; padding-right: 20px">
+              <img class="left-image" src="@/components/icons/email.png" style="width: 250%; height: 100%;">
+            </span>
+            <input class="form-control loginFields" placeholder="Email" style="max-width: 409px;height: 45px;font-size: medium">
+          </div>
+          <br>
+          <div class="input-group input-container" style="margin-right: auto; margin-left: auto;">
+            <span class="input-group-text" style="max-height: 45px; max-width: 60px; padding-right: 20px"><img class="left-image" src="@/components/icons/password.png" style="width: 250%; height: 100%"></span>
+            <input class="loginFields" placeholder="Senha" style="height: 45px;font-size: medium">
+            <span class="input-group-text" style="max-height: 45px; max-width: 60px; padding-right: 20px"><img class="right-image" src="@/components/icons/eye.png" style="width: 250%; height: 100%"></span>
+          </div>
 
-        <br>
+          <br>
+        </div>
         <div class="input-container" style="margin-right: auto; margin-left: auto;">
-            <img class="left-image" src="@/components/icons/password.png">
-            <input class="loginFields" placeholder="Senha">
-            <img class="right-image" src="@/components/icons/eye.png">
+
         </div>
 
         <div style="margin-right: auto; margin-left: auto;">
