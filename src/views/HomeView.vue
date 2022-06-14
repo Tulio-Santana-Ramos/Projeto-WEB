@@ -163,7 +163,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import '@/assets/base.css';
 
 body
