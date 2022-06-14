@@ -45,12 +45,6 @@ this.$router.push("/");
 })
 </script>
 
-<script>
-
-
-
-</script>
-
 <style scoped>
 img{
   width: 100%;
