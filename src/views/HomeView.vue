@@ -8,7 +8,7 @@ import Menu from "@/components/Menu.vue";
 <template>
   <Menu></Menu>
   <div class="books">
-    <div v-for="book in books">
+    <div v-for="book in getActualBooks(this.$route.params.actualPageBooks)">
       <Books
         :name="book.name"
         :price="book.price"
@@ -18,17 +18,41 @@ import Menu from "@/components/Menu.vue";
       />
     </div>
     </div>
-  <Footer>
+  <paginate
+      :page-count="10"
+      :container-class="pagination"
+      :prev-text="prev"
+      :next-text="next"
+      :click-handler="changePage"
+  >
+  </paginate>
+  <Footer/>
 
-  </Footer>
-  <!--
-  TODO: Pagination
--->
 </template>
 
 <script>
+import Paginate from 'vuejs-paginate-next';
+const maxBooks = 15;
 export default {
+  components: {
+    paginate: Paginate,
+  },
   name: 'app',
+  methods: {
+    changePage(numPage){
+      this.$router.push("/?"+numPage);
+    },
+    getActualBooks(){
+      let temp = [];
+      let page = this.$route.query.page;
+      if(page === undefined)
+        page = 0;
+      for (let i = maxBooks*page; i < maxBooks; i++){
+        temp.push(this.books[i]);
+      }
+      return temp;
+    },
+  },
   data () {
     return {
       books: [
@@ -158,8 +182,6 @@ export default {
           promo: false,
           img: "crepusculo.jpg"
         },
-
-       
       ],
     };
   },
@@ -186,6 +208,14 @@ body
   text-align: center;
   border-radius: 5px;
   padding: 2px 0;
+}
+/* Adopt bootstrap pagination stylesheet. */
+@import "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css";
+
+/* Write your own CSS for pagination */
+.pagination {
+}
+.page-item {
 }
 
 </style>
