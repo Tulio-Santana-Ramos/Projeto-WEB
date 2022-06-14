@@ -21,6 +21,9 @@ import Menu from "@/components/Menu.vue";
   <Footer>
 
   </Footer>
+  <!--
+  TODO: Pagination
+-->
 </template>
 
 <script>
@@ -161,6 +164,8 @@ export default {
     };
   },
 };
+
+
 </script>
 
 <style scoped>
