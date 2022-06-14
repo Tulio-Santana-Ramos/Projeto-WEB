@@ -6,10 +6,11 @@
     <div class="txt-footer">
       <h2>Sobre nós</h2>
       <!-- TODO: Mudar o Lorem Ipsulum e passar para Vuetify -->
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse lacinia,
-        nunc et hendrerit ullamcorper, nibh ligula laoreet arcu, imperdiet ultrices lacus mi id turpis.
-        Etiam cursus finibus magna consequat sagittis. Aenean viverra elit lectus, eu consectetur sapien lacinia ullamcorper.
-        Etiam tincidunt sapien nunc, a egestas nisl aliquam ac. Nulla tempor feugiat augue, egestas fermentum nunc malesuada elementum. </p>
+      <p>WEBOOK é uma plataforma de venda e leitura de Ebooks.
+        O objetivo é ajudar você, usuário, a se encontrar no maravilhoso universo dos livros.
+        Com o desenvolvimento da tecnologia, pode-se acessar uma quantidade muito maior de livros em apenas alguns cliques.
+        Pensando nisso, construimos uma plataforma simples e convidativa para que você possa ler oque desejar e quando quiser.
+        Temos um catálogo vasto com livros para todos os gostos, temos certeza encontrará muitos títulos interessantes.</p>
     </div>
     <div class="txt-footer link">
       <h2>Links</h2>
