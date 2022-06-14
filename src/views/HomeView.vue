@@ -166,6 +166,8 @@ export default {
 <style>
 @import '@/assets/base.css';
 
+body
+
 .books{
   margin-top: 120px;
   padding: 0em 2vw;

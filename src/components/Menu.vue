@@ -1,5 +1,5 @@
 <template>
-  <!-- navbar -->
+  <!--
   <div class="navbar">
     <a href="#home"><img class="img-navbar" src="@/components/icons/logo.png" width="60px" style="padding: 10px;"></a>
 
@@ -22,28 +22,99 @@
 
     <a href="#home"><img class="img-navbar" src="@/components/icons/carrinho-carrinho.png" width="60px" style="padding: 10px;"> </a>
     <a href="#home"><img class="img-navbar" src="@/components/icons/user.png" width="60px" style="padding: 10px;"></a>
-
   </div>
+
+  <div>
+    <b-navbar toggleable="lg" type="dark" variant="info">
+      <b-navbar-brand href="#">NavBar</b-navbar-brand>
+
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+      <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav>
+          <b-nav-item href="#">Link</b-nav-item>
+          <b-nav-item href="#" disabled>Disabled</b-nav-item>
+        </b-navbar-nav>
+
+
+        <b-navbar-nav class="ml-auto">
+          <b-nav-form>
+            <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
+            <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+          </b-nav-form>
+
+          <b-nav-item-dropdown text="Lang" right>
+            <b-dropdown-item href="#">EN</b-dropdown-item>
+            <b-dropdown-item href="#">ES</b-dropdown-item>
+            <b-dropdown-item href="#">RU</b-dropdown-item>
+            <b-dropdown-item href="#">FA</b-dropdown-item>
+          </b-nav-item-dropdown>
+
+          <b-nav-item-dropdown right>
+
+            <template #button-content>
+              <em>User</em>
+            </template>
+            <b-dropdown-item href="#">Profile</b-dropdown-item>
+            <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+          </b-nav-item-dropdown>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
+  </div>
+  -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          </li>
+        </ul>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
 </template>
 
 <script>
+
+
 export default {
   name: "Menu"
 }
 </script>
 
 <style scoped>
-body{
-  margin: 0;
-  font-family: 'Grape Nuts', cursive;
-  font-family: 'Open Sans', sans-serif;font-family: 'Grape Nuts', cursive;
-  font-family: 'Open Sans', sans-serif;
-}
-
 .navbar {
+  z-index: 500000;
   justify-content: space-between;
   overflow: hidden;
-  background-color: #F1F1F1;
+  background-color: #F1F1F1 !important;
   position: fixed; /* Set the navbar to fixed position */
   top: 0; /* Position the navbar at the top of the page */
   width: 100%; /* Full width */
@@ -85,44 +156,6 @@ body{
   cursor: pointer;
 }
 
-.books{
-  margin-top: 120px;
-  padding: 0em 2vw;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.home-book:hover{
-  border-radius: 0.5em;
-  box-shadow: 2px 2px 2px 2px lightgray;
-  cursor: pointer;
-}
-
-.home-book{
-  display: flex;
-  max-width: 29vw !important;
-  min-width: 28vw;
-  margin: 2vw 0;
-  margin-right: 2vw ;
-}
-
-.home-book-info{
-  padding-left: 2em  ;
-  font-family: 'Grape Nuts', cursive;
-  font-family: 'Open Sans', sans-serif;
-}
-
-.category{
-  color: #0B859F;
-}
-
-.title{
-  font-size: 1.5em;
-}
-
-.price{
-  font-size: 1.5em;
-}
 
 #input-container {
   position: relative;
@@ -154,22 +187,8 @@ body{
   padding-left: 40px;
 }
 
-.promo{
-  background-color: #1B8C1F;
-  color: white;
-  text-align: center;
-  border-radius: 5px;
-  padding: 2px 0;
-}
-
 .txt-navbar{
   font-size: xx-large;
-}
-
-.navigate{
-  display: flex;
-  justify-content: right;
-  padding-bottom: 2em ;
 }
 
 .navigate a{
@@ -177,61 +196,15 @@ body{
   padding: 1em 0;
 }
 
-.navigate-button{
-  background-color:#38B6FF;
-  padding: 1em;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.navigate-button:hover{
-  background-color:#227cb0;
-}
-
 .navigate-button a{
   text-decoration: none;
   color: black;
-}
-
-.navigate-button-number{
-  padding: 1em 0;
-  cursor: pointer;
 }
 
 .navigate-button-number a{
   text-decoration: none;
 }
 
-.navigate-button-number:hover{
-  background-color: #F1F1F1;
-}
-
-.footer{
-  display: flex;
-  justify-content: space-between;
-  background-color: #38B6FF;
-  padding: 2em 0;
-  color: white;
-}
-
-.txt-footer{
-  display: flex;
-  flex-direction: column;
-  width: 30vw;
-}
-
-.txt-footer.link{
-  width: 10vw;
-}
-
-.txt-footer a{
-  text-decoration: none;
-  color: white;
-}
-
-.txt-footer a:hover{
-  color: rgb(68, 67, 67);
-}
 /* Media query para deixar o site minimamente responsivo */
 @media screen and (max-width: 1200px) {
 
@@ -241,14 +214,6 @@ body{
 
   .img-navbar{
     width: 40px;
-  }
-
-  .home-book{
-    display: flex;
-    max-width: 40vw !important;
-    min-width: 28vw;
-    margin: 2vw 0;
-    margin-right: 2vw ;
   }
 
   .txt-navbar{
