@@ -14,8 +14,8 @@ import AdminMenu from "@/components/AdminMenu.vue";
         :name="book.name"
         :price="book.price"
         :categories="book.categories"
-        :Isinpromo = "book.promo"
-        :filename = "book.img"
+        :Isinpromo ="book.promo"
+        :filename ="book.img"
       />
     </div>
   </div>

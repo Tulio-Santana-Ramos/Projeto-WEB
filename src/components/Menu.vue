@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand"  @click="goToHome()" ><img class="img-navbar navbar-brand" src="@/components/icons/logo.png" width="60px" style="padding: 10px;"></a>
+      <a class="navbar-brand"  @click="goToHome()" ><img class="img-navbar navbar-brand" src="@/components/icons/logo.png"  style=" width:80px;height: 80px; padding: 10px;"></a>
       <a class="navbar-brand" @click="goToBiblioteca()" ><img class="img-navbar navbar-brand" src="@/components/icons/livro.png" style="padding: 10px;margin-bottom: 10px; width: 75%; height: 75%"><span class="txt-navbar" >Biblioteca</span></a>
       <select name="livros" id="book-select" style=" margin-left: 80px;margin-top: 15px " class="form-select form-select-lg mb-3">
         <option value="" disabled selected hidden>Selecione a categoria</option>
@@ -14,8 +14,8 @@
         <input type="text" class="form-control" placeholder="Busque um livro" style="max-height: 60px">
         <span class="input-group-text" style="max-height: 60px; max-width: 60px"><img src="@/components/icons/research.png" ></span>
       </div>
-      <a class="navbar-brand" @click="goToCarrinho()"  style="height: 100%"><img class="img-navbar" src="@/components/icons/carrinho-carrinho.png" style="width:80px;height: 80px;padding: 10px;"> </a>
-      <a class="navbar-brand" @click="goToLogin()"  style="height: 100%"><img class="img-navbar" src="@/components/icons/user.png" width="60px" style="width:80px;height: 80px;padding: 10px;"></a>
+      <a class="navbar-brand" @click="goToCarrinho()"  style="height: 100%"><img class="img-navbar" src="@/components/icons/carrinho-carrinho.png" style="width:60px;height: 60px;padding: 10px;"> </a>
+      <a class="navbar-brand" @click="goToLogin()"  style="height: 100%"><img class="img-navbar" src="@/components/icons/user.png"  style="width:60px;height: 60px;padding: 10px;"></a>
     </div>
   </nav>
 </template>
@@ -80,6 +80,7 @@ img{
 /* Change background on mouse-over */
 .navbar a:hover {
   background: #ddd;
+  color: #38B6FF;
 }
 
 .navbar-brand:hover{
