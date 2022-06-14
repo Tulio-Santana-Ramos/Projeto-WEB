@@ -29,7 +29,7 @@ export default ({
   },
    methods: {
      goToHome(){
-this.$router.push("/");
+      this.$router.push("/");
      },
     goToLogin() {
       this.$router.push("/login");
