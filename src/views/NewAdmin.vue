@@ -4,7 +4,7 @@ import NewAccount from "@/components/NewAccount.vue";
 
 <template>
     <img class="admin-pic" src="@/components/icons/admin-with-cogwheels.png"/>
-    <h2 class="title">Adicionar admin</h2>
+    <h2 class="title">CRIAR ADMIN</h2>
     <NewAccount/>
 </template>
 

@@ -3,8 +3,8 @@ import NewAccount from "@/components/NewAccount.vue";
 </script>
 
 <template>
-    <img class="user-pic" src="@/components/icons/user.png"/>
     <h2 class="title">CRIAR CONTA</h2>
+    <img class="user-pic" src="@/components/icons/user.png"/>
     <NewAccount/>
     <p class="use-conditions">Condições de uso</p>
     <p class="contact">Entre em contato</p>
@@ -13,15 +13,19 @@ import NewAccount from "@/components/NewAccount.vue";
 <style scoped>
 .user-pic{
     float: right;
-    margin-top: 100px;
+    margin-top: 75px;
     margin-right: 50px;
     height: 120px;
 }
 
 .title{
     font-weight: normal;
-    text-align: center;
-    margin-top: 90px;
+    display: flex;
+    width: 50%;
+    height: 200px;
+    margin-left: 475px;
+    align-items:center;
+    justify-content:center;
 }
 .use-conditions{
     color: #38B6FF;

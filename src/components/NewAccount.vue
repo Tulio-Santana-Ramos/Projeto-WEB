@@ -7,24 +7,19 @@ import { required } from "@vuelidate/validators";
     <img class="logo" src="@/components/icons/Logo-icone.png"/>
     <div class="new-acc">
         <p class="field">
-            Nome:<br>
-            <input type="text" placeholder="Nome" v-model="nome"/>
+            Nome: <input type="text" placeholder="Nome" v-model="nome"/>
         </p>
         <p class="field">
-            E-mail:<br>
-            <input type="text" placeholder="E-mail" v-model="email"/>
+            E-mail: <input type="text" placeholder="E-mail" v-model="email"/>
         </p>
         <p class="field">
-            Telefone:<br>
-            <input type="text" placeholder="Telefone" v-model="phone"/>
+            Telefone: <input type="text" placeholder="Telefone" v-model="phone"/>
         </p>
         <p class="field">
-            Senha:<br>
-            <input type="password" placeholder="Senha" v-model="password.password"/>
+            Senha: <input type="password" placeholder="Senha" v-model="password.password"/>
         </p>
         <p class="field">
-            Confirme Senha:<br>
-            <input type="password" placeholder="Confirme Senha" v-model="password.confirm"/>
+            Confirme Senha: <input type="password" placeholder="Confirme Senha" v-model="password.confirm"/>
         </p>
         <button class="create" @click="submit">CRIAR CONTA</button>
     </div>
@@ -88,8 +83,8 @@ export default {
 
 .field{
     width: 400px;
-    height: 100px;
-    padding-bottom: 15px;
+    height: 70px;
+    margin-bottom: 25px;
     text-align: left;
 }
 
