@@ -2,6 +2,7 @@
 import Books from '@/components/Books.vue'
 import Footer from "@/components/Footer.vue";
 import AdminMenu from "@/components/AdminMenu.vue";
+import LoginRequired from "@/components/LoginRequired.vue";
 </script>
 
 <template>
@@ -19,23 +20,9 @@ import AdminMenu from "@/components/AdminMenu.vue";
       />
     </div>
   </div>
-  <div class="NoLogin" v-else>
-    <h1>Para acessar essa página é necessário ser um administrador</h1>
-    <div>
-      <button @click="goToLogin()" type="button" class="btn btn-primary">
-        <a style="height: 100%"
-          ><img
-            class="img-navbar"
-            src="@/components/icons/admin-with-cogwheels.png"
-            style="width: 50px; height: 50px; padding: 10px; filter: brightness(0) invert(1);" /></a
-        >Login
-      </button>
-    </div>
-  </div>
+  <LoginRequired v-else :text="text"></LoginRequired>
   <Footer> </Footer>
-  <!--
-  TODO: Pagination
--->
+
 </template>
 
 <script>
@@ -43,7 +30,8 @@ export default {
   name: 'app',
   data () {
     return {
-      admin: false,
+      admin: true,
+      text: "Para acessar essa página é necessário ser um administrador",
       books: [
         {
           name: "Harry Potter e a pedra filosofal",
@@ -174,11 +162,7 @@ export default {
       ],
     };
   },
-  methods: {
-    goToLogin() {
-        this.$router.push("/login");
-    },
-  },
+ 
 };
 
 

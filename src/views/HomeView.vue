@@ -191,6 +191,8 @@ export default {
 </script>
 
 <style scoped>
+/* Adopt bootstrap pagination stylesheet. */
+@import "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css";
 @import '@/assets/base.css';
 
 body
@@ -209,8 +211,7 @@ body
   border-radius: 5px;
   padding: 2px 0;
 }
-/* Adopt bootstrap pagination stylesheet. */
-@import "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css";
+
 
 /* Write your own CSS for pagination */
 .pagination {

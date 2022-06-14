@@ -1,27 +1,19 @@
 <script setup>
 import Footer from "@/components/Footer.vue";
 import AdminMenu from "@/components/AdminMenu.vue";
+import Menu from "@/components/Menu.vue";
+import LoginRequired from "@/components/LoginRequired.vue";
 </script>
 
 <template>
-    <AdminMenu></AdminMenu>
+    <AdminMenu v-if="admin"></AdminMenu>
+    <Menu v-else></Menu>
     <h1 class="titlePage">Adicionar/Editar Livro</h1>
     <div v-if="admin" class="manage-item">
 
     </div>
-    <div class="NoLogin" v-else>
-        <h1>Para acessar essa página é necessário ser um administrador</h1>
-        <div>
-        <button @click="goToLogin()" type="button" class="btn btn-primary">
-            <a style="height: 100%"
-            ><img
-                class="img-navbar"
-                src="@/components/icons/admin-with-cogwheels.png"
-                style="width: 50px; height: 50px; padding: 10px; filter: brightness(0) invert(1);" /></a
-            >Login
-        </button>
-        </div>
-    </div>
+    <LoginRequired v-else :text="text"></LoginRequired>
+
     <Footer></Footer>
 </template>
 
@@ -30,14 +22,11 @@ export default {
   name: 'app',
   data() {
     return {
+      text: "Para acessar essa página é necessário ser um administrador",
       admin: false,
     };
   },
-  methods: {
-    goToLogin() {
-        this.$router.push("/login");
-    },
-  },
+  
 };
 </script>
 
