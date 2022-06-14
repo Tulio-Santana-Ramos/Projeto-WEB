@@ -60,4 +60,12 @@ export default {
   font-size: 1em;
 }
 
+.promo{
+  background-color: #1B8C1F;
+  color: white;
+  text-align: center;
+  border-radius: 5px;
+  padding: 2px 0;
+}
+
 </style>

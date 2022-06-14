@@ -8,7 +8,7 @@ import Menu from "@/components/Menu.vue";
 <template>
   <Menu></Menu>
   <div class="books">
-    <div v-for="book in getActualBooks(this.$route.params.actualPageBooks)">
+    <div v-for="book in getActualBooks()">
       <Books
         :name="book.name"
         :price="book.price"
@@ -19,10 +19,12 @@ import Menu from "@/components/Menu.vue";
     </div>
     </div>
   <paginate
-      :page-count="10"
+      v-model="page"
+      :page-count="getNumPages()"
       :container-class="pagination"
-      :prev-text="prev"
-      :next-text="next"
+      :initial-page="getActualPage()"
+      :prev-text="Anterior"
+      :next-text="Proximo"
       :click-handler="changePage"
   >
   </paginate>
@@ -32,22 +34,35 @@ import Menu from "@/components/Menu.vue";
 
 <script>
 import Paginate from 'vuejs-paginate-next';
-const maxBooks = 15;
+const maxBooks = 10;
 export default {
   components: {
     paginate: Paginate,
   },
   name: 'app',
   methods: {
+    getActualPage(){
+      if(this.$route.query.page<=this.getNumPages())
+        return this.$route.query.page;
+      return 1;
+    },
+    getNumPages(){
+      return (Math.ceil(this.getLengthBooks()/maxBooks));
+    },
     changePage(numPage){
-      this.$router.push("/?"+numPage);
+      this.$router.push("/?page="+numPage);
+    },getLengthBooks(){
+      return 16;
     },
     getActualBooks(){
       let temp = [];
       let page = this.$route.query.page;
+      if(page <= 0 || this.$route.query.page>this.getNumPages())
+        this.$router.push("/");
       if(page === undefined)
-        page = 0;
-      for (let i = maxBooks*page; i < maxBooks; i++){
+        page = 1;
+      page--;
+      for (let i = maxBooks*page; (i < maxBooks+maxBooks*page) && (i < this.getLengthBooks()); i++){
         temp.push(this.books[i]);
       }
       return temp;
