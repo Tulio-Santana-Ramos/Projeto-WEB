@@ -114,7 +114,7 @@ export default {
 
 .titlePage{
     color: #38B6FF;
-    margin-top: 120px;
+    margin-top: 150px;
     text-align: center;
     
 }
