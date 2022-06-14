@@ -80,9 +80,10 @@ export default {
     font-size: 1.5em;
     font-family: 'Grape Nuts', cursive;
     font-family: 'Open Sans', sans-serif;
-    text-align: center;
-    margin-left: 720px;
-    width: 500px;
+    position: fixed; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .field{
