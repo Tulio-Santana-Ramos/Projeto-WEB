@@ -1,13 +1,19 @@
 <script setup>
 import Footer from "@/components/Footer.vue";
 import Menu from "@/components/Menu.vue";
+import AdminMenu from "@/components/AdminMenu.vue";
 import BookInfo from "@/components/BookInfo.vue";
-    import Evaluation from "@/components/avaliationResult.vue";
+import Evaluation from "@/components/avaliationResult.vue";
 </script>
 
 
 <template>
-  <Menu></Menu>
+  <AdminMenu v-if="admin"></AdminMenu>
+  <Menu v-else></Menu>
+  <div class="adm-operations" v-if="admin">
+    <button class="add-book"><img src="@/components/icons/addition.png" style="width: 50px; height: 50px;"/> Adicionar promoção</button>
+    <button class="remove-book"><img src="@/components/icons/remove.png" style="width: 50px; height: 50px;"/> Excluir livro</button>
+  </div>
   <div v-for="book in book_details">
     <BookInfo
       :name="book.name"
@@ -39,6 +45,7 @@ export default {
   name: 'app',
   data () {
     return {
+      admin: false,
       book_details:[
         {
           name: "Harry Potter e a pedra filosofal",
@@ -96,6 +103,51 @@ export default {
   margin-bottom: 10px;
   border-style: solid;
   border-color: #38b6ff #fff #fff #fff;
+}
+
+.adm-operations {
+  float:right;
+  text-align: justify;
+  text-align-last: right;
+  padding-right: 25%;
+  font-size: large;
+  font-family: "Grape Nuts", cursive;
+  font-family: "Open Sans", sans-serif;
+}
+
+.add-book {
+  color: #1b8c1f;
+  margin-right: 50px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  font-weight: bold;
+}
+
+.remove-book {
+  color: #aa320e;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  font-weight: bold;
+}
+
+.add-book:hover {
+  color: #fff;
+  background-color: rgb(20, 145, 57);
+  border-radius: 10px;
+}
+
+.remove-book:hover {
+  color: #fff;
+  background-color: rgb(163, 33, 33);
+  border-radius: 10px;
 }
 
 </style>
