@@ -16,7 +16,10 @@
       </div>
     </div>
     <div class="synopsis">{{ synopsis }}</div>
-    <div class="buttons">
+    <button class="edit-info" v-if="admin">
+      <img class="edit-fig" src="@/components/icons/settings.png"/>Editar informações
+    </button>
+    <div class="buttons" v-else>
       <button class="bag-book">Adicionar ao carrrinho</button>
       <button class="buy-book">Comprar E-book</button>
     </div>
@@ -40,7 +43,7 @@
     </div>
   </div>
 
-    <h2 class="title-evaluation">Avaliações</h2>
+  <h2 class="title-evaluation">Avaliações</h2>
   
 
 </template>
@@ -51,7 +54,9 @@ export default {
 
   props: ["Isinpromo", "filename", "name", "categories", "price", "synopsis","quantidade","editor","author","tradutor","year"],
   data() {
-    return {};
+    return {
+      admin: false,
+    };
   },
 };
 </script>
@@ -115,6 +120,31 @@ export default {
   word-wrap: break-word;
 }
 
+.edit-info {
+  font-size: x-large;
+  text-align: center;
+  margin: 2em;
+  width: 50%;
+  height: 50px;
+  color: #fff;
+  border-radius: 10px;
+  border-color: #38b6ff;
+  background-color: #38b6ff;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.edit-info:hover {
+  background-color: #1872a7;
+  border-color: #1872a7;
+}
+
+.edit-fig {
+  width: 40px;
+  height: 40px;
+}
+
 .buttons {
     display: flex;
     justify-content: center;
@@ -167,27 +197,34 @@ export default {
 
 .book-specifics {
   font-size: 1.25em;
+  margin-top: 15px;
 }
 
 .info-blue {
   background-color: #38b6ff;
   color: #fff;
   padding-right: 10px;
-  height: 80px;
+  padding-left: 10px;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .info-white {
   background-color: #fff;
   color: black;
   padding-right: 10px;
-  height: 80px;
+  padding-left: 10px;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
 }
 
 
 .title-evaluation{
-    text-align: center;
-    margin: 2em 0 ;
-    color:#257eb3;
+  text-align: center;
+  margin: 2em 0 ;
+  color:#257eb3;
 }
 
 </style>

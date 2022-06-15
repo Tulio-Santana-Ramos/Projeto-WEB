@@ -241,7 +241,6 @@ body
 .pagination:hover {
   cursor: pointer;
 }
-.page-item {
-}
+
 
 </style>
