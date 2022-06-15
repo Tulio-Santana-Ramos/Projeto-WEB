@@ -57,10 +57,10 @@ const router = createRouter({
       component: () => import('../views/Bag.vue')
     },
     {
-      path: '/pagamento',
-      name: 'pagamento',
-      
-      component: () => import('../views/Payment.vue')
+      path: '/finalizarCompra',
+      name: 'finalizarCompra',
+
+      component: () => import('../views/FinishShop.vue')
     },
     {
       path: '/gerenciamento',
@@ -68,6 +68,7 @@ const router = createRouter({
       
       component: () => import('../views/AdminsPage.vue')
     },
+    
   ]
 })
 

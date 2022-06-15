@@ -9,7 +9,7 @@ import AdminMenu from "@/components/AdminMenu.vue";
   <AdminMenu v-if="admin"></AdminMenu>
   <Menu v-else></Menu>
   <div class="books">
-    <div v-for="book in getActualBooks(this.$route.params.actualPageBooks)">
+    <div v-for="book in getActualBooks()">
       <Books
         :name="book.name"
         :price="book.price"
@@ -20,10 +20,12 @@ import AdminMenu from "@/components/AdminMenu.vue";
     </div>
     </div>
   <paginate
-      :page-count="10"
-      :container-class="pagination"
-      :prev-text="prev"
-      :next-text="next"
+      v-model="page"
+      :page-count="getNumPages()"
+      :container-class="pagination_class"
+      :initial-page="getActualPage()"
+      :prev-text="prev_text"
+      :next-text="next_text"
       :click-handler="changePage"
   >
   </paginate>
@@ -33,22 +35,35 @@ import AdminMenu from "@/components/AdminMenu.vue";
 
 <script>
 import Paginate from 'vuejs-paginate-next';
-const maxBooks = 15;
+const maxBooks = 10;
 export default {
   components: {
     paginate: Paginate,
   },
   name: 'app',
   methods: {
+    getActualPage(){
+      if(this.$route.query.page<=this.getNumPages())
+        return this.$route.query.page;
+      return 1;
+    },
+    getNumPages(){
+      return (Math.ceil(this.getLengthBooks()/maxBooks));
+    },
     changePage(numPage){
-      this.$router.push("/?"+numPage);
+      this.$router.push("/?page="+numPage);
+    },getLengthBooks(){
+      return 16;
     },
     getActualBooks(){
       let temp = [];
       let page = this.$route.query.page;
+      if(page <= 0 || this.$route.query.page>this.getNumPages())
+        this.$router.push("/");
       if(page === undefined)
-        page = 0;
-      for (let i = maxBooks*page; i < maxBooks; i++){
+        page = 1;
+      page--;
+      for (let i = maxBooks*page; (i < maxBooks+maxBooks*page) && (i < this.getLengthBooks()); i++){
         temp.push(this.books[i]);
       }
       return temp;
@@ -57,6 +72,9 @@ export default {
   data () {
     return {
       admin: false,
+      prev_text:"Anterior",
+      pagination_class:"pagination",
+      next_text:"Proximo",
       books: [
         {
           name: "Harry Potter e a pedra filosofal",
@@ -212,6 +230,10 @@ body
   text-align: center;
   border-radius: 5px;
   padding: 2px 0;
+}
+
+.pagination{
+  padding: 15px;
 }
 
 

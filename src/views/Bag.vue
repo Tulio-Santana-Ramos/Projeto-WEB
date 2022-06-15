@@ -21,7 +21,7 @@ import Books from "@/components/BagBook.vue";
   <div class="buttons">
 
     <button type="button" class="btn btn-primary">Voltar a comprar</button>
-    <button type="button" class="btn btn-success">Finalizar compra</button>
+    <button type="button" @click="goToFinishShop" class="btn btn-success">Finalizar compra</button>
   </div>
   <Footer></Footer>
 </template>
@@ -29,6 +29,11 @@ import Books from "@/components/BagBook.vue";
 <script>
 export default {
   name: "app",
+  methods:{
+    goToFinishShop(){
+      this.$router.push("/finalizarCompra");
+    }
+  },
   data() {
     return {
       books: [
