@@ -2,11 +2,12 @@
 import Books from '@/components/Books.vue'
 import Footer from "@/components/Footer.vue";
 import Menu from "@/components/Menu.vue";
-
+import AdminMenu from "@/components/AdminMenu.vue";
 </script>
 
 <template>
-  <Menu></Menu>
+  <AdminMenu v-if="admin"></AdminMenu>
+  <Menu v-else></Menu>
   <div class="books">
     <div v-for="book in getActualBooks(this.$route.params.actualPageBooks)">
       <Books
@@ -55,6 +56,7 @@ export default {
   },
   data () {
     return {
+      admin: false,
       books: [
         {
           name: "Harry Potter e a pedra filosofal",

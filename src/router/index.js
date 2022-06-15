@@ -15,12 +15,6 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/admhome',
-      name: 'admhome',
-      
-      component: () => import('../views/HomeAdmin.vue')
-    }, 
-    {
       path: '/biblioteca',
       name: 'biblioteca',
     
@@ -33,28 +27,22 @@ const router = createRouter({
       component: () => import('../views/Login.vue')
     },
     {
-      path: '/bookpage',
+      path: '/livro',
       name: 'bookpage',
       
       component: () => import('../views/BookView.vue')
     },
     {
-      path: '/newuser',
+      path: '/novousuario',
       name: 'newuser',
      
       component: () => import('../views/NewUser.vue')
     },
     {
-      path: '/newadmin',
+      path: '/novoadmin',
       name: 'newadmin',
       
       component: () => import('../views/NewAdmin.vue')
-    },
-    {
-      path: '/adminspage',
-      name: 'adminspage',
-     
-      component: () => import('../views/AdminsPage.vue')
     },
     {
       path: '/additem',
@@ -73,6 +61,12 @@ const router = createRouter({
       name: 'pagamento',
       
       component: () => import('../views/Payment.vue')
+    },
+    {
+      path: '/gerenciamento',
+      name: 'gerenciamento',
+      
+      component: () => import('../views/AdminsPage.vue')
     },
   ]
 })

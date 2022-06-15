@@ -1,8 +1,8 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand"  @click="goToAdminHome()" ><img class="img-navbar navbar-brand" src="@/components/icons/logo.png" width="60px" style="padding: 10px;"></a>
-      <a class="navbar-brand"><img class="img-navbar navbar-brand" src="@/components/icons/livro.png" style="padding: 10px;margin-bottom: 10px; width: 90%; height: 90%"></a>
+      <a class="navbar-brand"  @click="goToAdminHome()" ><img class="img-navbar navbar-brand" src="@/components/icons/logo.png"  style=" width:80px;height: 80px; padding: 10px;"></a>
+      <a class="navbar-brand"><img class="img-navbar navbar-brand" src="@/components/icons/livro.png" style="padding: 10px;margin-bottom: 10px; width: 75%; height: 75%"></a>
       <select name="livros" id="book-select" style=" margin-left: 80px;margin-top: 15px " class="form-select form-select-lg mb-3">
         <option value="" disabled selected hidden>Selecione a categoria</option>
         <option value="romance">Romance</option>
@@ -14,8 +14,8 @@
         <input type="text" class="form-control" placeholder="Busque um livro" style="max-height: 60px">
         <span class="input-group-text" style="max-height: 60px; max-width: 60px"><img src="@/components/icons/research.png" ></span>
       </div>
-      <a class="navbar-brand" @click="goToAddItem()"  style="height: 100%"><img class="img-navbar" src="@/components/icons/plus.png" style="width:80px;height: 80px;padding: 10px;"><span class="txt-navbar" >Adicionar itens</span></a>
-      <a class="navbar-brand" @click="goToAdminsPage()"  style="height: 100%"><img class="img-navbar" src="@/components/icons/admin-with-cogwheels.png" width="60px" style="width:80px;height: 80px;padding: 10px;"></a>
+      <a class="navbar-brand" @click="goToAddItem()"  style="height: 100%"><img class="img-navbar" src="@/components/icons/plus.png" style="width:60px;height: 60px;padding: 10px;"><span class="txt-navbar" >Adicionar itens</span></a>
+      <a class="navbar-brand" @click="goToAdminsPage()"  style="height: 100%"><img class="img-navbar" src="@/components/icons/admin-with-cogwheels.png" width="60px" style="width:60px;height: 60px;padding: 10px;"></a>
     </div>
   </nav>
 </template>
@@ -29,7 +29,7 @@ export default ({
   },
    methods: {
      goToAdminHome(){
-      this.$router.push("/admhome");
+      this.$router.push("/");
      },
     goToAdminsPage() {
       this.$router.push("/adminspage");
@@ -77,6 +77,7 @@ img{
 /* Change background on mouse-over */
 .navbar a:hover {
   background: #ddd;
+    color: #38B6FF;
 }
 
 .navbar-brand:hover{
@@ -129,7 +130,7 @@ img{
 }
 
 .txt-navbar{
-  font-size: xx-large;
+  font-size: 1.5em;
 }
 
 .navigate a{

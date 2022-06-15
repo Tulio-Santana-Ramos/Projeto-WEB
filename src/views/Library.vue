@@ -31,7 +31,7 @@ export default {
   name: "app",
   data() {
     return {
-      user: false,
+      user: true,
       text: "Para acessar a biblioteca e visualizar seus livros faça o login",
       books: [
         {

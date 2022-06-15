@@ -19,7 +19,7 @@ export default {
   name: 'app',
   data () {
     return {
-      admin: false,
+      admin: true,
       text: "Para acessar essa página é necessário ser um administrador",
     }
   }
