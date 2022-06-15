@@ -8,7 +8,7 @@ import AdminMenu from "@/components/AdminMenu.vue";
 <template>
   <AdminMenu v-if="admin"></AdminMenu>
   <Menu v-else></Menu>
-  <div class="books">
+  <div class="books"  @click="goToBook()">
     <div v-for="book in getActualBooks()">
       <Books
         :name="book.name"
@@ -42,6 +42,9 @@ export default {
   },
   name: 'app',
   methods: {
+    goToBook(){
+      this.$router.push("/livro");
+     },
     getActualPage(){
       if(this.$route.query.page<=this.getNumPages())
         return this.$route.query.page;
