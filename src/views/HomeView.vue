@@ -21,10 +21,10 @@ import Menu from "@/components/Menu.vue";
   <paginate
       v-model="page"
       :page-count="getNumPages()"
-      :container-class="pagination"
+      :container-class="pagination_class"
       :initial-page="getActualPage()"
-      :prev-text="Anterior"
-      :next-text="Proximo"
+      :prev-text="prev_text"
+      :next-text="next_text"
       :click-handler="changePage"
   >
   </paginate>
@@ -70,6 +70,9 @@ export default {
   },
   data () {
     return {
+      prev_text:"Anterior",
+      pagination_class:"pagination",
+      next_text:"Proximo",
       books: [
         {
           name: "Harry Potter e a pedra filosofal",
@@ -225,6 +228,10 @@ body
   text-align: center;
   border-radius: 5px;
   padding: 2px 0;
+}
+
+.pagination{
+  padding: 15px;
 }
 
 
