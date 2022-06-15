@@ -45,7 +45,7 @@ export default {
   name: 'app',
   data () {
     return {
-      admin: false,
+      admin: true,
       book_details:[
         {
           name: "Harry Potter e a pedra filosofal",

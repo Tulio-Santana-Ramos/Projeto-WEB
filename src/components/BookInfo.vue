@@ -26,19 +26,19 @@
     </div>
   </div>
   <div class="book-specifics">
-    <div class="info-blue">
+    <div class="info">
       <p>Editora:</p>
       <p style="text-align: right">{{ editor }}</p>
     </div>
-    <div class="info-white">
+    <div class="info">
       <p>Autor(a):</p>
       <p style="text-align: right">{{ author }}</p>
     </div>
-    <div class="info-blue">
+    <div class="info">
       <p>Tradutor(a):</p>
       <p style="text-align: right">{{tradutor}}</p>
     </div>
-    <div class="info-white">
+    <div class="info">
       <p>Ano:</p>
       <p style="text-align: right">{{year}}</p>
     </div>
@@ -70,7 +70,7 @@ export default {
 
 <style scoped>
 .book-container {
-  margin-top: 100px;
+  margin-top: 150px;
   padding-left: 100px;
 }
 
@@ -197,25 +197,23 @@ export default {
   margin-top: 15px;
 }
 
-.info-blue {
+
+.info{
   background-color: #38b6ff;
   color: #fff;
-  padding-right: 10px;
-  padding-left: 10px;
+  padding-right: 60px;
+  padding-left: 60px;
   height: 40px;
   display: flex;
   justify-content: space-between;
 }
 
-.info-white {
-  background-color: #fff;
+.info:nth-child(odd){
+  background-color: white;
   color: black;
-  padding-right: 10px;
-  padding-left: 10px;
-  height: 40px;
-  display: flex;
-  justify-content: space-between;
 }
+
+
 
 
 .title-evaluation{
