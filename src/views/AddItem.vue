@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       text: "Para acessar essa página é necessário ser um administrador",
-      admin: false,
+      admin: true,
     };
   },
   

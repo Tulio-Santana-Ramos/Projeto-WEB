@@ -238,7 +238,8 @@ body
 
 
 /* Write your own CSS for pagination */
-.pagination {
+.pagination:hover {
+  cursor: pointer;
 }
 .page-item {
 }
