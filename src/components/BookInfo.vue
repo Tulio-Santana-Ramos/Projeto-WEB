@@ -1,6 +1,7 @@
 
 
 <template>
+
   <div class="book-container">
     <div v-if="Isinpromo" class="promo">
       Quantidade promocional restante: {{ quantidade }}
@@ -17,8 +18,8 @@
     </div>
     <div class="synopsis">{{ synopsis }}</div>
     <div class="buttons">
-      <button class="bag-book">Adicionar ao carrrinho</button>
-      <button class="buy-book">Comprar E-book</button>
+      <button type="button" class="btn btn-primary bag-book" >Adicionar ao carrrinho</button>
+      <button type="button" class="btn btn-primary buy-book"  @click="goToCarrinho()">Comprar E-book</button>
     </div>
   </div>
   <div class="book-specifics">
@@ -45,6 +46,7 @@
 
 </template>
 
+<!-- TODO: Fazer o botão adicionar ao carrinho adicionar o item ao carrinho e aparecer uma notificação item foi adicionado ao carrinho olha toasts bootstrap -->
 <script>
 export default {
   name: "BookInfo",
@@ -53,6 +55,11 @@ export default {
   data() {
     return {};
   },
+  methods: {
+    goToCarrinho(){
+      this.$router.push("/carrinho");
+     }
+  }
 };
 </script>
 
@@ -125,17 +132,12 @@ export default {
 .bag-book {
   background-color: #38b6ff;
   color: #fff;
-  font-family: "Grape Nuts", cursive;
-  font-family: "Open Sans", sans-serif;
   font-size: x-large;
   text-align: center;
   margin: auto;
   margin-top: 80px;
-  border-radius: 10px;
   border-color: #38b6ff;
-  padding: 10px 3px 10px px;
   width: 300px;
-  height: 45px;
 }
 
 .bag-book:hover {
@@ -146,18 +148,15 @@ export default {
 .buy-book {
   background-color: #0b6112;
   color: #fff;
-  font-family: "Grape Nuts", cursive;
-  font-family: "Open Sans", sans-serif;
   font-size: x-large;
   text-align: center;
+  margin: auto;
   margin-top: 20px;
   margin-bottom: 20px;
-  margin-left: 375px;
-  border-radius: 10px;
-  border-color: #0b6112;;
-  padding: 10px 3px 10px px;
+  border-color: #0b6112;
   width: 55%;
-  height: 45px;
+
+
 }
 
 .buy-book:hover {
