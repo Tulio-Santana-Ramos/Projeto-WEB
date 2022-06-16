@@ -3,35 +3,37 @@ import Footer from "@/components/Footer.vue";
 import AdminMenu from "@/components/AdminMenu.vue";
 import Menu from "@/components/Menu.vue";
 import LoginRequired from "@/components/LoginRequired.vue";
+import AddBook from "@/components/AddBook.vue";
 </script>
 
 <template>
-    <AdminMenu v-if="admin"></AdminMenu>
-    <Menu v-else></Menu>
+  <div v-if="admin">
+    <AdminMenu></AdminMenu>
     <h1 class="titlePage">Adicionar/Editar Livro</h1>
-    <div v-if="admin" class="manage-item">
+    <AddBook></AddBook>
+    <div class="manage-item"></div>
+  </div>
+  <div v-else>
+    <Menu></Menu>
+    <LoginRequired  :text="text"></LoginRequired>
+  </div>
 
-    </div>
-    <LoginRequired v-else :text="text"></LoginRequired>
-
-    <Footer></Footer>
+  <Footer></Footer>
 </template>
 
 <script>
 export default {
-  name: 'app',
+  name: "app",
   data() {
     return {
       text: "Para acessar essa página é necessário ser um administrador",
       admin: true,
     };
   },
-  
 };
 </script>
 
 <style scoped>
-
 @import "@/assets/base.css";
 
 .titlePage {
@@ -61,5 +63,4 @@ export default {
   background-color: #134968;
   border-color: #134968;
 }
-
 </style>
