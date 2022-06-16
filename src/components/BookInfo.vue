@@ -3,17 +3,18 @@
 <template>
 
   <div class="book-container">
-    <div v-if="Isinpromo" class="promo">
-      Quantidade promocional restante: {{ quantidade }}
+    <div v-if="promotion.is" class="promo">
+      Quantidade promocional restante: {{ promotion.numberBooks }}
     </div>
     <div class="book-basics">
-      <img class="img-livro" v-bind:src="'/src/assets/' + filename" />
+      <img class="img-livro" v-bind:src="'/src/assets/' + id + '.jpg'" />
       <div class="home-book-info">
         <p class="title">{{ name }}</p>
         <ul v-for="category in categories" class="category">
           <li>{{ category }}</li>
         </ul>
-        <p class="price">R$ {{ price }}</p>
+        <p class="price" v-if="!promotion.is">R$ {{ price }}</p>
+        <p class="price" v-else>R$ {{ promotion.tempPrice }}</p>
       </div>
     </div>
     <div class="synopsis">{{ synopsis }}</div>
@@ -133,7 +134,7 @@ import {VueCookieNext} from "vue-cookie-next";
 export default {
   name: "BookInfo",
 
-  props: ["Isinpromo", "filename", "name", "categories", "price", "synopsis","quantidade","editor","author","tradutor","year","atClick","id","inBag"],
+  props: ["name", "categories", "price", "synopsis","promotion","editor","author","tradutor","year","atClick","id","inBag"],
   data() {
     return {
     };
@@ -159,6 +160,7 @@ export default {
       this.$router.go(0);
     },
     isAdmin(){
+      console.log(this.promotion);
       let account = VueCookieNext.getCookie("account");
       if(account === null)
         return false;

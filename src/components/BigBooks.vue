@@ -1,6 +1,6 @@
 <template>
   <div class="home-book">
-    <img class="img-livro" v-bind:src="'/src/assets/' + filename" />
+    <img class="img-livro" v-bind:src="'/src/assets/' + id + '.jpg'" />
     <div class="home-book-info">
       <p class="title">{{ name }}</p>
       <ul v-for="category in categories" class="category">
@@ -17,10 +17,10 @@
 import {VueCookieNext} from "vue-cookie-next";
 export default {
   name: "books",
-  props: ["name", "categories", "pages", "filename","src"],
+  props: ["name", "categories", "pages","id"],
   methods:{
     goToReadBook(){
-      VueCookieNext.setCookie("lastBook",this.$props.src);
+      VueCookieNext.setCookie("lastBook",this.$props.id);
       this.$router.push("/lerLivro");
     }
   },

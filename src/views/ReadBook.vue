@@ -14,7 +14,7 @@ export default {
   },
   methods:{
     getSrc(){
-      return VueCookieNext.getCookie("lastBook");
+      return "/src/assets/"+VueCookieNext.getCookie("lastBook")+".pdf";
     }
   },
 }

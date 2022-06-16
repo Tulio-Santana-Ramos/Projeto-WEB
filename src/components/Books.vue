@@ -1,14 +1,15 @@
 <template>
   <div class="home-book">
-    <img class="img-livro" v-bind:src="'/src/assets/' + filename"/>
+    <img class="img-livro" v-bind:src="'/src/assets/' + id + '.jpg'"/>
     <div class="home-book-info">
       <p class="title">{{ name }} </p>
       <ul v-for="category in categories" class="category">
         <li>{{ category }}</li>
       </ul>
-      <p class="price">R$ {{ price }}</p>
+      <p class="price" v-if="!promo()">R$ {{ price }}</p>
+      <p class="price" v-else>R$ {{promotion.tempPrice}}</p>
 
-      <div v-if="Isinpromo" class="promo">Promoção!!</div>
+      <div v-if="promo()" class="promo">Promoção!!</div>
     </div>
   </div>
 </template>
@@ -16,10 +17,15 @@
 <script>
 export default {
   name: "books",
-  props: ["name", "price", "categories","Isinpromo","filename"],
+  props: ["name", "price", "categories","promotion","id"],
   data() {
     return {};
   },
+  methods:{
+    promo(){
+      return this.promotion.is;
+    }
+  }
 };
 </script>
 

@@ -1,65 +1,77 @@
 <template>
   <div class="book-container">
-    <div class="promo">
-      <p>Adicionar promoção:</p>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="">Quantidade <br> e Preço promocional</span>
+    <div style="display: flex">
+      <div>
+        <div class="promo" style="min-width: 530px">
+          <p>Adicionar promoção:</p>
+          <div class="input-group" style="padding-left: 15px">
+            <div class="input-group-prepend">
+              <div class="input-group input-container">
+                <span id="" class="input-group-text" style="width: 159px">Quantidade</span>
+                <input class="form-control" style="width:360px" type="text"/>
+              </div>
+              <p/>
+              <div class="input-group input-container">
+                <span id="" class="input-group-text">Preço promocional</span>
+                <input class="form-control" type="text"/>
+              </div>
+            </div>
+          </div>
         </div>
-        <input type="text" class="form-control" />
-        <input type="text" class="form-control" />
-      </div>
-    </div>
-
-    <div class="book-basics">
-      <div class="DivinputImage">
-        <label for="inputTag">
-          Selecione a capa do livro <br />
-          <img src="@/components/icons/addBook.png" width="60px" />
-          <input class="inputImage" id="inputTag" type="file" />
-          <br />
-          <span id="imageName"></span>
-        </label>
-      </div>
-
-      <div class="home-book-info">
-        <p class="title">{{ name }}</p>
-        <ul v-for="category in categories" class="category">
-          <li>{{ category }}</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="synopsis">
-      <div class="input-group" style="text-align: right; width: 500px">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="">Título</span>
-        </div>
-        <input type="text" class="form-control" />
-      </div>
-      
-      <div class="input-group" style="text-align: right; width: 200px">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="">Preço</span>
-        </div>
-        <input type="text" class="form-control" />
-      </div>
-      <div
-        class="input-group"
-        style="text-align: right; width: 500px; height: 300px"
-      >
-        <div class="input-group-prepend">
-          <span
-            class="input-group-text"
-            id=""
-            style="height: 300px; min-width: 100px"
+        <div class="normal-data">
+          <div class="synopsis">
+            <div class="input-group input-container" style="text-align: right; width: 500px">
+              <div class="input-group-prepend">
+                <span id="" class="input-group-text">Título</span>
+              </div>
+              <input class="form-control" type="text"/>
+            </div>
+            <p/>
+            <div class="input-group" style="text-align: right; width: 200px">
+              <div class="input-group-prepend">
+                <span id="" class="input-group-text">Preço</span>
+              </div>
+              <input class="form-control" type="text"/>
+            </div>
+            <p/>
+            <div class="input-group" style="text-align: right; width: 500px; height: 300px">
+              <div class="input-group-prepend">
+            <span
+                id=""
+                class="input-group-text"
+                style="height: 300px; min-width: 100px"
             >Descrição</span
-          >
+            >
+              </div>
+              <input class="form-control" type="text"/>
+            </div>
+          </div>
         </div>
-        <input type="text" class="form-control" />
+      </div>
+      <div>
+        <div class="book-basics">
+          <div class="DivinputImage">
+            <label for="inputTag">
+              Selecione a capa do livro <br/>
+              <img src="@/components/icons/addBook.png" width="60px"/>
+              <input id="inputTag" class="inputImage" type="file"/>
+              <br/>
+              <span id="imageName"></span>
+            </label>
+          </div>
+        </div>
+        <div class="home-book-info">
+          <p class="title">Selecione as categorias</p>
+          <ul v-for="category in getAllCategories()" class="category">
+            <input v-model="checkBoxValues" type="checkbox" v-bind:value="category.id"><label>{{
+              category.name
+            }}</label>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
+
   <div class="book-specifics">
     <div class="info">
       <p>Editora:</p>
@@ -67,13 +79,13 @@
       <div class="input-group" style="text-align: right; width: 500px">
         <div class="input-group-prepend">
           <span
-            class="input-group-text"
-            id=""
-            style="height: 40px; min-width: 100px"
-            >Editora</span
+              id=""
+              class="input-group-text"
+              style="height: 40px; min-width: 100px"
+          >Editora</span
           >
         </div>
-        <input type="text" class="form-control" />
+        <input class="form-control" type="text"/>
       </div>
     </div>
     <div class="info">
@@ -82,13 +94,13 @@
       <div class="input-group" style="text-align: right; width: 500px">
         <div class="input-group-prepend">
           <span
-            class="input-group-text"
-            id=""
-            style="height: 40px; min-width: 100px"
-            >Autor(a)</span
+              id=""
+              class="input-group-text"
+              style="height: 40px; min-width: 100px"
+          >Autor(a)</span
           >
         </div>
-        <input type="text" class="form-control" />
+        <input class="form-control" type="text"/>
       </div>
     </div>
     <div class="info">
@@ -97,13 +109,13 @@
       <div class="input-group" style="text-align: right; width: 500px">
         <div class="input-group-prepend">
           <span
-            class="input-group-text"
-            id=""
-            style="height: 40px; min-width: 100px"
-            >Tradutor</span
+              id=""
+              class="input-group-text"
+              style="height: 40px; min-width: 100px"
+          >Tradutor</span
           >
         </div>
-        <input type="text" class="form-control" />
+        <input class="form-control" type="text"/>
       </div>
     </div>
     <div class="info">
@@ -112,26 +124,39 @@
       <div class="input-group" style="text-align: right; width: 500px">
         <div class="input-group-prepend">
           <span
-            class="input-group-text"
-            id=""
-            style="height: 40px; min-width: 100px"
-            >Ano</span
+              id=""
+              class="input-group-text"
+              style="height: 40px; min-width: 100px"
+          >Ano</span
           >
         </div>
-        <input type="text" class="form-control" />
+        <input class="form-control" type="text"/>
       </div>
     </div>
   </div>
 
   <div class="buttons">
-    <button type="button" class="btn btn-primary bag-book">
+    <button class="btn btn-primary bag-book" type="button">
       Adicionar e-book
     </button>
   </div>
 </template>
 
 <!-- TODO: aparecer uma notificação item foi adicionado  (olha toasts bootstrap) -->
-
+<script>
+export default {
+  methods: {
+    getAllCategories() {
+      return JSON.parse(localStorage.getItem("categories"))
+    },
+  },
+  data() {
+    return {
+      checkBoxValues: []
+    }
+  },
+}
+</script>
 <style scoped>
 .book-container {
   margin-top: 50px;
@@ -142,7 +167,7 @@
   color: white;
   font-size: 1.5em;
   text-align: center;
-  
+
   margin-left: 50px;
   width: 30vw;
   background-color: #1b8c1f;
@@ -157,37 +182,42 @@
   font-family: "Grape Nuts", cursive;
   font-family: "Open Sans", sans-serif;
 }
+
 .img-livro {
   width: 252px;
   margin-left: 30px;
   float: left;
   padding: 10px;
 }
+
 .home-book-info {
   padding-left: 2em;
 }
+
 .title {
   font-size: 1.5em;
   padding-left: 150px;
   margin-left: 170px;
 }
+
 .category {
   color: #0b859f;
   padding-left: 150px;
   font-size: large;
   margin-left: 200px;
 }
+
 .price {
   font-size: 1.5em;
   text-align: right;
   padding-right: 20px;
 }
+
 .synopsis {
   font-size: large;
   max-width: 1076px;
-  margin-left: 200px;
   padding-top: 5px;
-  padding-left: 150px;
+  margin-left: 75px;
   padding-bottom: 5px;
   word-wrap: break-word;
 }
@@ -293,9 +323,11 @@
 .inputImage {
   display: none;
 }
+
 label {
   cursor: pointer;
 }
+
 #imageName {
   color: green;
 }

@@ -18,8 +18,7 @@ import {VueCookieNext} from "vue-cookie-next";
         :name="book.name"
         :categories="book.categories"
         :pages="book.pages"
-        :filename="book.img"
-        :src="book.src"
+        :id="book.id"
       />
     </div>
   </div>
@@ -71,80 +70,6 @@ export default {
     return {
       user: true,
       text: "Para acessar a biblioteca e visualizar seus livros faça o login",
-      books: [
-        {
-          name: "Harry Potter e a pedra filosofal",
-          categories: ["Aventura", "Juvenil"],
-          pages: 256,
-          img: "harry.jpg",
-        },
-        {
-          name: "Crepusculo",
-          categories: ["Aventura", "Juvenil"],
-          pages: 356,
-          img: "crepusculo.jpg",
-        },
-        {
-          name: "Harry Potter e a pedra filosofal",
-          categories: ["Aventura", "Juvenil"],
-          pages: 256,
-          img: "harry.jpg",
-        },
-        {
-          name: "Crepusculo",
-          categories: ["Aventura", "Juvenil"],
-          pages: 356,
-          img: "crepusculo.jpg",
-        },
-        {
-          name: "Harry Potter e a pedra filosofal",
-          categories: ["Aventura", "Juvenil"],
-          pages: 256,
-          img: "harry.jpg",
-        },
-        {
-          name: "Crepusculo",
-          categories: ["Aventura", "Juvenil"],
-          pages: 356,
-          img: "crepusculo.jpg",
-        },
-        {
-          name: "Harry Potter e a pedra filosofal",
-          categories: ["Aventura", "Juvenil"],
-          pages: 256,
-          img: "harry.jpg",
-        },
-        {
-          name: "Crepusculo",
-          categories: ["Aventura", "Juvenil"],
-          pages: 356,
-          img: "crepusculo.jpg",
-        },
-        {
-          name: "Harry Potter e a pedra filosofal",
-          categories: ["Aventura", "Juvenil"],
-          pages: 256,
-          img: "harry.jpg",
-        },
-        {
-          name: "Crepusculo",
-          categories: ["Aventura", "Juvenil"],
-          pages: 356,
-          img: "crepusculo.jpg",
-        },
-        {
-          name: "Harry Potter e a pedra filosofal",
-          categories: ["Aventura", "Juvenil"],
-          pages: 256,
-          img: "harry.jpg",
-        },
-        {
-          name: "Crepusculo",
-          categories: ["Aventura", "Juvenil"],
-          pages: 356,
-          img: "crepusculo.jpg",
-        },
-      ],
     };
   },
 

@@ -36,13 +36,20 @@ import Evaluation from "@/components/avaliationResult.vue";</script>
                 <input class="form-control" placeholder="Quantos livros colocar em promoção"
                        style="width: 350px;height: 45px;font-size: medium"
                        ref="input_qntd">
+                <br>
+                    <span class="input-group-text" style="width: 87px;">
+                      Valor
+                    </span>
+                <input class="form-control" placeholder="Valor de cada livro"
+                       style="width: 350px;height: 45px;font-size: medium"
+                       ref="input_valor">
               </div>
             </div>
           </div>
 
           <!-- Modal footer -->
           <div class="modal-footer">
-            <button class="btn btn-primary" data-bs-dismiss="modal" @click="addPromo(this.$refs.input_qntd.value)" type="button">Adicionar</button>
+            <button class="btn btn-primary" data-bs-dismiss="modal" @click="addPromo(this.$refs.input_qntd.value,this.$refs.input_valor.value)" type="button">Adicionar</button>
             <button class="btn btn-danger" data-bs-dismiss="modal" type="button">Cancelar</button>
           </div>
 
@@ -84,9 +91,7 @@ import Evaluation from "@/components/avaliationResult.vue";</script>
       :name="this.getBookDetails().name"
       :price="book.price"
       :categories="book.categories"
-      :Isinpromo="book.promo"
-      :quantidade="book.quantidade"
-      :filename="book.img"
+      :promotion="book.promo"
       :synopsis="book.synopsis"
       :editor="book.editor"
       :author="book.autor"
@@ -112,13 +117,21 @@ import {VueCookieNext} from "vue-cookie-next";
 export default {
   name: 'app',
   methods:{
-    addPromo(qntd){
+    addPromo(qntd,valor){
       let books = JSON.parse(localStorage.getItem("books"));
       let id = this.$route.query.id;
       for (let book of books) {
         if (parseInt(book.id) === parseInt(id)) {
-          book.promo = true;
-          book.quantidade = parseInt(book.quantidade) + parseInt(qntd);
+          if(!book.promo.is){
+            let promo = {}
+            promo.is = true;
+            promo.numberBooks = qntd;
+            promo.tempPrice = valor;
+            book.promo = promo;
+          }else{
+            book.promo.numberBooks = parseInt(book.promo.numberBooks) + parseInt(qntd);
+            book.promo.tempPrice = valor;
+          }
           this.book = book;
           break;
         }

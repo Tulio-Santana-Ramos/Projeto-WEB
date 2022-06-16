@@ -17,9 +17,9 @@ import {VueCookieNext} from 'vue-cookie-next'
       <Books
           :Isinpromo="book.promo"
           :categories="book.categories"
-          :filename="book.img"
           :name="book.name"
           :id="book.id"
+          :promotion="book.promo"
           :price="book.price"
           :action="removeLivro"
       />

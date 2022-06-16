@@ -117,10 +117,10 @@ import {VueCookieNext} from 'vue-cookie-next'
             <Books
                 :Isinpromo="book.promo"
                 :categories="book.categories"
-                :filename="book.img"
                 :name="book.name"
                 :id="book.id"
                 :price="book.price"
+                :promotion="book.promo"
                 :action="removeLivro"
             />
           </div>
@@ -170,7 +170,10 @@ export default {
     getFullPrice() {
       let full = 0;
       for (let b of this.getBag()) {
-        full += parseFloat(b.price);
+        if(b.promo.is)
+          full+= parseFloat(b.promo.tempPrice);
+        else
+          full += parseFloat(b.price);
       }
       return (Math.round(full * 100) / 100).toFixed(2);
     },
