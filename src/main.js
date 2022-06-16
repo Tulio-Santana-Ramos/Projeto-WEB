@@ -15,5 +15,3 @@ app.component('star-rating', StarRating);
 app.mount('#app')
 
 VueCookieNext.config({ expire: '7d' })
-
-VueCookieNext.setCookie("books","[{\"name\": \"Harry Potter e a pedra filosofal\",\"categories\": [\"Aventura\", \"Juvenil\"],\"price\": \"30.90\",\"promo\": true,\"img\": \"harry.jpg\"},{\"name\": \"Harry Potter e a pedra filosofal\",\"categories\": [\"Aventura\", \"Juvenil\"],\"price\": \"30.90\",\"promo\": true,\"img\": \"harry.jpg\"},{\"name\": \"Harry Potter e a pedra filosofal\",\"categories\": [\"Aventura\", \"Juvenil\"],\"price\": \"30.90\",\"promo\": true,\"img\": \"harry.jpg\"}]");

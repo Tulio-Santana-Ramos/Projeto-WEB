@@ -2,7 +2,7 @@
 import Footer from "@/components/Footer.vue";
 import Menu from "@/components/Menu.vue";
 import Books from "@/components/BagBook.vue";
-import { VueCookieNext } from 'https://unpkg.com/vue-cookie-next@1.0.0/dist/vue-cookie-next.esm-bundler.js'
+import {VueCookieNext} from 'vue-cookie-next'
 
 </script>
 
@@ -11,39 +11,48 @@ import { VueCookieNext } from 'https://unpkg.com/vue-cookie-next@1.0.0/dist/vue-
   <h1 class="titlePage">Carrinho de compras</h1>
   <div class="books">
 
-    <div  v-for="book in books">
+    <div  v-for="book in getBag()">
       <Books
-        :name="book.name"
-        :price="book.price"
-        :categories="book.categories"
-        :Isinpromo="book.promo"
-        :filename="book.img"
+          :Isinpromo="book.promo"
+          :categories="book.categories"
+          :filename="book.img"
+          :name="book.name"
+          :id="book.id"
+          :price="book.price"
+          :action="removeLivro"
       />
     </div>
   </div>
   <div class="buttons">
 
-    <button type="button" class="btn btn-primary">Voltar a comprar</button>
+    <button type="button" @click="goToHome" class="btn btn-primary">Voltar a comprar</button>
     <button type="button" @click="goToFinishShop" class="btn btn-success">Finalizar compra</button>
   </div>
   <Footer></Footer>
 </template>
 
 <script>
+import {VueCookieNext} from "vue-cookie-next";
+
 export default {
   name: "app",
-  mounted: function () {
-    this.books = JSON.parse(VueCookieNext.getCookie("books"));
-  },
   methods:{
+    getBag(){
+      return JSON.parse(VueCookieNext.getCookie("bag"));
+    },
+    removeLivro(id){
+      console.log("A");
+      VueCookieNext.setCookie("bag",JSON.stringify(this.getBag().filter(function(value){
+        return value.id !== id;
+      })));
+      this.$router.go(0);
+    },
     goToFinishShop(){
       this.$router.push("/finalizarCompra");
+    },
+    goToHome(){
+      this.$router.push("/");
     }
-  },
-  data() {
-    return {
-      books: "",
-    };
   },
 };
 </script>

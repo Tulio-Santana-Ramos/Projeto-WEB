@@ -9,7 +9,7 @@
       <p class="price">R$ {{ price }}</p>
     </div>
     <div class="remove-button">
-      <button type="button" class="btn btn-danger">Remover item</button>
+      <button type="button" class="btn btn-danger" @click="action(id)">Remover item</button>
     </div>
   </div>
 </template>
@@ -17,7 +17,7 @@
 <script>
 export default {
   name: "books",
-  props: ["name", "price", "categories", "filename"],
+  props: ["name", "price", "categories", "filename","action","id"],
   data() {
     return {};
   },

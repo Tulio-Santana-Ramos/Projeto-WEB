@@ -68,7 +68,18 @@ const router = createRouter({
       
       component: () => import('../views/AdminsPage.vue')
     },
-    
+    {
+      path: '/test',
+      name: 'test',
+
+      component: () => import('../views/Test.vue')
+    },
+    {
+      path: '/resetConfig',
+      name: 'resetConfig',
+
+      component: () => import('../views/ResetConfig.vue')
+    },
   ]
 })
 
