@@ -7,8 +7,12 @@ import Evaluation from "@/components/avaliationResult.vue";</script>
 
 
 <template>
-  <AdminMenu v-if="isAdmin()"></AdminMenu>
-  <Menu v-else></Menu>
+  <AdminMenu v-if="isAdmin()"
+    :plotDropDown="false"
+  />
+  <Menu v-else
+    :plotDropDown="false"
+  />
   <div class="adm-operations" v-if="isAdmin()">
     <button class="add-book" data-bs-target="#modalAddPromo" data-bs-toggle="modal"><img src="@/components/icons/addition.png" style="width: 50px; height: 50px;"/> Adicionar promoção</button>
     <!-- The Modal -->
@@ -53,7 +57,7 @@ import Evaluation from "@/components/avaliationResult.vue";</script>
 
           <!-- Modal Header -->
           <div class="modal-header">
-            <h4 class="modal-title">Adicionar livro em promoção</h4>
+            <h4 class="modal-title">Remover livro da base de dados</h4>
             <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
           </div>
 

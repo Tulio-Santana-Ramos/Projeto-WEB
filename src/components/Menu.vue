@@ -3,12 +3,12 @@
     <div class="container-fluid">
       <a class="navbar-brand"  @click="goToHome()" ><img class="img-navbar navbar-brand" src="@/components/icons/logo.png"  style=" width:80px;height: 80px; padding: 10px;"></a>
       <a class="navbar-brand" @click="goToBiblioteca()" ><img class="img-navbar navbar-brand" src="@/components/icons/livro.png" style="padding: 10px;margin-bottom: 10px; width: 75%; height: 75%"><span class="txt-navbar" >Biblioteca</span></a>
-      <select name="livros" id="book-select" style=" margin-left: 80px;margin-top: 15px " class="form-select form-select-lg mb-3">
-        <option value="" disabled selected hidden>Selecione a categoria</option>
-        <option value="romance">Romance</option>
-        <option value="scifi">Sci-Fi</option>
-        <option value="aventura">Aventura</option>
-        <option value="juvenil">Juvenil</option>
+      <select v-if="plotDropDown" ref="drop" name="livros" id="book-select" style=" margin-left: 80px;margin-top: 15px " class="form-select form-select-lg mb-3" @change="filter(this.$refs.drop.value)" >
+        <option value="-1" disabled selected hidden>Selecione a categoria</option>
+        <option v-for="categorie in getAllCategories()" v-bind:value="categorie.id">
+          {{categorie.name}}
+        </option>
+
       </select>
       <div class="input-group" style="max-width: 500px">
         <input type="text" class="form-control" placeholder="Busque um livro" style="max-height: 60px">
@@ -18,15 +18,14 @@
       <a class="navbar-brand" @click="goToLogin()"  style="height: 100%"><img class="img-navbar" src="@/components/icons/user.png"  style="width:60px;height: 60px;padding: 10px;"></a>
     </div>
   </nav>
+  <!-- TODO: fazer um modal para logoff -->
+  <!-- TODO: fazer a persistencia da dropdown -->
 </template>
 
 <script>
-
-
-export default ({
-  setup() {
-    
-  },
+export default {
+   name:"menu",
+   props:["plotDropDown","filter"],
    methods: {
      goToHome(){
       this.$router.push("/");
@@ -40,9 +39,11 @@ export default ({
     goToBiblioteca() {
       this.$router.push("/biblioteca");
     },
-   
+    getAllCategories(){
+      return JSON.parse(localStorage.getItem("categories"));
+    }
   },
-})
+}
 </script>
 
 <style scoped>

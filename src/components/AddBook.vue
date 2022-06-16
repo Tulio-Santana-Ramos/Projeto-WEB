@@ -130,7 +130,7 @@
   </div>
 </template>
 
-<!-- TODO: Fazer o botão adicionar o livro  adicionar o livro na pag inicial e aparecer uma notificação item foi adicionado  (olha toasts bootstrap) -->
+<!-- TODO: aparecer uma notificação item foi adicionado  (olha toasts bootstrap) -->
 
 <style scoped>
 .book-container {

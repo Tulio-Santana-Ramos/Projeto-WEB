@@ -8,13 +8,17 @@ import AddBook from "@/components/AddBook.vue";
 
 <template>
   <div v-if="admin">
-    <AdminMenu></AdminMenu>
+    <AdminMenu
+        :plotDropDown="false"
+    />
     <h1 class="titlePage">Adicionar/Editar Livro</h1>
     <AddBook></AddBook>
     <div class="manage-item"></div>
   </div>
   <div v-else>
-    <Menu></Menu>
+    <Menu
+        :plotDropDown="false"
+    />
     <LoginRequired  :text="text"></LoginRequired>
   </div>
 

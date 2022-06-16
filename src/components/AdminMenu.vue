@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <a class="navbar-brand"  @click="goToAdminHome()" ><img class="img-navbar navbar-brand" src="@/components/icons/logo.png"  style=" width:80px;height: 80px; padding: 10px;"></a>
       <a class="navbar-brand"><img class="img-navbar navbar-brand" src="@/components/icons/livro.png" style="padding: 10px;margin-bottom: 10px; width: 75%; height: 75%"></a>
-      <select name="livros" id="book-select" style=" margin-left: 80px;margin-top: 15px " class="form-select form-select-lg mb-3">
+      <select v-if="plotDropDown" name="livros" id="book-select" style=" margin-left: 80px;margin-top: 15px " class="form-select form-select-lg mb-3">
         <option value="" disabled selected hidden>Selecione a categoria</option>
         <option value="romance">Romance</option>
         <option value="scifi">Sci-Fi</option>
@@ -21,25 +21,22 @@
 </template>
 
 <script>
-
-
-export default ({
-  setup() {
-    
-  },
+export default {
+  name:"menu",
+  props:["plotDropDown"],
    methods: {
-     goToAdminHome(){
+    goToAdminHome(){
       this.$router.push("/");
-     },
-    goToAdminsPage() {
-      this.$router.push("/adminspage");
+    },
+      goToAdminsPage() {
+      this.$router.push("/gerenciamento");
     },
     goToAddItem() {
       this.$router.push("/additem");
     },
    
   },
-})
+}
 </script>
 
 <style scoped>

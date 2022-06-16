@@ -10,7 +10,9 @@ import {VueCookieNext} from 'vue-cookie-next'
 </script>
 
 <template>
-  <Menu/>
+  <Menu
+      :plotDropDown="false"
+  />
   <div style="text-align: center; padding-top: 150px; padding-bottom: 20px">
     <span style="color: #38B6FF; font-size: 50px">Finalizar sua compra</span>
   </div>

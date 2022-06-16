@@ -17,8 +17,8 @@
       </div>
     </div>
     <div class="synopsis">{{ synopsis }}</div>
-    <button class="edit-info" v-if="isAdmin()">
-      <img class="edit-fig" src="@/components/icons/settings.png"/>Editar informações
+    <button class="edit-info" v-if="isAdmin()" data-bs-target="#modalChangeInfos" data-bs-toggle="modal" @click="editInfos()">
+      <img class="edit-fig"  src="@/components/icons/settings.png"/>Editar informações
     </button>
     <div class="buttons" v-else>
       <button v-if="!inBag" type="button" class="btn btn-primary bag-book" @click="atClick(id);flushScreen()">Adicionar ao carrinho</button>
@@ -45,11 +45,88 @@
   </div>
 
   <h2 class="title-evaluation">Avaliações</h2>
-  
 
+  <!-- The Modal -->
+  <div id="modalChangeInfos" class="modal" style="margin-top: 200px">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Alterar informações do livro</h4>
+          <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
+        </div>
+
+        <div class="input-group input-container">
+          <span class="input-group-text" style="width: 87px;">
+            Nome
+          </span>
+          <input class="form-control" placeholder="Nome do livro"
+                 style="width: 350px;height: 45px;font-size: medium"
+                 ref="input_nome" v-bind:value="name">
+        </div>
+        <br>
+        <div class="input-group input-container" style="margin-right: auto; margin-left: auto;">
+          <span class="input-group-text" style="width: 87px">
+            Preço
+          </span>
+          <input class="form-control" placeholder="Preço do livro" style="height: 45px;font-size: medium"
+                 type="text" ref="input_preco" v-bind:value="price">
+        </div>
+        <br>
+        <div class="input-group input-container" style="margin-right: auto; margin-left: auto;">
+          <span class="input-group-text" style="width: 87px">
+            Sinopse
+          </span>
+          <textarea class="form-control" placeholder="Sinopse do livro" style="resize: none;height: 100px;font-size: medium"
+                 type="text" ref="input_sinopse" v-bind:value="synopsis"/>
+        </div>
+        <br>
+        <div class="input-group input-container" style="margin-right: auto; margin-left: auto;">
+          <span class="input-group-text" style="width: 87px">
+            Editora
+          </span>
+          <input class="form-control" placeholder="Nome da editora" style="height: 45px;font-size: medium"
+                 type="text" ref="input_editora" v-bind:value="editor">
+        </div>
+        <br>
+        <div class="input-group input-container" style="margin-right: auto; margin-left: auto;">
+          <span class="input-group-text" style="width: 87px">
+            Autor
+          </span>
+          <input class="form-control" placeholder="Nome do autor" style="height: 45px;font-size: medium"
+                 type="text" ref="input_autor" v-bind:value="author">
+        </div>
+        <br>
+        <div class="input-group input-container" style="margin-right: auto; margin-left: auto;">
+          <span class="input-group-text" style="width: 87px">
+            Tradutor
+          </span>
+          <input class="form-control" placeholder="Nome do tradutor" style="height: 45px;font-size: medium"
+                 type="text" ref="input_tradutor" v-bind:value="tradutor">
+        </div>
+        <br>
+        <div class="input-group input-container" style="margin-right: auto; margin-left: auto;">
+          <span class="input-group-text" style="width: 87px">
+            Ano
+          </span>
+          <input class="form-control" placeholder="Ano de publicação" style="height: 45px;font-size: medium"
+                 type="text" ref="input_ano" v-bind:value="year">
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button class="btn btn-primary" data-bs-dismiss="modal" @click="updateLivro(this.$refs.input_nome,this.$refs.input_preco,this.$refs.input_sinopse,this.$refs.input_editora,this.$refs.input_autor,this.$refs.input_tradutor,this.$refs.input_ano)" type="button">Alterar</button>
+          <button class="btn btn-danger" data-bs-dismiss="modal" type="button">Cancelar</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
 </template>
 
-<!-- TODO: Fazer o botão adicionar ao carrinho adicionar o item ao carrinho e aparecer uma notificação item foi adicionado ao carrinho olha toasts bootstrap -->
+<!-- TODO: aparecer uma notificação item foi adicionado ao carrinho olha toasts bootstrap -->
+<!-- TODO: fazer o modal aparecer as categorias -->
 <script>
 import {VueCookieNext} from "vue-cookie-next";
 
@@ -62,6 +139,25 @@ export default {
     };
   },
   methods: {
+    updateLivro(nome,preco,sinopse,editora,autor,tradutor,ano){
+      console.log(nome);
+      let books = JSON.parse(localStorage.getItem("books"));
+      let id = this.$route.query.id;
+      for (let i = 0; i < books.length; i++) {
+        if (parseInt(books[i].id) === parseInt(id)) {
+          books[i].name = nome.value;
+          books[i].price = preco.value;
+          books[i].synopsis = sinopse.value;
+          books[i].editor = editora.value;
+          books[i].autor = autor.value;
+          books[i].tradutor = tradutor.value;
+          books[i].year = ano.value;
+          break;
+        }
+      }
+      localStorage.setItem("books",JSON.stringify(books));
+      this.$router.go(0);
+    },
     isAdmin(){
       let account = VueCookieNext.getCookie("account");
       if(account === null)
@@ -73,7 +169,10 @@ export default {
     },
     goToCarrinho(){
       this.$router.push("/carrinho");
-     }
+    },
+    editInfos(){
+
+    }
   }
 };
 </script>

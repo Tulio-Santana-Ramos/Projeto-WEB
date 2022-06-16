@@ -6,7 +6,9 @@ import LoginRequired from "@/components/LoginRequired.vue";
 </script>
 
 <template>
-  <Menu></Menu>
+  <Menu
+      :plotDropDown="true"
+  />
 
   <h1 class="titlePage">Biblioteca de livros</h1>
   <div v-if="user" class="books">

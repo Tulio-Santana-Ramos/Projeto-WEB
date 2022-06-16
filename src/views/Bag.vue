@@ -7,7 +7,9 @@ import {VueCookieNext} from 'vue-cookie-next'
 </script>
 
 <template>
-  <Menu></Menu>
+  <Menu
+      :plotDropDown=false
+  />
   <h1 class="titlePage">Carrinho de compras</h1>
   <div class="books">
 

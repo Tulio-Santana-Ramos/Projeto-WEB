@@ -23,8 +23,8 @@ Book:
     {
         "name": "Harry Potter e a pedra filosofal0",
         "categories": [
-            "Aventura",
-            "Juvenil"
+            0,
+            1
         ],
         "price": "30.90",
         "promo": true ,
@@ -54,4 +54,9 @@ Book:
                 "stars": 2
             }
         ]
+    }
+Categories:
+    {
+        "name":name,
+        "id":int
     }

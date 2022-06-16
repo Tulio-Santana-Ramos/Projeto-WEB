@@ -7,7 +7,9 @@ import Menu from "@/components/Menu.vue";
 
 <template>
   <div v-if="admin">
-    <AdminMenu></AdminMenu>
+    <AdminMenu
+        :plotDropDown="false"
+    />
     <div class="dados">
       <div style="width:50%; text-align: center;">
         <h1 class="titlePage">Administradores</h1>
@@ -26,7 +28,9 @@ import Menu from "@/components/Menu.vue";
     </div>
   </div>
   <div v-else>
-    <Menu></Menu>
+    <Menu
+        :plotDropDown="false"
+    />
     <LoginRequired :text="text"></LoginRequired>
   </div>
   <Footer></Footer>
