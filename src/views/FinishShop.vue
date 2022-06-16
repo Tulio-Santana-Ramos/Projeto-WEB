@@ -4,12 +4,14 @@ import Menu from "@/components/Menu.vue";
 import CreditCard from "@/components/CreditCard.vue";
 import DefaultPaymentOption from "@/components/DefaultPaymentOption.vue";
 import BlankLine from "@/components/BlankLine.vue";
+import Books from "@/components/BagBook.vue";
+import { VueCookieNext } from 'vue-cookie-next'
 
 </script>
 
 <template>
   <Menu/>
-  <div style="text-align: center; padding-top: 120px; padding-bottom: 20px">
+  <div style="text-align: center; padding-top: 150px; padding-bottom: 20px">
     <span style="color: #38B6FF; font-size: 50px">Finalizar sua compra</span>
   </div>
   <div>
@@ -31,7 +33,6 @@ import BlankLine from "@/components/BlankLine.vue";
             />
         </div>
         <div style="padding-left: 150px">
-          <!-- TODO: fazer isso virar um botão -->
           <button type="button" class="btn btn-secondary" @click="appendCard()" style="margin: 10px">+ Adicionar novo cartão</button>
         </div>
         <span class="other-payment"  v-for="(payment, index) in getPaymentForms()">
@@ -53,8 +54,30 @@ import BlankLine from "@/components/BlankLine.vue";
       </div>
     </div>
     <!-- TODO:Confimar compra -->
-    <div v-else>
-
+    <div v-else >
+      <div>
+        <div>
+          <span style="padding-left: 50px" class="normal-text">
+              2. Confirme sua compra
+          </span>
+          <div style="padding-left: 100px" v-for="book in books">
+            <Books
+                :name="book.name"
+                :price="book.price"
+                :categories="book.categories"
+                :Isinpromo="book.promo"
+                :filename="book.img"
+            />
+          </div>
+        </div>
+        <div style="padding-left: 50px">
+          Total da compra: {{getFullPrice()}}
+          <br>
+          <button type="button" class="btn btn-primary" @click="nextStep()" style="color: white; cursor: pointer;margin: 20px 0">
+            Finalizar Compra
+          </button>
+        </div>
+      </div>
     </div>
   </div>
   <Footer/>
@@ -62,13 +85,27 @@ import BlankLine from "@/components/BlankLine.vue";
 
 <script>
 export default {
-  name: "FinishShop",
-  data() {
-    return {payment_name:"paymentForm"};
+  name: "FinishShop",data() {
+    return {
+      payment_name:"paymentForm",
+      books: "",
+    };
+  },
+  mounted: function () {
+    this.books = JSON.parse(VueCookieNext.getCookie("books"));
   },
   methods:{
     appendCard(){
-
+    //TODO: fazer essa funcao
+    },
+    getFullPrice(){
+      let full = 0;
+      console.log(this.books)
+      for (let b of this.books) {
+        console.log(b);
+        full += parseFloat(b.price);
+      }
+      return (Math.round(full*100)/100).toFixed(2);
     },
     validateCard(){
       let payment_form = parseInt(this.$route.query.payment_form);
@@ -82,9 +119,7 @@ export default {
     },
     nextStep(){
       let options = document.querySelector('input[name='+this.payment_name+']:checked').value.split(" ");
-      if(options.length === 2){
-        this.$router.push("/finalizarCompra?payment_form="+options[0]+"&id="+options[1]);
-      }
+      this.$router.push({path:"/finalizarCompra/",query:{payment_form:options[0],id:options[1]}});
     },
     getCreditCards(){
       return [

@@ -2,13 +2,16 @@
 import Footer from "@/components/Footer.vue";
 import Menu from "@/components/Menu.vue";
 import Books from "@/components/BagBook.vue";
+import { VueCookieNext } from 'https://unpkg.com/vue-cookie-next@1.0.0/dist/vue-cookie-next.esm-bundler.js'
+
 </script>
 
 <template>
   <Menu></Menu>
   <h1 class="titlePage">Carrinho de compras</h1>
   <div class="books">
-    <div v-for="book in books">
+
+    <div  v-for="book in books">
       <Books
         :name="book.name"
         :price="book.price"
@@ -29,6 +32,9 @@ import Books from "@/components/BagBook.vue";
 <script>
 export default {
   name: "app",
+  mounted: function () {
+    this.books = JSON.parse(VueCookieNext.getCookie("books"));
+  },
   methods:{
     goToFinishShop(){
       this.$router.push("/finalizarCompra");
@@ -36,29 +42,7 @@ export default {
   },
   data() {
     return {
-      books: [
-        {
-          name: "Harry Potter e a pedra filosofal",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: true,
-          img: "harry.jpg",
-        },
-         {
-          name: "Harry Potter e a pedra filosofal",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: true,
-          img: "harry.jpg",
-        },
-         {
-          name: "Harry Potter e a pedra filosofal",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: true,
-          img: "harry.jpg",
-        },
-      ],
+      books: "",
     };
   },
 };
@@ -68,7 +52,6 @@ export default {
 <style scoped>
 @import '@/assets/base.css';
 
-body
 .titlePage{
     margin: 140px 0 50px 0;
     text-align: center;
