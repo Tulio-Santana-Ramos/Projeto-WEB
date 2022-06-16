@@ -1,6 +1,4 @@
-<script setup>
-import Modal from "@/components/Modal.vue";
-</script>
+
 
 <template>
   <div id="centerDiv">
@@ -37,12 +35,12 @@ import Modal from "@/components/Modal.vue";
     </div>
     <div style="display: flex; justify-content:space-around; width: 500px; margin-right: auto; margin-left: auto; ">
       <div>
-        <a class="login-options" href="#esqueci">
+        <a class="login-options" @click="goToNewPassword()">
           ESQUECI A SENHA
         </a>
       </div>
       <div>
-        <a class="login-options" href="#nova">
+        <a class="login-options" @click="goToNewClient()">
           CRIAR NOVA CONTA
         </a>
       </div>
@@ -50,18 +48,83 @@ import Modal from "@/components/Modal.vue";
   </div>
   <div style="display: flex; justify-content:space-between; width: 70vw; margin-right: auto; margin-left: auto; ">
     <div>
-      <a class="infos-botton" href="#condicoes">
+      <a class="infos-botton" href="#condicoes" data-bs-target="#modalCardTerms" data-bs-toggle="modal">
         Condições de Uso
       </a>
     </div>
+
+    <div id="modalCardTerms" class="modal" style="margin-top: 10px">
+          <div class="modal-dialog">
+            <div class="modal-content">
+
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Condições de Uso</h4>
+                <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body" style="font-family: 'Grape Nuts', cursive; font-family: 'Open Sans', sans-serif;">
+                <h style="font-weight: bolder; font-size: large;">Função</h><br>
+                <p>Este site foi criado e desenvolvido com a função de possibilitar a fácil a visualização de Ebooks de alta qualidade, a venda de produtos digitais e a divulgação de prestação de serviço. A WEEBOOK busca através da criação de conteúdo de alta qualidade, desenvolvido por profissionais da área, trazer o conhecimento ao alcance de todos, assim como a divulgação dos próprios serviços.</p>
+                <h style="font-weight: bolder; font-size: large;">Termos</h><br>
+                <p>Ao continuar acessando o site, o VISITANTE expressa que aceita e entende todas as cláusulas, assim como concorda integralmente com cada uma delas, sendo este aceite imprescindível para a permanência na mesma. Caso o VISITANTE discorde de alguma cláusula ou termo, o mesmo deve imediatamente interromper sua navegação de todas as formas e meios.</p>
+                <h style="font-weight: bolder; font-size: large;">Acesso</h><br>
+                <p>O Site e plataforma funcionam normalmente 24 (vinte e quatro) horas por dia, porém podem ocorrer pequenas interrupções de forma temporária para ajustes, manutenção, mudança de servidores, falhas técnicas ou por ordem de força maior, que podem deixar o site indisponível por tempo limitado. A WEEBOOK não se responsabiliza por nenhuma perda de oportunidade ou prejuízos que esta indisponibilidade temporária possa gerar aos usuários.</p>
+                <h style="font-weight: bolder; font-size: large;">Licença</h><br>
+                <p>Todo o conteúdo do site é protegido por direitos autorais, e seu uso, cópia, transmissão, venda, cessão ou revenda, deve seguir a lei brasileira, tendo a WEEBOOK todos os seus direitos reservados, e não permitindo a cópia ou utilização de nenhuma forma e meio, sem autorização expressa e por escrita da mesma.</p>
+              </div>
+
+            </div>
+          </div>
+    </div>
+
     <div>
-      <a class="infos-botton" href="#contato">
+      <a class="infos-botton" href="#contato"  data-bs-target="#modalCardContact" data-bs-toggle="modal">
         Entre em Contato
       </a>
     </div>
+
+    <div id="modalCardContact" class="modal" style="margin-top: 200px">
+          <div class="modal-dialog">
+            <div class="modal-content">
+
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Contato</h4>
+                <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body" style="font-family: 'Grape Nuts', cursive; font-family: 'Open Sans', sans-serif;">
+                <h style="font-weight: bolder; font-size: large;">Email</h><br>
+                <p>atendimento@webook.com</p>
+                <h style="font-weight: bolder; font-size: large;">Telefone</h><br>
+                <p>(16) 9959-6780</p>
+                <h style="font-weight: bolder; font-size: large;">Atendimento Presencial</h><br>
+                <p>Segunda - Sexta, 8h às 18h</p>
+              </div>
+
+            </div>
+          </div>
+    </div>
+    
   </div>
-  <Modal></Modal>
+
 </template>
+
+<script>
+export default {
+  methods: {
+    goToNewClient(){
+      this.$router.push("/novousuario");
+    },
+    goToNewPassword(){
+      this.$router.push("/novachave");
+    },
+  },
+}
+</script>
 
 
 <style scoped>
@@ -102,12 +165,11 @@ import Modal from "@/components/Modal.vue";
 
 .login-btn:hover {
   background-color: #1872a7;
-
 }
 
 .login-options:hover {
   background-color: #ddd;
-
+  cursor: pointer;
 }
 
 .login-btn p {
