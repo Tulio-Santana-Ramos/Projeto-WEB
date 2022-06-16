@@ -21,8 +21,8 @@
       <img class="edit-fig" src="@/components/icons/settings.png"/>Editar informações
     </button>
     <div class="buttons" v-else>
-      <button type="button" class="btn btn-primary bag-book" >Adicionar ao carrrinho</button>
-      <button type="button" class="btn btn-primary buy-book"  @click="goToCarrinho()">Comprar E-book</button>
+      <button type="button" class="btn btn-primary bag-book" @click="addToBag(id)">Adicionar ao carrinho</button>
+      <button type="button" class="btn btn-primary buy-book"  @click="addToBag(id);goToCarrinho()">Comprar E-book</button>
     </div>
   </div>
   <div class="book-specifics">
@@ -54,7 +54,7 @@
 export default {
   name: "BookInfo",
 
-  props: ["Isinpromo", "filename", "name", "categories", "price", "synopsis","quantidade","editor","author","tradutor","year"],
+  props: ["Isinpromo", "filename", "name", "categories", "price", "synopsis","quantidade","editor","author","tradutor","year","addToBag","id"],
   data() {
     return {
       admin: false,

@@ -36,12 +36,26 @@ import {VueCookieNext} from "vue-cookie-next";
 
 export default {
   name: "app",
+  data() {
+    return {
+      bag: null
+    };
+  },
   methods:{
     getBag(){
-      return JSON.parse(VueCookieNext.getCookie("bag"));
+      if(this.bag === null) {
+        this.bag = [];
+        for (const book of JSON.parse(localStorage.getItem("books"))) {
+          for (const bagElem of JSON.parse(VueCookieNext.getCookie("bag"))) {
+            if (parseInt(book.id) === parseInt(bagElem.id)) {
+              this.bag.push(book);
+            }
+          }
+        }
+      }
+      return this.bag;
     },
     removeLivro(id){
-      console.log("A");
       VueCookieNext.setCookie("bag",JSON.stringify(this.getBag().filter(function(value){
         return value.id !== id;
       })));

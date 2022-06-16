@@ -3,20 +3,19 @@ import Footer from "@/components/Footer.vue";
 import Menu from "@/components/Menu.vue";
 import AdminMenu from "@/components/AdminMenu.vue";
 import BookInfo from "@/components/BookInfo.vue";
-import Evaluation from "@/components/avaliationResult.vue";
-</script>
+import Evaluation from "@/components/avaliationResult.vue";</script>
 
 
 <template>
-  <AdminMenu v-if="admin"></AdminMenu>
+  <AdminMenu v-if="isAdmin()"></AdminMenu>
   <Menu v-else></Menu>
-  <div class="adm-operations" v-if="admin">
+  <div class="adm-operations" v-if="isAdmin()">
     <button class="add-book"><img src="@/components/icons/addition.png" style="width: 50px; height: 50px;"/> Adicionar promoção</button>
     <button class="remove-book"><img src="@/components/icons/remove.png" style="width: 50px; height: 50px;"/> Excluir livro</button>
   </div>
-  <div v-for="book in book_details">
+  <div>
     <BookInfo
-      :name="book.name"
+      :name="this.getBookDetails().name"
       :price="book.price"
       :categories="book.categories"
       :Isinpromo="book.promo"
@@ -27,40 +26,54 @@ import Evaluation from "@/components/avaliationResult.vue";
       :author="book.autor"
       :tradutor="book.tradutor"
       :year="book.year"
-      
+      :addToBag="addToBag"
+      :id="book.id"
     />
   </div>
   <div class="book-stats">
-    <div v-for="book in book_evaluation">
+    <div v-for="book in book.evaluations">
       <Evaluation :info="book.info" :stars="book.stars"></Evaluation>
     </div>
-    
-    
   </div>
   <Footer> </Footer>
 </template>
 
 <script>
+import {VueCookieNext} from "vue-cookie-next";
+
 export default {
   name: 'app',
+  methods:{
+    isAdmin(){
+      let account = VueCookieNext.getCookie("account");
+      if(account === null)
+        return false;
+      return account.adm === 'ADM';
+    },
+    getBookDetails(){
+      let books = JSON.parse(localStorage.getItem("books"));
+      let id = this.$route.query.id;
+      for (let book of books) {
+        if (parseInt(book.id) === parseInt(id)) {
+          this.book = book;
+          return book;
+        }
+      }
+    },
+    addToBag(idLivro){
+      let bag = JSON.parse(VueCookieNext.getCookie("bag"));
+      console.log(bag);
+      let newBook = {id:idLivro};
+      console.log(newBook);
+      bag.push(newBook);
+      console.log(bag);
+      let temp = JSON.stringify(bag);
+      VueCookieNext.setCookie("bag",temp);
+    }
+  },
   data () {
     return {
-      admin: true,
-      book_details:[
-        {
-          name: "Harry Potter e a pedra filosofal",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: true ,
-          quantidade: 10,
-          img: "harry.jpg",
-          synopsis: "Quando virou o envelope, com a mão trêmula, Harry viu um lacre de cera púrpura com um brasão; um leão, uma águia, um texugo e uma cobra circulando uma grande letra \"H\". Harry Potter nunca havia ouvido falar de Hogwarts quando as cartas começaram a aparecer no capacho da Rua dos Alfeneiros, nº 4. Escritos a tinta verde-esmeralda em pergaminho amarelado com um lacre de cera púrpura, as cartas eram rapidamente confiscadas por seus pavorosos tio e tia. Então, no aniversário de onze anos de Harry, um gigante com olhos que luziam como besouros negros chamado Rúbeo Hagrid surge com notícias surpreendentes: Harry Potter é um bruxo e tem uma vaga na Escola de Magia e Bruxaria de Hogwarts. Uma incrível aventura está para começar!",
-          editor: "Pottermore Publishing",
-          autor: "MOSS | J.K. ROWLING",
-          tradutor: "LIA WYLER",
-          year: 2015,
-        }
-      ],
+      book: {},
       book_evaluation:[
         {
           info: "Muito mal escrito!",

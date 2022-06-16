@@ -105,7 +105,6 @@ import {VueCookieNext} from 'vue-cookie-next'
         </button>
       </div>
     </div>
-    <!-- TODO:Confimar compra -->
     <div v-else>
       <div>
         <div>
@@ -142,9 +141,11 @@ import {VueCookieNext} from 'vue-cookie-next'
 import {VueCookieNext} from "vue-cookie-next";
 
 export default {
-  name: "FinishShop", data() {
+  name: "FinishShop",
+  data() {
     return {
       payment_name: "paymentForm",
+      bag: null
     };
   },
   methods: {
@@ -153,9 +154,9 @@ export default {
       newCard.name = nome;
       newCard.code = parseInt(numero);
       newCard.flag = bandeira;
-      let temp = JSON.parse(VueCookieNext.getCookie("cards"))
+      let temp = JSON.parse(localStorage.getItem("cards"))
       temp.push(newCard)
-      VueCookieNext.setCookie("cards",JSON.stringify(temp));
+      localStorage.setItem("cards",JSON.stringify(temp));
       this.$router.go(0);
     },
     removeLivro(id){
@@ -166,6 +167,7 @@ export default {
     },
     getFullPrice() {
       let full = 0;
+      console.log(this.getBag());
       for (let b of this.getBag()) {
         full += parseFloat(b.price);
       }
@@ -182,17 +184,27 @@ export default {
         return false;
     },
     getBag(){
-      return JSON.parse(VueCookieNext.getCookie("bag"));
+      if(this.bag === null) {
+        this.bag = [];
+        for (const book of JSON.parse(localStorage.getItem("books"))) {
+          for (const bagElem of JSON.parse(VueCookieNext.getCookie("bag"))) {
+            if (parseInt(book.id) === parseInt(bagElem.id)) {
+              this.bag.push(book);
+            }
+          }
+        }
+      }
+      return this.bag;
     },
     nextStep() {
       let options = document.querySelector('input[name=' + this.payment_name + ']:checked').value.split(" ");
       this.$router.push({path: "/finalizarCompra/", query: {payment_form: options[0], id: options[1]}});
     },
     getCreditCards() {
-      return JSON.parse(VueCookieNext.getCookie("cards"));
+      return JSON.parse(localStorage.getItem("cards"));
     },
     getPaymentForms() {
-      return JSON.parse(VueCookieNext.getCookie("payment_forms"));
+      return JSON.parse(localStorage.getItem("payment_forms"));
     }
   }
 }

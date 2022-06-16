@@ -8,8 +8,8 @@ import AdminMenu from "@/components/AdminMenu.vue";
 <template>
   <AdminMenu v-if="admin"></AdminMenu>
   <Menu v-else></Menu>
-  <div class="books"  @click="goToBook()">
-    <div v-for="book in getActualBooks()">
+  <div class="books">
+    <div v-for="book in getActualBooks()" @click="goToBook(book.id)">
       <Books
         :name="book.name"
         :price="book.price"
@@ -42,8 +42,8 @@ export default {
   },
   name: 'app',
   methods: {
-    goToBook(){
-      this.$router.push("/livro");
+    goToBook(idLivro){
+      this.$router.push({path:"/livro",query:{id:idLivro}});
      },
     getActualPage(){
       if(this.$route.query.page<=this.getNumPages())
@@ -58,16 +58,22 @@ export default {
     },getLengthBooks(){
       return 16;
     },
+    getAllBooks(){
+      return JSON.parse(localStorage.getItem("books"));
+    },
     getActualBooks(){
       let temp = [];
+      let books = this.getAllBooks();
       let page = this.$route.query.page;
-      if(page <= 0 || this.$route.query.page>this.getNumPages())
-        this.$router.push("/");
       if(page === undefined)
         page = 1;
+      else {
+        if (page <= 0 || this.$route.query.page > this.getNumPages())
+          this.$router.push("/");
+      }
       page--;
-      for (let i = maxBooks*page; (i < maxBooks+maxBooks*page) && (i < this.getLengthBooks()); i++){
-        temp.push(this.books[i]);
+      for (let i = maxBooks*page; (i < maxBooks+maxBooks*page) && (i < books.length); i++){
+        temp.push(books[i]);
       }
       return temp;
     },
