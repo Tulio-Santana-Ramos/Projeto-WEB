@@ -86,6 +86,12 @@ const router = createRouter({
 
       component: () => import('../views/ResetConfig.vue')
     },
+    {
+      path: '/lerLivro',
+      name: 'lerLivro',
+
+      component: () => import('../views/ReadBook.vue')
+    }
   ]
 })
 

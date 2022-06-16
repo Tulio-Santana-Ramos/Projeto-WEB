@@ -2,7 +2,6 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <a class="navbar-brand"  @click="goToAdminHome()" ><img class="img-navbar navbar-brand" src="@/components/icons/logo.png"  style=" width:80px;height: 80px; padding: 10px;"></a>
-      <a class="navbar-brand"><img class="img-navbar navbar-brand" src="@/components/icons/livro.png" style="padding: 10px;margin-bottom: 10px; width: 75%; height: 75%"></a>
       <select v-if="plotDropDown" name="livros" id="book-select" style=" margin-left: 80px;margin-top: 15px " class="form-select form-select-lg mb-3">
         <option value="" disabled selected hidden>Selecione a categoria</option>
         <option value="romance">Romance</option>

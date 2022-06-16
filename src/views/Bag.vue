@@ -44,12 +44,26 @@ export default {
     };
   },
   methods:{
+    getAllCategories(){
+      return JSON.parse(localStorage.getItem("categories"))
+    },
     getBag(){
       if(this.bag === null) {
         this.bag = [];
+        let allCategories = this.getAllCategories();
         for (const book of JSON.parse(localStorage.getItem("books"))) {
           for (const bagElem of JSON.parse(VueCookieNext.getCookie("bag"))) {
             if (parseInt(book.id) === parseInt(bagElem.id)) {
+              let tempCategories = [];
+              for (const category of book.categories) {
+                for (const fixedCategory of allCategories){
+                  if(category === fixedCategory.id) {
+                    tempCategories.push(fixedCategory.name);
+                    break;
+                  }
+                }
+              }
+              book.categories = tempCategories;
               this.bag.push(book);
             }
           }

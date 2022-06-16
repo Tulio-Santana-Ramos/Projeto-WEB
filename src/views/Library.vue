@@ -3,6 +3,7 @@ import Books from "@/components/BigBooks.vue";
 import Footer from "@/components/Footer.vue";
 import Menu from "@/components/Menu.vue";
 import LoginRequired from "@/components/LoginRequired.vue";
+import {VueCookieNext} from "vue-cookie-next";
 </script>
 
 <template>
@@ -12,13 +13,13 @@ import LoginRequired from "@/components/LoginRequired.vue";
 
   <h1 class="titlePage">Biblioteca de livros</h1>
   <div v-if="user" class="books">
-    <div v-for="book in books">
+    <div v-for="book in getUserBooks()">
       <Books
         :name="book.name"
-        :price="book.price"
         :categories="book.categories"
         :pages="book.pages"
         :filename="book.img"
+        :src="book.src"
       />
     </div>
   </div>
@@ -29,8 +30,43 @@ import LoginRequired from "@/components/LoginRequired.vue";
 </template>
 
 <script>
+import {VueCookieNext} from "vue-cookie-next";
+
 export default {
   name: "app",
+  methods:{
+    getAllCategories(){
+      return JSON.parse(localStorage.getItem("categories"))
+    },
+    getUserBooks(){
+      let actualUser = VueCookieNext.getCookie("account");
+      let libraries = JSON.parse(localStorage.getItem("libraries"));
+      let allCategories = this.getAllCategories();
+      let temp = [];
+      for (const library of libraries) {
+        if(library.user === actualUser.id){
+          for (const book of JSON.parse(localStorage.getItem("books"))) {
+            for (const bookLib of library.lib) {
+              if (parseInt(book.id) === parseInt(bookLib)) {
+                let tempCategories = [];
+                for (const category of book.categories) {
+                  for (const fixedCategory of allCategories){
+                    if(category === fixedCategory.id) {
+                      tempCategories.push(fixedCategory.name);
+                      break;
+                    }
+                  }
+                }
+                book.categories = tempCategories;
+                temp.push(book);
+              }
+            }
+          }
+        }
+      }
+      return temp;
+    }
+  },
   data() {
     return {
       user: true,

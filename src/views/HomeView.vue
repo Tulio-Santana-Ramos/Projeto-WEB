@@ -41,7 +41,7 @@ import AdminMenu from "@/components/AdminMenu.vue";
 <script>
 import Paginate from 'vuejs-paginate-next';
 import {VueCookieNext} from "vue-cookie-next";
-const maxBooks = 1;
+const maxBooks = 2;
 export default {
   components: {
     paginate: Paginate,
@@ -103,7 +103,7 @@ export default {
 
         if(tempCategories.length !== 0) {
           temp.push(books[i]);
-          temp[i].categories = tempCategories;
+          temp[temp.length-1].categories = tempCategories;
         }
       }
       return temp;

@@ -151,11 +151,25 @@ export default {
         return false;
       return account.adm === true;
     },
+    getAllCategories(){
+      return JSON.parse(localStorage.getItem("categories"))
+    },
     getBookDetails(){
       let books = JSON.parse(localStorage.getItem("books"));
       let id = this.$route.query.id;
+      let allCategories = this.getAllCategories();
       for (let book of books) {
         if (parseInt(book.id) === parseInt(id)) {
+          let tempCategories = [];
+          for (const category of book.categories) {
+            for (const fixedCategory of allCategories){
+              if(category === fixedCategory.id) {
+                tempCategories.push(fixedCategory.name);
+                break;
+              }
+            }
+          }
+          book.categories = tempCategories;
           this.book = book;
           return book;
         }

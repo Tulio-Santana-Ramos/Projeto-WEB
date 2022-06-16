@@ -7,15 +7,23 @@
         <li>{{ category }}</li>
       </ul>
       <p class="pages">{{ pages }} páginas</p>
-      <button type="button" class="btn btn-primary">Ler agora</button>
+      <button type="button" class="btn btn-primary" @click="goToReadBook()">Ler agora</button>
     </div>
   </div>
 </template>
 
 <script>
+
+import {VueCookieNext} from "vue-cookie-next";
 export default {
   name: "books",
-  props: ["name", "categories", "pages", "filename"],
+  props: ["name", "categories", "pages", "filename","src"],
+  methods:{
+    goToReadBook(){
+      VueCookieNext.setCookie("lastBook",this.$props.src);
+      this.$router.push("/lerLivro");
+    }
+  },
   data() {
     return {};
   },
