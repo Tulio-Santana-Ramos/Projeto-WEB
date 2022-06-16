@@ -30,6 +30,7 @@ import Evaluation from "@/components/avaliationResult.vue";</script>
       :id="book.id"
     />
   </div>
+
   <div class="book-stats">
     <div v-for="book in book.evaluations">
       <Evaluation :info="book.info" :stars="book.stars"></Evaluation>
@@ -62,11 +63,12 @@ export default {
     },
     addToBag(idLivro){
       let bag = JSON.parse(VueCookieNext.getCookie("bag"));
-      console.log(bag);
       let newBook = {id:idLivro};
-      console.log(newBook);
+      console.log("a");
+      for (const book of bag) {
+        console.log(book)
+      }
       bag.push(newBook);
-      console.log(bag);
       let temp = JSON.stringify(bag);
       VueCookieNext.setCookie("bag",temp);
     }
