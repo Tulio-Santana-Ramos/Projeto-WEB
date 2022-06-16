@@ -17,12 +17,12 @@
       </div>
     </div>
     <div class="synopsis">{{ synopsis }}</div>
-    <button class="edit-info" v-if="admin">
+    <button class="edit-info" v-if="isAdmin()">
       <img class="edit-fig" src="@/components/icons/settings.png"/>Editar informações
     </button>
     <div class="buttons" v-else>
-      <button type="button" class="btn btn-primary bag-book" @click="addToBag(id)">Adicionar ao carrinho</button>
-      <button type="button" class="btn btn-primary buy-book"  @click="addToBag(id);goToCarrinho()">Comprar E-book</button>
+      <button v-if="!inBag" type="button" class="btn btn-primary bag-book" @click="atClick(id);flushScreen()">Adicionar ao carrinho</button>
+      <button type="button" class="btn btn-primary buy-book"  @click="atClick(id);goToCarrinho()">Comprar E-book</button>
     </div>
   </div>
   <div class="book-specifics">
@@ -51,16 +51,26 @@
 
 <!-- TODO: Fazer o botão adicionar ao carrinho adicionar o item ao carrinho e aparecer uma notificação item foi adicionado ao carrinho olha toasts bootstrap -->
 <script>
+import {VueCookieNext} from "vue-cookie-next";
+
 export default {
   name: "BookInfo",
 
-  props: ["Isinpromo", "filename", "name", "categories", "price", "synopsis","quantidade","editor","author","tradutor","year","addToBag","id"],
+  props: ["Isinpromo", "filename", "name", "categories", "price", "synopsis","quantidade","editor","author","tradutor","year","atClick","id","inBag"],
   data() {
     return {
-      admin: false,
     };
   },
   methods: {
+    isAdmin(){
+      let account = VueCookieNext.getCookie("account");
+      if(account === null)
+        return false;
+      return account.adm === true;
+    },
+    flushScreen(){
+      this.$router.go(0);
+    },
     goToCarrinho(){
       this.$router.push("/carrinho");
      }

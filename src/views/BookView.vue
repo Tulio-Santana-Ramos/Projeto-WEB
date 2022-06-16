@@ -10,9 +10,71 @@ import Evaluation from "@/components/avaliationResult.vue";</script>
   <AdminMenu v-if="isAdmin()"></AdminMenu>
   <Menu v-else></Menu>
   <div class="adm-operations" v-if="isAdmin()">
-    <button class="add-book"><img src="@/components/icons/addition.png" style="width: 50px; height: 50px;"/> Adicionar promoção</button>
-    <button class="remove-book"><img src="@/components/icons/remove.png" style="width: 50px; height: 50px;"/> Excluir livro</button>
+    <button class="add-book" data-bs-target="#modalAddPromo" data-bs-toggle="modal"><img src="@/components/icons/addition.png" style="width: 50px; height: 50px;"/> Adicionar promoção</button>
+    <!-- The Modal -->
+    <div id="modalAddPromo" class="modal" style="margin-top: 200px">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Adicionar livro em promoção</h4>
+            <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div>
+              <div class="input-group input-container">
+                    <span class="input-group-text" style="width: 87px;">
+                      Qntd
+                    </span>
+                <input class="form-control" placeholder="Quantos livros colocar em promoção"
+                       style="width: 350px;height: 45px;font-size: medium"
+                       ref="input_qntd">
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-bs-dismiss="modal" @click="addPromo(this.$refs.input_qntd.value)" type="button">Adicionar</button>
+            <button class="btn btn-danger" data-bs-dismiss="modal" type="button">Cancelar</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <button class="remove-book" data-bs-target="#modalRemLivro" data-bs-toggle="modal"><img src="@/components/icons/remove.png" style="width: 50px; height: 50px;"/> Excluir livro</button>
+    <!-- The Modal -->
+    <div id="modalRemLivro" class="modal" style="margin-top: 200px">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Adicionar livro em promoção</h4>
+            <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div>
+              <span style="color: red">Atenção! <br> Esta ação é irreversivel, tem certeza que deseja realiza-la?</span>
+            </div>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-bs-dismiss="modal" @click="remLivro()" type="button">Sim, excluir</button>
+            <button class="btn btn-danger" data-bs-dismiss="modal" type="button">Cancelar</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
   </div>
+
   <div>
     <BookInfo
       :name="this.getBookDetails().name"
@@ -26,8 +88,9 @@ import Evaluation from "@/components/avaliationResult.vue";</script>
       :author="book.autor"
       :tradutor="book.tradutor"
       :year="book.year"
-      :addToBag="addToBag"
+      :atClick="addToBag"
       :id="book.id"
+      :inBag="searchInBag(book.id)"
     />
   </div>
 
@@ -45,11 +108,44 @@ import {VueCookieNext} from "vue-cookie-next";
 export default {
   name: 'app',
   methods:{
+    addPromo(qntd){
+      let books = JSON.parse(localStorage.getItem("books"));
+      let id = this.$route.query.id;
+      for (let book of books) {
+        if (parseInt(book.id) === parseInt(id)) {
+          book.promo = true;
+          book.quantidade = parseInt(book.quantidade) + parseInt(qntd);
+          this.book = book;
+          break;
+        }
+      }
+      localStorage.setItem("books",JSON.stringify(books));
+    },
+    remLivro(){
+      let books = JSON.parse(localStorage.getItem("books"));
+      let id = this.$route.query.id;
+      for (let i = 0; i < books.length; i++) {
+        if (parseInt(books[i].id) === parseInt(id)) {
+          books.splice(i,1);
+          break;
+        }
+      }
+      localStorage.setItem("books",JSON.stringify(books));
+      this.$router.push("/");
+    },
+    searchInBag(id){
+      let bag = JSON.parse(VueCookieNext.getCookie("bag"));
+      for (const book of bag) {
+        if (book.id === id)
+          return true;
+      }
+      return false;
+    },
     isAdmin(){
       let account = VueCookieNext.getCookie("account");
       if(account === null)
         return false;
-      return account.adm === 'ADM';
+      return account.adm === true;
     },
     getBookDetails(){
       let books = JSON.parse(localStorage.getItem("books"));
@@ -62,12 +158,10 @@ export default {
       }
     },
     addToBag(idLivro){
+      if(this.searchInBag(idLivro))
+        return;
       let bag = JSON.parse(VueCookieNext.getCookie("bag"));
       let newBook = {id:idLivro};
-      console.log("a");
-      for (const book of bag) {
-        console.log(book)
-      }
       bag.push(newBook);
       let temp = JSON.stringify(bag);
       VueCookieNext.setCookie("bag",temp);
@@ -76,28 +170,6 @@ export default {
   data () {
     return {
       book: {},
-      book_evaluation:[
-        {
-          info: "Muito mal escrito!",
-          stars: 2,
-        },
-        {
-          info: "Bom pra passar o tempo, mas nada impressionante",
-          stars: 3,
-        },
-        {
-          info: "Genial",
-          stars: 4,
-        },
-        {
-          info: "Muito mal escrito!",
-          stars: 2,
-        },
-        {
-          info: "Muito mal escrito!",
-          stars: 2,
-        },
-      ],
     };
   },
 };

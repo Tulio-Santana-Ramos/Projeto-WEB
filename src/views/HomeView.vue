@@ -56,7 +56,7 @@ export default {
     changePage(numPage){
       this.$router.push("/?page="+numPage);
     },getLengthBooks(){
-      return 16;
+      return this.getAllBooks().length;
     },
     getAllBooks(){
       return JSON.parse(localStorage.getItem("books"));
@@ -84,134 +84,6 @@ export default {
       prev_text:"Anterior",
       pagination_class:"pagination",
       next_text:"Proximo",
-      books: [
-        {
-          name: "Harry Potter e a pedra filosofal",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: true ,
-          img: "harry.jpg"
-        },
-        {
-          name: "Crepusculo",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: false,
-          img: "crepusculo.jpg"
-        },
-          {
-          name: "Harry Potter e a pedra filosofal",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: true ,
-          img: "harry.jpg"
-        },
-        {
-          name: "Crepusculo",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: false,
-          img: "crepusculo.jpg"
-        },
-          {
-          name: "Harry Potter e a pedra filosofal",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: true ,
-          img: "harry.jpg"
-        },
-        {
-          name: "Crepusculo",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: false,
-          img: "crepusculo.jpg"
-        },
-          {
-          name: "Harry Potter e a pedra filosofal",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: true ,
-          img: "harry.jpg"
-        },
-        {
-          name: "Crepusculo",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: false,
-          img: "crepusculo.jpg"
-        },
-          {
-          name: "Harry Potter e a pedra filosofal",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: true ,
-          img: "harry.jpg"
-        },
-        {
-          name: "Crepusculo",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: false,
-          img: "crepusculo.jpg"
-        },
-        {
-          name: "Harry Potter e a pedra filosofal",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: true ,
-          img: "harry.jpg"
-        },
-        {
-          name: "Crepusculo",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: false,
-          img: "crepusculo.jpg"
-        },
-        {
-          name: "Harry Potter e a pedra filosofal",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: true ,
-          img: "harry.jpg"
-        },
-        {
-          name: "Crepusculo",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: false,
-          img: "crepusculo.jpg"
-        },
-        {
-          name: "Harry Potter e a pedra filosofal",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: true ,
-          img: "harry.jpg"
-        },
-        {
-          name: "Crepusculo",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: false,
-          img: "crepusculo.jpg"
-        },
-        {
-          name: "Harry Potter e a pedra filosofal",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: true ,
-          img: "harry.jpg"
-        },
-        {
-          name: "Crepusculo",
-          categories: ["Aventura", "Juvenil"],
-          price: "30.90",
-          promo: false,
-          img: "crepusculo.jpg"
-        },
-      ],
     };
   },
 };

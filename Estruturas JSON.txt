@@ -10,9 +10,15 @@ payment_forms:
 account:
     {
         "id":0,
-        "adm":"ADM",
-        "code":hash da conta
-    } Por enquanto o code n faz nada
+        "adm":"ADM"
+    }
+accounts:
+    {
+        "login":login,
+        "senha":senha,
+        "admin":bool,
+        "id": int
+    }
 Book:
     {
         "name": "Harry Potter e a pedra filosofal0",

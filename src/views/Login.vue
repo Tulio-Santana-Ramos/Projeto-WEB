@@ -1,9 +1,12 @@
+<script setup>
+import {VueCookieNext} from 'vue-cookie-next'
 
+</script>
 
 <template>
   <div id="centerDiv">
-    <img src="@/components/icons/Logo-icone.png" width="250px"
-         style="padding: 10px; margin-right: auto; margin-left: auto;">
+    <img src="@/components/icons/Logo-icone.png"
+         style="padding: 10px; margin-right: auto; margin-left: auto;width:250px">
 
 
     <div style="margin-right: auto; margin-left: auto;">
@@ -13,7 +16,7 @@
         <span class="input-group-text" style="max-height: 45px; max-width: 60px; padding-right: 20px">
           <img class="left-image" src="@/components/icons/email.png" style="width: 250%; height: 100%;">
         </span>
-        <input class="form-control" placeholder="Email"
+        <input class="form-control" placeholder="Email" ref="log"
                style="width: 350px;height: 45px;font-size: medium">
       </div>
       <br>
@@ -21,17 +24,16 @@
         <span class="input-group-text" style="max-height: 45px; max-width: 60px; padding-right: 20px">
           <img class="left-image" src="@/components/icons/password.png" style="width: 250%; height: 100%">
         </span>
-        <input class="form-control" type="password" placeholder="Senha" style="height: 45px;font-size: medium">
-        <span class="input-group-text right-span" style="max-height: 45px; max-width: 60px; padding-right: 20px">
+        <input class="form-control" ref="pass" type="password" placeholder="Senha" style="height: 45px;font-size: medium">
+        <div class="input-group-text right-span"  style="max-height: 45px; max-width: 60px; padding-right: 20px" @click="swapPasswordView()">
           <img class="right-image" src="@/components/icons/eye.png" style="width: 250%; height: 100%">
-        </span>
+        </div>
       </div>
       <br>
     </div>
     <div style="margin-right: auto; margin-left: auto;">
-      <div class="login-btn">
-        <p>Entrar</p>
-      </div>
+      <button type="button" @click="login()" class="btn btn-primary" style="padding: 20px 190px;margin-left: 20px">Entrar</button>
+
     </div>
     <div style="display: flex; justify-content:space-around; width: 500px; margin-right: auto; margin-left: auto; ">
       <div>
@@ -65,13 +67,13 @@
 
               <!-- Modal body -->
               <div class="modal-body" style="font-family: 'Grape Nuts', cursive; font-family: 'Open Sans', sans-serif;">
-                <h style="font-weight: bolder; font-size: large;">Função</h><br>
+                <h1 style="font-weight: bolder; font-size: large;">Função</h1><br>
                 <p>Este site foi criado e desenvolvido com a função de possibilitar a fácil a visualização de Ebooks de alta qualidade, a venda de produtos digitais e a divulgação de prestação de serviço. A WEEBOOK busca através da criação de conteúdo de alta qualidade, desenvolvido por profissionais da área, trazer o conhecimento ao alcance de todos, assim como a divulgação dos próprios serviços.</p>
-                <h style="font-weight: bolder; font-size: large;">Termos</h><br>
+                <h1 style="font-weight: bolder; font-size: large;">Termos</h1><br>
                 <p>Ao continuar acessando o site, o VISITANTE expressa que aceita e entende todas as cláusulas, assim como concorda integralmente com cada uma delas, sendo este aceite imprescindível para a permanência na mesma. Caso o VISITANTE discorde de alguma cláusula ou termo, o mesmo deve imediatamente interromper sua navegação de todas as formas e meios.</p>
-                <h style="font-weight: bolder; font-size: large;">Acesso</h><br>
+                <h1 style="font-weight: bolder; font-size: large;">Acesso</h1><br>
                 <p>O Site e plataforma funcionam normalmente 24 (vinte e quatro) horas por dia, porém podem ocorrer pequenas interrupções de forma temporária para ajustes, manutenção, mudança de servidores, falhas técnicas ou por ordem de força maior, que podem deixar o site indisponível por tempo limitado. A WEEBOOK não se responsabiliza por nenhuma perda de oportunidade ou prejuízos que esta indisponibilidade temporária possa gerar aos usuários.</p>
-                <h style="font-weight: bolder; font-size: large;">Licença</h><br>
+                <h1 style="font-weight: bolder; font-size: large;">Licença</h1><br>
                 <p>Todo o conteúdo do site é protegido por direitos autorais, e seu uso, cópia, transmissão, venda, cessão ou revenda, deve seguir a lei brasileira, tendo a WEEBOOK todos os seus direitos reservados, e não permitindo a cópia ou utilização de nenhuma forma e meio, sem autorização expressa e por escrita da mesma.</p>
               </div>
 
@@ -116,6 +118,27 @@
 <script>
 export default {
   methods: {
+    swapPasswordView(){
+      console.log(this.$refs.pass.type === "password");
+      if(this.$refs.pass.type === "password")
+        this.$refs.pass.type = "text";
+      else
+        this.$refs.pass.type = "password";
+    },
+    login(){
+      let accs = JSON.parse(localStorage.getItem("accounts"));
+      let login = this.$refs.log.value, pass = this.$refs.pass.value;
+      for (const acc of accs) {
+        if (acc.login === login && acc.senha === pass){
+          let account = {};
+          account.id = acc.id;
+          account.adm = acc.admin;
+          VueCookieNext.setCookie("account",JSON.stringify(account));
+          this.$router.push("/");
+          break;
+        }
+      }
+    },
     goToNewClient(){
       this.$router.push("/novousuario");
     },
