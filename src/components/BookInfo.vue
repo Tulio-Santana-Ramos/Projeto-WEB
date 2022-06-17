@@ -18,12 +18,16 @@
       </div>
     </div>
     <div class="synopsis">{{ synopsis }}</div>
-    <button class="edit-info" v-if="isAdmin()" data-bs-target="#modalChangeInfos" data-bs-toggle="modal" @click="editInfos()">
+    <button class="edit-info" v-if="isAdmin()" data-bs-target="#modalChangeInfos" data-bs-toggle="modal">
       <img class="edit-fig"  src="@/components/icons/settings.png"/>Editar informações
     </button>
-    <div class="buttons" v-else>
-      <button v-if="!inBag" type="button" class="btn btn-primary bag-book" @click="atClick(id);flushScreen()">Adicionar ao carrinho</button>
-      <button type="button" class="btn btn-primary buy-book"  @click="atClick(id);goToCarrinho()">Comprar E-book</button>
+    <!-- TODO: verificar se ta na lib -->
+    <div class="buttons" v-else-if="!inBag">
+      <button type="button" class="btn btn-primary bag-book" ref="btn_carrinho" @click="showToast();atClick(id);hideBtns()">Adicionar ao carrinho</button>
+      <button type="button" class="btn btn-primary buy-book" ref="btn_compra" @click="atClick(id);goToCarrinho()">Comprar E-book</button>
+    </div>
+    <div v-else>
+
     </div>
   </div>
   <div class="book-specifics">
@@ -57,7 +61,6 @@
           <h4 class="modal-title">Alterar informações do livro</h4>
           <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
         </div>
-
         <div class="input-group input-container">
           <span class="input-group-text" style="width: 87px;">
             Nome
@@ -114,6 +117,15 @@
           <input class="form-control" placeholder="Ano de publicação" style="height: 45px;font-size: medium"
                  type="text" ref="input_ano" v-bind:value="year">
         </div>
+        <div v-for="(category,index) in getAllCategories()">
+          <!--<input v-if="searchInActualCategories(category.id)" v-model="categoriesCheck" type="checkbox" v-bind:value="category.id" checked>
+          <input v-else v-model="categoriesCheck" type="checkbox" v-bind:value="category.id">-->
+          <input v-model="categoriesCheck[index]" type="checkbox">
+          <label>{{
+            category.name
+          }}</label>
+
+        </div>
 
         <!-- Modal footer -->
         <div class="modal-footer">
@@ -124,24 +136,69 @@
       </div>
     </div>
   </div>
+  <div class="toast-container position-fixed top-0 end-0 p-3 " style="z-index: 1000; ">
+    <div class="toast" id="liveToast" ref="toast">
+      <div class="toast-header">
+        <strong class="me-auto">Livro adicionado</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+      </div>
+      <div class="toast-body">
+        <p>O livro foi adicionado</p>
+      </div>
+    </div>
+  </div>
 </template>
-
-<!-- TODO: aparecer uma notificação item foi adicionado ao carrinho olha toasts bootstrap -->
-<!-- TODO: fazer o modal aparecer as categorias -->
 <script>
 import {VueCookieNext} from "vue-cookie-next";
 
 export default {
   name: "BookInfo",
-
-  props: ["name", "categories", "price", "synopsis","promotion","editor","author","tradutor","year","atClick","id","inBag"],
+  props: ["name", "categories", "price", "synopsis","promotion","editor","author","tradutor","year","atClick","id","inBag","inLib"],
   data() {
     return {
+      categoriesCheck:[]
     };
   },
+  mounted() {
+    let categories = this.getAllCategories();
+    for (let i = 0; i < categories.length; i++){
+      this.categoriesCheck[i] = this.searchInActualCategories(categories[i].name);
+    }
+  },
   methods: {
+    getAllCategories() {
+      return JSON.parse(localStorage.getItem("categories"))
+    },
+    searchInActualCategories(id){
+      for (const category of this.categories) {
+        if (category === id) {
+          return true;
+        }
+      }
+      return false;
+    },
+    showToast(){
+      this.$refs.toast.classList.add("show");
+      console.log("show");
+      setTimeout(()=>{
+        console.log("hide");
+        this.$refs.toast.classList.remove("show");
+      },5000);
+    },
+    hideBtns(){
+      this.$refs.btn_compra.remove();
+      this.$refs.btn_carrinho.remove();
+    },
+    logicalCategoriesToNumerical(){
+      let categories = [];
+      for (let i = 0; i < this.categoriesCheck.length; i++){
+        if(this.categoriesCheck[i]){
+          categories.push(i);
+        }
+      }
+      return categories;
+    },
     updateLivro(nome,preco,sinopse,editora,autor,tradutor,ano){
-      console.log(nome);
       let books = JSON.parse(localStorage.getItem("books"));
       let id = this.$route.query.id;
       for (let i = 0; i < books.length; i++) {
@@ -153,6 +210,8 @@ export default {
           books[i].autor = autor.value;
           books[i].tradutor = tradutor.value;
           books[i].year = ano.value;
+          books[i].categories = this.logicalCategoriesToNumerical();
+          console.log(books[i].categories);
           break;
         }
       }
@@ -160,20 +219,13 @@ export default {
       this.$router.go(0);
     },
     isAdmin(){
-      console.log(this.promotion);
       let account = VueCookieNext.getCookie("account");
       if(account === null)
         return false;
       return account.adm === true;
     },
-    flushScreen(){
-      this.$router.go(0);
-    },
     goToCarrinho(){
       this.$router.push("/carrinho");
-    },
-    editInfos(){
-
     }
   }
 };

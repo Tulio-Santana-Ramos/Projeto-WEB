@@ -8,12 +8,12 @@
             <div class="input-group-prepend">
               <div class="input-group input-container">
                 <span id="" class="input-group-text" style="width: 159px">Quantidade</span>
-                <input class="form-control" style="width:360px" type="text"/>
+                <input class="form-control" style="width:360px" type="text" ref="input_qtd"/>
               </div>
               <p/>
               <div class="input-group input-container">
                 <span id="" class="input-group-text">Preço promocional</span>
-                <input class="form-control" type="text"/>
+                <input class="form-control" type="text" ref="input_newPreco"/>
               </div>
             </div>
           </div>
@@ -24,14 +24,21 @@
               <div class="input-group-prepend">
                 <span id="" class="input-group-text">Título</span>
               </div>
-              <input class="form-control" type="text"/>
+              <input class="form-control" type="text" ref="input_nome"/>
             </div>
             <p/>
             <div class="input-group" style="text-align: right; width: 200px">
               <div class="input-group-prepend">
                 <span id="" class="input-group-text">Preço</span>
               </div>
-              <input class="form-control" type="text"/>
+              <input class="form-control" type="text" ref="input_preco"/>
+            </div>
+            <p/>
+            <div class="input-group" style="text-align: right; width: 200px">
+              <div class="input-group-prepend">
+                <span id="" class="input-group-text">Numero de Paginas</span>
+              </div>
+              <input class="form-control" type="text" ref="input_pag"/>
             </div>
             <p/>
             <div class="input-group" style="text-align: right; width: 500px; height: 300px">
@@ -43,7 +50,7 @@
             >Descrição</span
             >
               </div>
-              <input class="form-control" type="text"/>
+              <input class="form-control" type="text" ref="input_desc"/>
             </div>
           </div>
         </div>
@@ -85,7 +92,7 @@
           >Editora</span
           >
         </div>
-        <input class="form-control" type="text"/>
+        <input class="form-control" type="text" ref="input_editora"/>
       </div>
     </div>
     <div class="info">
@@ -100,7 +107,7 @@
           >Autor(a)</span
           >
         </div>
-        <input class="form-control" type="text"/>
+        <input class="form-control" type="text" ref="input_autor"/>
       </div>
     </div>
     <div class="info">
@@ -115,7 +122,7 @@
           >Tradutor</span
           >
         </div>
-        <input class="form-control" type="text"/>
+        <input class="form-control" type="text" ref="input_tradutor"/>
       </div>
     </div>
     <div class="info">
@@ -130,22 +137,49 @@
           >Ano</span
           >
         </div>
-        <input class="form-control" type="text"/>
+        <input class="form-control" type="text" ref="input_Ano"/>
       </div>
     </div>
   </div>
 
   <div class="buttons">
-    <button class="btn btn-primary bag-book" type="button">
+    <button class="btn btn-primary bag-book" type="button" @click="addBook();propagateChanges();">
       Adicionar e-book
     </button>
   </div>
 </template>
 
-<!-- TODO: aparecer uma notificação item foi adicionado  (olha toasts bootstrap) -->
 <script>
 export default {
   methods: {
+    addBook(){
+      let books = JSON.parse(localStorage.getItem("books"));
+      let newBook = {};
+      newBook.name = this.$refs.input_nome.value;
+      newBook.pages = parseInt(this.$refs.input_pag.value);
+      newBook.categories = this.checkBoxValues;
+      newBook.price = parseFloat(this.$refs.input_preco.value);
+      newBook.promo = {};
+      if(this.$refs.input_qtd.value !== "" && parseInt(this.$refs.input_qtd.value )!== 0) {
+        newBook.promo.is = true;
+        newBook.promo.numberBooks = parseInt(this.$refs.input_qtd.value);
+        newBook.promo.tempPrice = parseInt(this.$refs.input_newPreco.value);
+      }else{
+        newBook.promo.is = false;
+        newBook.promo.numberBooks = 0;
+        newBook.promo.tempPrice = 0;
+      }
+
+      newBook.synopsis = this.$refs.input_desc.value
+      newBook.editor = this.$refs.input_editora.value;
+      newBook.autor = this.$refs.input_autor.value;
+      newBook.tradutor = this.$refs.input_tradutor.value;
+      newBook.year = this.$refs.input_Ano.value;
+      newBook.id = books[books.length-1].id+1;//Coloca o id do novo livro como o ultimo +1
+      newBook.evaluations = [];
+      books.push(newBook);
+      localStorage.setItem("books",JSON.stringify(books));
+    },
     getAllCategories() {
       return JSON.parse(localStorage.getItem("categories"))
     },
@@ -155,6 +189,7 @@ export default {
       checkBoxValues: []
     }
   },
+  props:["propagateChanges"],
 }
 </script>
 <style scoped>

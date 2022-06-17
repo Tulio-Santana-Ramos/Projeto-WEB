@@ -129,10 +129,40 @@ import {VueCookieNext} from 'vue-cookie-next'
           Total da compra: {{ getFullPrice() }}
           <br>
           <button class="btn btn-primary" style="color: white; cursor: pointer;margin: 20px 0" type="button"
-                  @click="nextStep()">
+                  @click="finishShop()">
             Finalizar Compra
           </button>
         </div>
+      </div>
+    </div>
+  </div>
+  <button  data-bs-target="#modalCard" data-bs-toggle="modal" style="border-width:0;width: 0;height: 0; cursor: default"
+          type="button" ref="modalButton"/>
+
+  <!-- The Modal -->
+  <div id="modalCard" class="modal" style="margin-top: 200px">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Você não está logado</h4>
+          <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          Parece que você não está logado.
+          Para fazer compras no nosso site faça login ou crie uma conta
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <!-- TODO: fazer o login virar um modal -->
+          <button class="btn btn-primary" data-bs-dismiss="modal" type="button" @click="this.$router.push('/login')">Login</button>
+          <button class="btn btn-primary" data-bs-dismiss="modal" type="button" @click="this.$router.push('/novousuario')">Cadastre-se</button>
+        </div>
+
       </div>
     </div>
   </div>
@@ -223,6 +253,49 @@ export default {
     },
     getPaymentForms() {
       return JSON.parse(localStorage.getItem("payment_forms"));
+    },
+    finishShop(){
+      let user = VueCookieNext.getCookie("account");
+      if(user === null){
+        this.$refs.modalButton.click();
+      }
+      let updateBookList = false;
+      let bag = this.getBag();
+      for (const book of bag) {
+        if (book.promo.is){
+          updateBookList = true;
+          book.promo.numberBooks--;
+          if (book.promo.numberBooks <= 0){
+            book.promo.is=false;
+            book.promo.tempPrice=0;
+            book.promo.numberBooks=0;
+          }
+        }
+      }
+      if(updateBookList) {
+        let books = JSON.parse(localStorage.getItem("books"));
+        for (let i = 0; i < books.length;i++){
+          for (let buyBook of bag) {
+            if (books[i].id === buyBook.id)
+              books[i].promo = buyBook.promo;
+          }
+        }
+        localStorage.setItem("books",JSON.stringify(books));
+      }
+      let oldBuys = JSON.parse(localStorage.getItem("buys"));
+      let newBuy = {};
+      let accounts = JSON.parse(localStorage.getItem("accounts"));
+      for (const userAcc of accounts) {
+        if(parseInt(userAcc.id) === parseInt(user.id)){
+          newBuy.name = userAcc.name;
+          break;
+        }
+      }
+      newBuy.value = this.getFullPrice();
+      oldBuys.push(newBuy);
+      VueCookieNext.setCookie("bag","");
+      localStorage.setItem("buys",JSON.stringify(oldBuys));
+      this.$router.push("/");
     }
   }
 }

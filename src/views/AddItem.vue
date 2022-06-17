@@ -11,8 +11,21 @@ import AddBook from "@/components/AddBook.vue";
     <AdminMenu
         :plotDropDown="false"
     />
+    <div class="toast-container position-fixed bottom-0 end-0 p-3 " style="z-index: 1000; ">
+      <div class="toast " id="liveToast" ref="toast">
+        <div class="toast-header">
+          <strong class="me-auto">Livro adicionado</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body">
+          <p>O livro foi adicionado</p>
+        </div>
+      </div>
+    </div>
     <h1 class="titlePage">Adicionar/Editar Livro</h1>
-    <AddBook></AddBook>
+    <AddBook
+    :propagateChanges="showToast"
+    ></AddBook>
     <div class="manage-item"></div>
   </div>
   <div v-else>
@@ -34,6 +47,16 @@ export default {
       admin: true,
     };
   },
+  methods:{
+    showToast(){
+      this.$refs.toast.classList.add("show");
+      console.log("show");
+      setTimeout(()=>{
+        console.log("hide");
+        this.$refs.toast.classList.remove("show");
+      },5000);
+    },
+  }
 };
 </script>
 

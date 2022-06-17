@@ -73,13 +73,12 @@ const router = createRouter({
       name: 'novachave',
       
       component: () => import('../views/NewKey.vue')
-    },
-    /*{
+    },{
       path: '/test',
       name: 'test',
 
       component: () => import('../views/Test.vue')
-    },*/
+    },
     {
       path: '/resetConfig',
       name: 'resetConfig',

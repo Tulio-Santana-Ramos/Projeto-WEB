@@ -17,6 +17,7 @@ accounts:
         "login":login,
         "senha":senha,
         "admin":bool,
+        "name":string,
         "id": int
     }
 Book://pdf = id.pdf
@@ -63,4 +64,9 @@ Categories:
     {
         "name":name,
         "id":int
+    }
+Buys:
+    {
+        "name":nomeDoCliente,
+        "value":valorDaCompra
     }

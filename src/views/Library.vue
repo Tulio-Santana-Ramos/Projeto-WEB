@@ -12,7 +12,7 @@ import {VueCookieNext} from "vue-cookie-next";
   />
 
   <h1 class="titlePage">Biblioteca de livros</h1>
-  <div v-if="user" class="books">
+  <div v-if="hadUser()" class="books">
     <div v-for="book in getUserBooks()">
       <Books
         :name="book.name"
@@ -34,6 +34,9 @@ import {VueCookieNext} from "vue-cookie-next";
 export default {
   name: "app",
   methods:{
+    hadUser(){
+      return VueCookieNext.getCookie("account") !== null;
+    },
     getAllCategories(){
       return JSON.parse(localStorage.getItem("categories"))
     },

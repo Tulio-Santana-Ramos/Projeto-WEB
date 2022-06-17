@@ -100,6 +100,7 @@ import Evaluation from "@/components/avaliationResult.vue";</script>
       :atClick="addToBag"
       :id="book.id"
       :inBag="searchInBag(book.id)"
+      :inLib="searchInBag(book.id)"
     />
   </div>
 
@@ -150,6 +151,22 @@ export default {
       localStorage.setItem("books",JSON.stringify(books));
       this.$router.push("/");
     },
+    /*searchInLib(id){
+      let acc = VueCookieNext.getCookie("account");
+      if(acc === undefined)
+        return false;
+      let libs = JSON.parse(localStorage.getItem("libraries"));
+      for (const lib of libs) {
+        if (lib.user === acc.id){
+          for (const book of lib.lib) {
+            if (book.id === id){
+              return true;
+            }
+          }
+        }
+      }
+      return false;
+    },*/
     searchInBag(id){
       let bag = JSON.parse(VueCookieNext.getCookie("bag"));
       for (const book of bag) {
