@@ -38,6 +38,8 @@ export default {
       return VueCookieNext.getCookie("account") !== null;
     },
     getAllCategories(){
+      console.log(this.hadUser());
+      console.log(typeof VueCookieNext.getCookie("account"));
       return JSON.parse(localStorage.getItem("categories"))
     },
     getUserBooks(){

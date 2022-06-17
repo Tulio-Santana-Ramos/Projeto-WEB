@@ -5,11 +5,22 @@ import NewAccount from "@/components/NewAccount.vue";
 <template>
     <h2 class="title">CRIAR CONTA</h2>
     <img class="user-pic" src="@/components/icons/user.png"/>
-    <NewAccount/>
+    <NewAccount
+      :adminReg=true
+      :nextPage="next"
+    />
     <p class="use-conditions">Condições de uso</p>
     <p class="contact">Entre em contato</p>
 </template>
-
+<script>
+export default {
+  data(){
+    return {
+      next: "/login"
+    }
+  }
+};
+</script>
 <style scoped>
 .user-pic{
     float: right;

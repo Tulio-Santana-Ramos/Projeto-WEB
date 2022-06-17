@@ -23,71 +23,78 @@ import {VueCookieNext} from 'vue-cookie-next'
           1. Selecione um metodo de pagamento:
         </span>
         <BlankLine/>
-        <span class="normal-text" style="padding-left: 100px">
-          Seus cartões de crédito:
-        </span>
-        <div v-for="(card,index) in getCreditCards()" class="card-div">
-          <input type="radio" v-bind:name="payment_name" v-bind:value="'0 '+index"/>
-          <CreditCard
-              :code="card.code"
-              :flag="card.flag"
-              :name="card.name"
-          />
-        </div>
-        <div style="padding-left: 150px">
-          <button class="btn btn-secondary" data-bs-target="#modalCard" data-bs-toggle="modal" style="margin: 10px"
-                  type="button">+ Adicionar novo cartão
-          </button>
-        </div>
-        <!-- The Modal -->
-        <div id="modalCard" class="modal" style="margin-top: 200px">
-          <div class="modal-dialog">
-            <div class="modal-content">
+        <div v-if="hadUser()">
+          <span class="normal-text" style="padding-left: 100px">
+            Seus cartões de crédito:
+          </span>
+          <div v-for="(card,index) in getCreditCards()" class="card-div">
+            <input type="radio" v-bind:name="payment_name" v-bind:value="'0 '+index"/>
+            <CreditCard
+                :code="card.code"
+                :flag="card.flag"
+                :name="card.name"
+            />
+          </div>
+          <div style="padding-left: 150px">
+            <button class="btn btn-secondary" data-bs-target="#modalCard" data-bs-toggle="modal" style="margin: 10px"
+                    type="button">+ Adicionar novo cartão
+            </button>
+          </div>
 
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Adicionar novo cartão</h4>
-                <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
-              </div>
+          <!-- The Modal -->
+          <div id="modalCard" class="modal" style="margin-top: 200px">
+            <div class="modal-dialog">
+              <div class="modal-content">
 
-              <!-- Modal body -->
-              <div class="modal-body">
-                <div>
-                  <div class="input-group input-container">
-                    <span class="input-group-text" style="width: 87px;">
-                      Nome
-                    </span>
-                    <input class="form-control" placeholder="Nome do titular"
-                           style="width: 350px;height: 45px;font-size: medium"
-                           ref="input_nome">
-                  </div>
-                  <br>
-                  <div class="input-group input-container" style="margin-right: auto; margin-left: auto;">
-                    <span class="input-group-text">
-                      Bandeira
-                    </span>
-                    <input class="form-control" placeholder="Bandeira do cartão" style="height: 45px;font-size: medium"
-                           type="text" ref="input_bandeira">
-                  </div>
-                  <br>
-                  <div class="input-group input-container" style="margin-right: auto; margin-left: auto;">
-                    <span class="input-group-text" style="width: 87px">
-                      Numero
-                    </span>
-                    <input class="form-control" placeholder="Número do cartão" style="height: 45px;font-size: medium"
-                           type="number" ref="input_num">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Adicionar novo cartão</h4>
+                  <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <div>
+                    <div class="input-group input-container">
+                      <span class="input-group-text" style="width: 87px;">
+                        Nome
+                      </span>
+                      <input class="form-control" placeholder="Nome do titular"
+                             style="width: 350px;height: 45px;font-size: medium"
+                             ref="input_nome">
+                    </div>
+                    <br>
+                    <div class="input-group input-container" style="margin-right: auto; margin-left: auto;">
+                      <span class="input-group-text">
+                        Bandeira
+                      </span>
+                      <input class="form-control" placeholder="Bandeira do cartão" style="height: 45px;font-size: medium"
+                             type="text" ref="input_bandeira">
+                    </div>
+                    <br>
+                    <div class="input-group input-container" style="margin-right: auto; margin-left: auto;">
+                      <span class="input-group-text" style="width: 87px">
+                        Numero
+                      </span>
+                      <input class="form-control" placeholder="Número do cartão" style="height: 45px;font-size: medium"
+                             type="number" ref="input_num">
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <!-- Modal footer -->
-              <div class="modal-footer">
-                <button class="btn btn-primary" data-bs-dismiss="modal" @click="addCard(this.$refs.input_nome.value,this.$refs.input_bandeira.value,this.$refs.input_num.value)" type="button">Adicionar</button>
-                <button class="btn btn-danger" data-bs-dismiss="modal" type="button">Cancelar</button>
-              </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button class="btn btn-primary" data-bs-dismiss="modal" @click="addCard(this.$refs.input_nome.value,this.$refs.input_bandeira.value,this.$refs.input_num.value)" type="button">Adicionar</button>
+                  <button class="btn btn-danger" data-bs-dismiss="modal" type="button">Cancelar</button>
+                </div>
 
+              </div>
             </div>
           </div>
+        </div>
+        <div v-else style="padding-left: 100px">
+          Para pagar com cartão é necessario fazer login:
+          <button class="btn btn-primary" data-bs-dismiss="modal" type="button" @click="this.$router.push('/login')">Login</button>
         </div>
         <span v-for="(payment, index) in getPaymentForms()" class="other-payment">
           <BlankLine/>
@@ -136,11 +143,11 @@ import {VueCookieNext} from 'vue-cookie-next'
       </div>
     </div>
   </div>
-  <button  data-bs-target="#modalCard" data-bs-toggle="modal" style="border-width:0;width: 0;height: 0; cursor: default"
+  <button data-bs-target="#modalLogin" data-bs-toggle="modal" style="border-width:0;width: 0;height: 0; cursor: default"
           type="button" ref="modalButton"/>
 
   <!-- The Modal -->
-  <div id="modalCard" class="modal" style="margin-top: 200px">
+  <div id="modalLogin" class="modal" style="margin-top: 200px">
     <div class="modal-dialog">
       <div class="modal-content">
 
@@ -181,6 +188,9 @@ export default {
     };
   },
   methods: {
+    hadUser(){
+      return VueCookieNext.getCookie("account") !== null;
+    },
     addCard(nome,bandeira,numero) {
       let newCard = {};
       newCard.name = nome;
@@ -249,6 +259,14 @@ export default {
       this.$router.push({path: "/finalizarCompra/", query: {payment_form: options[0], id: options[1]}});
     },
     getCreditCards() {
+      let acc = VueCookieNext.getCookie("account");
+      if(acc === null){
+        return '';
+      }
+      for (const accBD of JSON.parse(localStorage.getItem("accounts"))) {
+        if(acc.id === accBD.id)
+          return accBD.cards;
+      }
       return JSON.parse(localStorage.getItem("cards"));
     },
     getPaymentForms() {

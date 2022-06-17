@@ -129,7 +129,7 @@ export default {
       let accs = JSON.parse(localStorage.getItem("accounts"));
       let login = this.$refs.log.value, pass = this.$refs.pass.value;
       for (const acc of accs) {
-        if (acc.login === login && acc.senha === pass){
+        if (acc.email === login && acc.senha === pass){
           let account = {};
           account.id = acc.id;
           account.adm = acc.admin;

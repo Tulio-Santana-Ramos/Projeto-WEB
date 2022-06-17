@@ -15,15 +15,22 @@
       </div>
       <a class="navbar-brand" @click="goToAddItem()"  style="height: 100%"><img class="img-navbar" src="@/components/icons/plus.png" style="width:60px;height: 60px;padding: 10px;"><span class="txt-navbar" >Adicionar itens</span></a>
       <a class="navbar-brand" @click="goToAdminsPage()"  style="height: 100%"><img class="img-navbar" src="@/components/icons/admin-with-cogwheels.png" width="60px" style="width:60px;height: 60px;padding: 10px;"></a>
+      <a class="navbar-brand" @click="logout()"  style="height: 100%"><img class="img-navbar" src="@/components/icons/logout.png"  style="width:60px;height: 60px;padding: 10px;"></a>
     </div>
   </nav>
 </template>
 
 <script>
+import {VueCookieNext} from "vue-cookie-next";
+
 export default {
   name:"menu",
   props:["plotDropDown"],
    methods: {
+     logout(){
+       VueCookieNext.removeCookie("account");
+       this.$router.go(0);
+     },
     goToAdminHome(){
       this.$router.push("/");
     },

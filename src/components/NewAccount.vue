@@ -7,21 +7,23 @@ import { required } from "@vuelidate/validators";
     <img class="logo" src="@/components/icons/Logo-icone.png"/>
     <div class="new-acc">
         <p class="field">
-            Nome: <input type="text" placeholder="Nome" v-model="nome"/>
+            Nome: <input type="text" placeholder="Nome" ref="name"/>
         </p>
         <p class="field">
-            E-mail: <input type="text" placeholder="E-mail" v-model="email"/>
+            E-mail: <input type="email" placeholder="E-mail" ref="email"/>
         </p>
         <p class="field">
-            Telefone: <input type="text" placeholder="Telefone" v-model="phone"/>
+            Telefone: <input type="text" placeholder="Telefone" ref="phone"/>
         </p>
         <p class="field">
-            Senha: <input type="password" placeholder="Senha" v-model="password.password"/>
+            Senha: <input type="password" placeholder="Senha" ref="pass"/>
         </p>
         <p class="field">
-            Confirme Senha: <input type="password" placeholder="Confirme Senha" v-model="password.confirm"/>
+            Confirme Senha: <input type="password" placeholder="Confirme Senha" ref="pass2"/>
         </p>
-        <button class="create" @click="submit">CRIAR CONTA</button>
+        <span style="color: red" ref="passError"></span>
+      <br>
+        <button class="create" @click="submit()">CRIAR CONTA</button>
     </div>
 </template>
 
@@ -29,36 +31,28 @@ import { required } from "@vuelidate/validators";
 
 export default {
   name: "NewAccount",
+  props:["adminReg","nextPage"],
   data() {
     return {
-        v$: useValidate(),
-        nome: "",
-        email: "",
-        phone: "",
-        password: {
-            password: "",
-            confirm: "",
-        },
+
     };
-  },
-  validations(){
-    return{
-        nome: { required },
-        email: { required },
-        password: {
-            password: { required },
-            confirm: { required },
-        }
-    }
   },
   methods: {
     submit() {
-        this.v$.$validate();
-        if(!this.v$.$error){
-            alert('Conta criada com sucesso!');
-        }else{
-            alert('Houve um erro com os dados inseridos');
-        }
+      if (this.$refs.pass.value !== this.$refs.pass2.value) {
+        this.$refs.passError.innerText = "As senhas não conhecidem";
+      }
+      let accs = JSON.parse(localStorage.getItem("accounts"));
+      let newAccount = {};
+      newAccount.email = this.$refs.email.value;
+      newAccount.senha = this.$refs.pass.value;
+      newAccount.admin = this.adminReg;
+      newAccount.name = this.$refs.name.value;
+      newAccount.phone = this.$refs.phone.value;
+      newAccount.id = accs.length;
+      accs.push(newAccount);
+      localStorage.setItem("accounts",JSON.stringify(accs));
+      this.$router.push(this.nextPage);
     }
   },
 };

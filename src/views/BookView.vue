@@ -105,6 +105,7 @@ import Evaluation from "@/components/avaliationResult.vue";</script>
   </div>
 
   <div class="book-stats">
+    <!-- TODO: avaliação dinamica -->
     <div v-for="book in book.evaluations">
       <Evaluation :info="book.info" :stars="book.stars"></Evaluation>
     </div>

@@ -14,11 +14,18 @@ account:
     }
 accounts:
     {
-        "login":login,
+        "email":login,
         "senha":senha,
         "admin":bool,
         "name":string,
-        "id": int
+        "phone":string,
+        "id": int,
+        "cards":[
+        {
+            "name":"Harry Potter",
+            "code":1010,
+            "flag":"Nubank"
+        }]
     }
 Book://pdf = id.pdf
      //img = id.jpg

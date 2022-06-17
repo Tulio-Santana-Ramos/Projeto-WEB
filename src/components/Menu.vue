@@ -15,7 +15,8 @@
         <span class="input-group-text" style="max-height: 60px; max-width: 60px"><img src="@/components/icons/research.png" ></span>
       </div>
       <a class="navbar-brand" @click="goToCarrinho()"  style="height: 100%"><img class="img-navbar" src="@/components/icons/carrinho-carrinho.png" style="width:60px;height: 60px;padding: 10px;"> </a>
-      <a class="navbar-brand" @click="goToLogin()"  style="height: 100%"><img class="img-navbar" src="@/components/icons/user.png"  style="width:60px;height: 60px;padding: 10px;"></a>
+      <a v-if="!hadUser()" class="navbar-brand" @click="goToLogin()"  style="height: 100%"><img class="img-navbar" src="@/components/icons/user.png"  style="width:60px;height: 60px;padding: 10px;"></a>
+      <a v-else class="navbar-brand" @click="logout()"  style="height: 100%"><img class="img-navbar" src="@/components/icons/logout.png"  style="width:60px;height: 60px;padding: 10px;"></a>
     </div>
   </nav>
   <!-- TODO: fazer um modal para logoff -->
@@ -23,10 +24,19 @@
 </template>
 
 <script>
+import {VueCookieNext} from "vue-cookie-next";
+
 export default {
    name:"menu",
    props:["plotDropDown","filter"],
    methods: {
+     logout(){
+       VueCookieNext.removeCookie("account");
+       this.$router.go(0);
+     },
+     hadUser(){
+       return VueCookieNext.getCookie("account") !== null;
+     },
      goToHome(){
       this.$router.push("/");
      },
