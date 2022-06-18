@@ -8,6 +8,8 @@ import AdminMenu from "@/components/AdminMenu.vue";
 <template>
   <AdminMenu v-if="isAdmin()"
              :plotDropDown="true"
+             :filter="filterDropdown"
+             :actualCategory="this.$route.query.category"
   />
   <Menu v-else
         :plotDropDown="true"
@@ -49,6 +51,7 @@ export default {
   },
   name: 'app',
   mounted() {
+    console.log(this.$route.query.category);
     if(this.$route.query.category !== undefined)
       this.actualCategory = this.$route.query.category;
   },

@@ -9,6 +9,8 @@ import {VueCookieNext} from "vue-cookie-next";
 <template>
   <Menu
       :plotDropDown="true"
+      :filter="filterDropdown"
+      :actualCategory="this.$route.query.category"
   />
 
   <h1 class="titlePage">Biblioteca de livros</h1>
@@ -59,6 +61,9 @@ import {VueCookieNext} from "vue-cookie-next";
 export default {
   name: "app",
   methods:{
+    filterDropdown(id){
+      this.$router.push({path:"/biblioteca",query:{category:id}});
+    },
     goToBook(idLivro){
       this.$router.push({path:"/livro",query:{id:idLivro}});
     },
@@ -68,6 +73,21 @@ export default {
     getAllCategories(){
       return JSON.parse(localStorage.getItem("categories"))
     },
+    getAllBooks(){
+      return JSON.parse(localStorage.getItem("books"));
+    },
+    getActualBooks(){
+      let temp = [];
+      let books = this.getAllBooks();
+      if(this.$route.query.category === undefined)
+        return books;
+      let category = this.$route.query.category;
+      for (const book of books) {
+        if (book.categories.includes(parseInt(category)))
+          temp.push(book);
+      }
+      return temp;
+    },
     getUserBooks(){
       let actualUser = VueCookieNext.getCookie("account");
       let libraries = JSON.parse(localStorage.getItem("libraries"));
@@ -75,7 +95,7 @@ export default {
       let temp = [];
       for (const library of libraries) {
         if(library.user === actualUser.id){
-          for (const book of JSON.parse(localStorage.getItem("books"))) {
+          for (const book of this.getActualBooks()) {
             for (const bookLib of library.lib) {
               if (parseInt(book.id) === parseInt(bookLib.id)) {
                 let tempCategories = [];

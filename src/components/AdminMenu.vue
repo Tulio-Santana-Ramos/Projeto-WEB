@@ -1,17 +1,36 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="overflow: visible">
     <div class="container-fluid">
       <a class="navbar-brand"  @click="goToAdminHome()" ><img class="img-navbar navbar-brand" src="@/components/icons/logo.png"  style=" width:80px;height: 80px; padding: 10px;"></a>
-      <select v-if="plotDropDown" name="livros" id="book-select" style=" margin-left: 80px;margin-top: 15px " class="form-select form-select-lg mb-3">
-        <option value="" disabled selected hidden>Selecione a categoria</option>
-        <option value="romance">Romance</option>
-        <option value="scifi">Sci-Fi</option>
-        <option value="aventura">Aventura</option>
-        <option value="juvenil">Juvenil</option>
+      <select v-if="plotDropDown" ref="drop" name="livros" id="book-select" style=" margin-left: 80px;margin-top: 15px " class="form-select form-select-lg mb-3" @change="filter(this.$refs.drop.value)" v-model="this.dropdownCategory">
+        <option value=-1 disabled hidden selected>Selecione a categoria</option>
+        <option v-for="categorie in getAllCategories()" v-bind:value="categorie.id">
+          {{categorie.name}}
+        </option>
       </select>
-      <div class="input-group" style="max-width: 500px">
-        <input type="text" class="form-control" placeholder="Busque um livro" style="max-height: 60px">
-        <span class="input-group-text" style="max-height: 60px; max-width: 60px"><img src="@/components/icons/research.png" ></span>
+      <div>
+        <div class="input-group" style="max-width: 500px; margin-top: 30px">
+          <input type="text" class="form-control" placeholder="Busque um livro" style="max-height: 60px" v-model="textSearch" @focusout="active = false">
+          <span class="input-group-text" style="max-height: 60px; max-width: 60px"><img src="@/components/icons/research.png" ></span>
+        </div>
+        <div class="dropdown" >
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="display: none" ref="btnDrop">
+            Dropdown button
+          </button>
+          <p/>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <div v-if="getMatchedBooks().length > 0">
+              <li v-for="book in getMatchedBooks()" @click="goToBook(book.id)" class="dropdown-item" style="cursor: pointer">
+                {{book.name}}
+              </li>
+            </div>
+            <div v-else>
+              <li class="dropdown-item" @click="goToAddItem()">
+                Adicione o livro
+              </li>
+            </div>
+          </ul>
+        </div>
       </div>
       <a class="navbar-brand" @click="goToAddItem()"  style="height: 100%"><img class="img-navbar" src="@/components/icons/plus.png" style="width:60px;height: 60px;padding: 10px;"><span class="txt-navbar" >Adicionar itens</span></a>
       <a class="navbar-brand" @click="goToAdminsPage()"  style="height: 100%"><img class="img-navbar" src="@/components/icons/admin-with-cogwheels.png" width="60px" style="width:60px;height: 60px;padding: 10px;"></a>
@@ -25,22 +44,76 @@ import {VueCookieNext} from "vue-cookie-next";
 
 export default {
   name:"menu",
-  props:["plotDropDown"],
-   methods: {
-     logout(){
-       VueCookieNext.removeCookie("account");
-       this.$router.go(0);
-     },
+  props:["plotDropDown","filter","actualCategory"],
+  mounted() {
+    if (this.actualCategory !== undefined)
+      this.dropdownCategory = this.actualCategory;
+  },watch: {
+    textSearch(newText, oldText){
+      if (!this.active) {
+        this.$refs.btnDrop.click()
+        this.active = true;
+      }
+    }
+  },
+  methods: {
+    goToBook(idLivro){
+      this.$router.push({path:"/livro",query:{id:idLivro}});
+    },
+    logout(){
+      VueCookieNext.removeCookie("account");
+      this.$router.go(0);
+    },
+    hadUser(){
+      return VueCookieNext.getCookie("account") !== null;
+    },
+    getAllBooks(){
+      return JSON.parse(localStorage.getItem("books"));
+    },
+    getMatchedBooks(){
+      if (this.textSearch === "")
+        return this.getAllBooks();
+      let regex = new RegExp("("+this.textSearch.toLowerCase()+")");
+      let matchedBooks = [];
+      let books = this.getAllBooks();
+      for (const book of books) {
+        if(regex.exec(book.name.toLowerCase()) !== null){
+          matchedBooks.push(book);
+        }
+      }
+      return matchedBooks;
+    },
+    goToHome(){
+      this.$router.push("/");
+    },
+    goToLogin() {
+      this.$router.push("/login");
+    },
+    goToCarrinho() {
+      this.$router.push("/carrinho");
+    },
+    goToBiblioteca() {
+      this.$router.push("/biblioteca");
+    },
+
     goToAdminHome(){
       this.$router.push("/");
     },
-      goToAdminsPage() {
+    goToAdminsPage() {
       this.$router.push("/gerenciamento");
     },
     goToAddItem() {
       this.$router.push("/additem");
     },
-   
+    getAllCategories(){
+      return JSON.parse(localStorage.getItem("categories"));
+    }
+  },data(){
+    return {
+      dropdownCategory: -1,
+      textSearch:"",
+      active:false,
+    }
   },
 }
 </script>
@@ -80,7 +153,7 @@ img{
 /* Change background on mouse-over */
 .navbar a:hover {
   background: #ddd;
-    color: #38B6FF;
+  color: #38B6FF;
 }
 
 .navbar-brand:hover{
@@ -133,7 +206,7 @@ img{
 }
 
 .txt-navbar{
-  font-size: 1.5em;
+  font-size: xx-large;
 }
 
 .navigate a{

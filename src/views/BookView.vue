@@ -153,16 +153,13 @@ export default {
     },
     searchInLib(id){
       let acc = VueCookieNext.getCookie("account");
-      if(acc === undefined)
+      if(acc === undefined || acc === null)
         return false;
       let libs = JSON.parse(localStorage.getItem("libraries"));
       for (const lib of libs) {
-        console.log(lib);
         if (lib.user === acc.id){
           for (const book in lib.lib) {
-            console.log(lib.lib[book]);
             if (lib.lib[book].id === id){
-              console.log("Ta na lib");
               return true;
             }
           }
@@ -174,7 +171,6 @@ export default {
       let bag = JSON.parse(VueCookieNext.getCookie("bag"));
       for (const book of bag) {
         if (book.id === id)
-          console.log("Ta no carrinho");
           return true;
       }
       return false;
