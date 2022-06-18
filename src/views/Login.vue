@@ -12,7 +12,7 @@ import {VueCookieNext} from 'vue-cookie-next'
     <div style="margin-right: auto; margin-left: auto;">
 
 
-      <div class="input-group input-container" >
+      <div class="input-group input-container">
         <span class="input-group-text" style="max-height: 45px; max-width: 60px; padding-right: 20px">
           <img class="left-image" src="@/components/icons/email.png" style="width: 250%; height: 100%;">
         </span>
@@ -24,15 +24,19 @@ import {VueCookieNext} from 'vue-cookie-next'
         <span class="input-group-text" style="max-height: 45px; max-width: 60px; padding-right: 20px">
           <img class="left-image" src="@/components/icons/password.png" style="width: 250%; height: 100%">
         </span>
-        <input class="form-control" ref="pass" type="password" placeholder="Senha" style="height: 45px;font-size: medium">
-        <div class="input-group-text right-span"  style="max-height: 45px; max-width: 60px; padding-right: 20px" @click="swapPasswordView()">
+        <input class="form-control" ref="pass" type="password" placeholder="Senha"
+               style="height: 45px;font-size: medium">
+        <div class="input-group-text right-span" style="max-height: 45px; max-width: 60px; padding-right: 20px"
+             @click="swapPasswordView()">
           <img class="right-image" src="@/components/icons/eye.png" style="width: 250%; height: 100%">
         </div>
       </div>
       <br>
     </div>
     <div style="margin-right: auto; margin-left: auto;">
-      <button type="button" @click="login()" class="btn btn-primary" style="padding: 20px 190px;margin-left: 20px">Entrar</button>
+      <button type="button" @click="login()" class="btn btn-primary" style="padding: 20px 190px;margin-left: 20px">
+        Entrar
+      </button>
 
     </div>
     <div style="display: flex; justify-content:space-around; width: 500px; margin-right: auto; margin-left: auto; ">
@@ -56,61 +60,77 @@ import {VueCookieNext} from 'vue-cookie-next'
     </div>
 
     <div id="modalCardTerms" class="modal" style="margin-top: 10px">
-          <div class="modal-dialog">
-            <div class="modal-content">
+      <div class="modal-dialog">
+        <div class="modal-content">
 
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Condições de Uso</h4>
-                <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
-              </div>
-
-              <!-- Modal body -->
-              <div class="modal-body" style="font-family: 'Grape Nuts', cursive; font-family: 'Open Sans', sans-serif;">
-                <h1 style="font-weight: bolder; font-size: large;">Função</h1><br>
-                <p>Este site foi criado e desenvolvido com a função de possibilitar a fácil a visualização de Ebooks de alta qualidade, a venda de produtos digitais e a divulgação de prestação de serviço. A WEEBOOK busca através da criação de conteúdo de alta qualidade, desenvolvido por profissionais da área, trazer o conhecimento ao alcance de todos, assim como a divulgação dos próprios serviços.</p>
-                <h1 style="font-weight: bolder; font-size: large;">Termos</h1><br>
-                <p>Ao continuar acessando o site, o VISITANTE expressa que aceita e entende todas as cláusulas, assim como concorda integralmente com cada uma delas, sendo este aceite imprescindível para a permanência na mesma. Caso o VISITANTE discorde de alguma cláusula ou termo, o mesmo deve imediatamente interromper sua navegação de todas as formas e meios.</p>
-                <h1 style="font-weight: bolder; font-size: large;">Acesso</h1><br>
-                <p>O Site e plataforma funcionam normalmente 24 (vinte e quatro) horas por dia, porém podem ocorrer pequenas interrupções de forma temporária para ajustes, manutenção, mudança de servidores, falhas técnicas ou por ordem de força maior, que podem deixar o site indisponível por tempo limitado. A WEEBOOK não se responsabiliza por nenhuma perda de oportunidade ou prejuízos que esta indisponibilidade temporária possa gerar aos usuários.</p>
-                <h1 style="font-weight: bolder; font-size: large;">Licença</h1><br>
-                <p>Todo o conteúdo do site é protegido por direitos autorais, e seu uso, cópia, transmissão, venda, cessão ou revenda, deve seguir a lei brasileira, tendo a WEEBOOK todos os seus direitos reservados, e não permitindo a cópia ou utilização de nenhuma forma e meio, sem autorização expressa e por escrita da mesma.</p>
-              </div>
-
-            </div>
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Condições de Uso</h4>
+            <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
           </div>
+
+          <!-- Modal body -->
+          <div class="modal-body" style="font-family: 'Grape Nuts', cursive; font-family: 'Open Sans', sans-serif;">
+            <h1 style="font-weight: bolder; font-size: large;">Função</h1><br>
+            <p>Este site foi criado e desenvolvido com a função de possibilitar a fácil a visualização de Ebooks de alta
+              qualidade, a venda de produtos digitais e a divulgação de prestação de serviço. A WEEBOOK busca através da
+              criação de conteúdo de alta qualidade, desenvolvido por profissionais da área, trazer o conhecimento ao
+              alcance de todos, assim como a divulgação dos próprios serviços.</p>
+            <h1 style="font-weight: bolder; font-size: large;">Termos</h1><br>
+            <p>Ao continuar acessando o site, o VISITANTE expressa que aceita e entende todas as cláusulas, assim como
+              concorda integralmente com cada uma delas, sendo este aceite imprescindível para a permanência na mesma.
+              Caso o VISITANTE discorde de alguma cláusula ou termo, o mesmo deve imediatamente interromper sua
+              navegação de todas as formas e meios.</p>
+            <h1 style="font-weight: bolder; font-size: large;">Acesso</h1><br>
+            <p>O Site e plataforma funcionam normalmente 24 (vinte e quatro) horas por dia, porém podem ocorrer pequenas
+              interrupções de forma temporária para ajustes, manutenção, mudança de servidores, falhas técnicas ou por
+              ordem de força maior, que podem deixar o site indisponível por tempo limitado. A WEEBOOK não se
+              responsabiliza por nenhuma perda de oportunidade ou prejuízos que esta indisponibilidade temporária possa
+              gerar aos usuários.</p>
+            <h1 style="font-weight: bolder; font-size: large;">Licença</h1><br>
+            <p>Todo o conteúdo do site é protegido por direitos autorais, e seu uso, cópia, transmissão, venda, cessão
+              ou revenda, deve seguir a lei brasileira, tendo a WEEBOOK todos os seus direitos reservados, e não
+              permitindo a cópia ou utilização de nenhuma forma e meio, sem autorização expressa e por escrita da
+              mesma.</p>
+          </div>
+
+        </div>
+      </div>
     </div>
 
     <div>
-      <a class="infos-botton" href="#contato"  data-bs-target="#modalCardContact" data-bs-toggle="modal">
+      <a class="infos-botton" href="#contato" data-bs-target="#modalCardContact" data-bs-toggle="modal">
         Entre em Contato
       </a>
     </div>
 
     <div id="modalCardContact" class="modal" style="margin-top: 200px">
-          <div class="modal-dialog">
-            <div class="modal-content">
+      <div class="modal-dialog">
+        <div class="modal-content">
 
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Contato</h4>
-                <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
-              </div>
-
-              <!-- Modal body -->
-              <div class="modal-body" style="font-family: 'Grape Nuts', cursive; font-family: 'Open Sans', sans-serif;">
-                <h style="font-weight: bolder; font-size: large;">Email</h><br>
-                <p>atendimento@webook.com</p>
-                <h style="font-weight: bolder; font-size: large;">Telefone</h><br>
-                <p>(16) 9959-6780</p>
-                <h style="font-weight: bolder; font-size: large;">Atendimento Presencial</h><br>
-                <p>Segunda - Sexta, 8h às 18h</p>
-              </div>
-
-            </div>
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Contato</h4>
+            <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
           </div>
+
+          <!-- Modal body -->
+          <div class="modal-body" style="font-family: 'Grape Nuts', cursive; font-family: 'Open Sans', sans-serif;">
+            <h style="font-weight: bolder; font-size: large;">Email</h>
+            <br>
+            <p>atendimento@webook.com</p>
+            <h style="font-weight: bolder; font-size: large;">Telefone</h>
+            <br>
+            <p>(16) 9959-6780</p>
+            <h style="font-weight: bolder; font-size: large;">Atendimento Presencial</h>
+            <br>
+            <p>Segunda - Sexta, 8h às 18h</p>
+          </div>
+
+        </div>
+      </div>
     </div>
-    
+
   </div>
 
 </template>
@@ -118,31 +138,31 @@ import {VueCookieNext} from 'vue-cookie-next'
 <script>
 export default {
   methods: {
-    swapPasswordView(){
+    swapPasswordView() {
       console.log(this.$refs.pass.type === "password");
-      if(this.$refs.pass.type === "password")
+      if (this.$refs.pass.type === "password")
         this.$refs.pass.type = "text";
       else
         this.$refs.pass.type = "password";
     },
-    login(){
+    login() {
       let accs = JSON.parse(localStorage.getItem("accounts"));
       let login = this.$refs.log.value, pass = this.$refs.pass.value;
       for (const acc of accs) {
-        if (acc.email === login && acc.senha === pass){
+        if (acc.email === login && acc.senha === pass) {
           let account = {};
           account.id = acc.id;
           account.adm = acc.admin;
-          VueCookieNext.setCookie("account",JSON.stringify(account));
+          VueCookieNext.setCookie("account", JSON.stringify(account));
           this.$router.push("/");
           break;
         }
       }
     },
-    goToNewClient(){
+    goToNewClient() {
       this.$router.push("/novousuario");
     },
-    goToNewPassword(){
+    goToNewPassword() {
       this.$router.push("/novachave");
     },
   },
@@ -169,7 +189,7 @@ export default {
   font-size: 20px;
 }
 
-.right-span:hover{
+.right-span:hover {
   background-color: #DDD;
   cursor: pointer;
 }

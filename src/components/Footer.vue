@@ -7,9 +7,12 @@
       <h2>Sobre nós</h2>
       <p>WEBOOK é uma plataforma de venda e leitura de Ebooks.
         O objetivo é ajudar você, usuário, a se encontrar no maravilhoso universo dos livros.
-        Com o desenvolvimento da tecnologia, pode-se acessar uma quantidade muito maior de livros em apenas alguns cliques.
-        Pensando nisso, construimos uma plataforma simples e convidativa para que você possa ler oque desejar e quando quiser.
-        Temos um catálogo vasto com livros para todos os gostos, temos certeza encontrará muitos títulos interessantes.</p>
+        Com o desenvolvimento da tecnologia, pode-se acessar uma quantidade muito maior de livros em apenas alguns
+        cliques.
+        Pensando nisso, construimos uma plataforma simples e convidativa para que você possa ler oque desejar e quando
+        quiser.
+        Temos um catálogo vasto com livros para todos os gostos, temos certeza encontrará muitos títulos
+        interessantes.</p>
     </div>
     <div class="txt-footer link">
       <h2>Links</h2>
@@ -35,7 +38,7 @@ export default {
 
 <style scoped>
 
-.footer{
+.footer {
   display: flex;
   justify-content: space-evenly;
   background-color: #38B6FF;
@@ -43,22 +46,22 @@ export default {
   color: white;
 }
 
-.txt-footer{
+.txt-footer {
   display: flex;
   flex-direction: column;
   width: 30vw;
 }
 
-.txt-footer.link{
+.txt-footer.link {
   width: 10vw;
 }
 
-.txt-footer a{
+.txt-footer a {
   text-decoration: none;
   color: white;
 }
 
-.txt-footer a:hover{
+.txt-footer a:hover {
   color: rgb(68, 67, 67);
 }
 </style>

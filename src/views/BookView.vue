@@ -8,13 +8,15 @@ import Evaluation from "@/components/avaliationResult.vue";</script>
 
 <template>
   <AdminMenu v-if="isAdmin()"
-    :plotDropDown="false"
+             :plotDropDown="false"
   />
   <Menu v-else
-    :plotDropDown="false"
+        :plotDropDown="false"
   />
   <div class="adm-operations" v-if="isAdmin()">
-    <button class="add-book" data-bs-target="#modalAddPromo" data-bs-toggle="modal"><img src="@/components/icons/addition.png" style="width: 50px; height: 50px;"/> Adicionar promoção</button>
+    <button class="add-book" data-bs-target="#modalAddPromo" data-bs-toggle="modal"><img
+        src="@/components/icons/addition.png" style="width: 50px; height: 50px;"/> Adicionar promoção
+    </button>
     <!-- The Modal -->
     <div id="modalAddPromo" class="modal" style="margin-top: 200px">
       <div class="modal-dialog">
@@ -37,7 +39,7 @@ import Evaluation from "@/components/avaliationResult.vue";</script>
                        style="width: 350px;height: 45px;font-size: medium"
                        ref="input_qntd">
                 <br>
-                    <span class="input-group-text" style="width: 87px;">
+                <span class="input-group-text" style="width: 87px;">
                       Valor
                     </span>
                 <input class="form-control" placeholder="Valor de cada livro"
@@ -49,14 +51,18 @@ import Evaluation from "@/components/avaliationResult.vue";</script>
 
           <!-- Modal footer -->
           <div class="modal-footer">
-            <button class="btn btn-primary" data-bs-dismiss="modal" @click="addPromo(this.$refs.input_qntd.value,this.$refs.input_valor.value)" type="button">Adicionar</button>
+            <button class="btn btn-primary" data-bs-dismiss="modal"
+                    @click="addPromo(this.$refs.input_qntd.value,this.$refs.input_valor.value)" type="button">Adicionar
+            </button>
             <button class="btn btn-danger" data-bs-dismiss="modal" type="button">Cancelar</button>
           </div>
 
         </div>
       </div>
     </div>
-    <button class="remove-book" data-bs-target="#modalRemLivro" data-bs-toggle="modal"><img src="@/components/icons/remove.png" style="width: 50px; height: 50px;"/> Excluir livro</button>
+    <button class="remove-book" data-bs-target="#modalRemLivro" data-bs-toggle="modal"><img
+        src="@/components/icons/remove.png" style="width: 50px; height: 50px;"/> Excluir livro
+    </button>
     <!-- The Modal -->
     <div id="modalRemLivro" class="modal" style="margin-top: 200px">
       <div class="modal-dialog">
@@ -77,7 +83,8 @@ import Evaluation from "@/components/avaliationResult.vue";</script>
 
           <!-- Modal footer -->
           <div class="modal-footer">
-            <button class="btn btn-primary" data-bs-dismiss="modal" @click="remLivro()" type="button">Sim, excluir</button>
+            <button class="btn btn-primary" data-bs-dismiss="modal" @click="remLivro()" type="button">Sim, excluir
+            </button>
             <button class="btn btn-danger" data-bs-dismiss="modal" type="button">Cancelar</button>
           </div>
 
@@ -88,19 +95,19 @@ import Evaluation from "@/components/avaliationResult.vue";</script>
 
   <div>
     <BookInfo
-      :name="this.getBookDetails().name"
-      :price="book.price"
-      :categories="book.categories"
-      :promotion="book.promo"
-      :synopsis="book.synopsis"
-      :editor="book.editor"
-      :author="book.autor"
-      :tradutor="book.tradutor"
-      :year="book.year"
-      :atClick="addToBag"
-      :id="book.id"
-      :inBag="searchInBag(book.id)"
-      :inLib="searchInLib(book.id)"
+        :name="this.getBookDetails().name"
+        :price="book.price"
+        :categories="book.categories"
+        :promotion="book.promo"
+        :synopsis="book.synopsis"
+        :editor="book.editor"
+        :author="book.autor"
+        :tradutor="book.tradutor"
+        :year="book.year"
+        :atClick="addToBag"
+        :id="book.id"
+        :inBag="searchInBag(book.id)"
+        :inLib="searchInLib(book.id)"
     />
   </div>
 
@@ -109,7 +116,7 @@ import Evaluation from "@/components/avaliationResult.vue";</script>
       <Evaluation :info="book.info" :stars="book.stars"></Evaluation>
     </div>
   </div>
-  <Footer> </Footer>
+  <Footer></Footer>
 </template>
 
 <script>
@@ -117,19 +124,19 @@ import {VueCookieNext} from "vue-cookie-next";
 
 export default {
   name: 'app',
-  methods:{
-    addPromo(qntd,valor){
+  methods: {
+    addPromo(qntd, valor) {
       let books = JSON.parse(localStorage.getItem("books"));
       let id = this.$route.query.id;
       for (let book of books) {
         if (parseInt(book.id) === parseInt(id)) {
-          if(!book.promo.is){
+          if (!book.promo.is) {
             let promo = {}
             promo.is = true;
             promo.numberBooks = qntd;
             promo.tempPrice = valor;
             book.promo = promo;
-          }else{
+          } else {
             book.promo.numberBooks = parseInt(book.promo.numberBooks) + parseInt(qntd);
             book.promo.tempPrice = valor;
           }
@@ -137,29 +144,29 @@ export default {
           break;
         }
       }
-      localStorage.setItem("books",JSON.stringify(books));
+      localStorage.setItem("books", JSON.stringify(books));
     },
-    remLivro(){
+    remLivro() {
       let books = JSON.parse(localStorage.getItem("books"));
       let id = this.$route.query.id;
       for (let i = 0; i < books.length; i++) {
         if (parseInt(books[i].id) === parseInt(id)) {
-          books.splice(i,1);
+          books.splice(i, 1);
           break;
         }
       }
-      localStorage.setItem("books",JSON.stringify(books));
+      localStorage.setItem("books", JSON.stringify(books));
       this.$router.push("/");
     },
-    searchInLib(id){
+    searchInLib(id) {
       let acc = VueCookieNext.getCookie("account");
-      if(acc === undefined || acc === null)
+      if (acc === undefined || acc === null)
         return false;
       let libs = JSON.parse(localStorage.getItem("libraries"));
       for (const lib of libs) {
-        if (lib.user === acc.id){
+        if (lib.user === acc.id) {
           for (const book in lib.lib) {
-            if (lib.lib[book].id === id){
+            if (lib.lib[book].id === id) {
               return true;
             }
           }
@@ -167,7 +174,7 @@ export default {
       }
       return false;
     },
-    searchInBag(id){
+    searchInBag(id) {
       let bag = JSON.parse(VueCookieNext.getCookie("bag"));
       for (const book of bag) {
         if (book.id === id)
@@ -175,16 +182,16 @@ export default {
       }
       return false;
     },
-    isAdmin(){
+    isAdmin() {
       let account = VueCookieNext.getCookie("account");
-      if(account === null)
+      if (account === null)
         return false;
       return account.adm === true;
     },
-    getAllCategories(){
+    getAllCategories() {
       return JSON.parse(localStorage.getItem("categories"))
     },
-    getBookDetails(){
+    getBookDetails() {
       let books = JSON.parse(localStorage.getItem("books"));
       let id = this.$route.query.id;
       let allCategories = this.getAllCategories();
@@ -192,8 +199,8 @@ export default {
         if (parseInt(book.id) === parseInt(id)) {
           let tempCategories = [];
           for (const category of book.categories) {
-            for (const fixedCategory of allCategories){
-              if(category === fixedCategory.id) {
+            for (const fixedCategory of allCategories) {
+              if (category === fixedCategory.id) {
                 tempCategories.push(fixedCategory.name);
                 break;
               }
@@ -205,17 +212,17 @@ export default {
         }
       }
     },
-    addToBag(idLivro){
-      if(this.searchInBag(idLivro))
+    addToBag(idLivro) {
+      if (this.searchInBag(idLivro))
         return;
       let bag = JSON.parse(VueCookieNext.getCookie("bag"));
-      let newBook = {id:idLivro};
+      let newBook = {id: idLivro};
       bag.push(newBook);
       let temp = JSON.stringify(bag);
-      VueCookieNext.setCookie("bag",temp);
+      VueCookieNext.setCookie("bag", temp);
     }
   },
-  data () {
+  data() {
     return {
       book: {},
     };
@@ -241,7 +248,7 @@ export default {
 }
 
 .adm-operations {
-  float:right;
+  float: right;
   text-align: justify;
   text-align-last: right;
   padding-right: 25%;

@@ -23,12 +23,12 @@ import Menu from "@/components/Menu.vue";
 
           <!-- Modal body -->
           <div class="modal-body">
-            <p v-for="buys in getAllBuys()" class="registro-list">{{buys.name + " - R$" + buys.value}}</p>
+            <p v-for="buys in getAllBuys()" class="registro-list">{{ buys.name + " - R$" + buys.value }}</p>
           </div>
 
           <!-- Modal footer -->
           <div class="modal-footer">
-            <button class="btn btn-danger" data-bs-dismiss="modal" type="button" >Fechar</button>
+            <button class="btn btn-danger" data-bs-dismiss="modal" type="button">Fechar</button>
           </div>
 
         </div>
@@ -37,17 +37,19 @@ import Menu from "@/components/Menu.vue";
     <div class="dados">
       <div style="width:50%; text-align: center;">
         <h1 class="titlePage">Administradores</h1>
-        <div  class="list">
-          <p v-for="admins in getAllAdmins()" class="listAdmins">{{admins}}</p>
+        <div class="list">
+          <p v-for="admins in getAllAdmins()" class="listAdmins">{{ admins }}</p>
         </div>
         <button @click="goToAddAdmin()" type="button" class="btn btn-success">Adicionar Administradores</button>
       </div>
       <div style="width:50%; text-align: center;">
         <h1 class="titlePage">Histórico de compras</h1>
-        <div  class="list">
-          <p v-for="buys in getFirstBuys()" class="registro-list">{{buys.name + " - R$" + buys.value}}</p>
+        <div class="list">
+          <p v-for="buys in getFirstBuys()" class="registro-list">{{ buys.name + " - R$" + buys.value }}</p>
         </div>
-        <button type="button" class="btn btn-primary" data-bs-target="#modalBuys" data-bs-toggle="modal">Visualizar todas as compras</button>
+        <button type="button" class="btn btn-primary" data-bs-target="#modalBuys" data-bs-toggle="modal">Visualizar
+          todas as compras
+        </button>
       </div>
     </div>
 
@@ -68,36 +70,36 @@ export default {
     return {
       text: "Para acessar essa página é necessário ser um administrador",
       admin: true,
-      adminsList: ["Ana Clara","Túlio","Eduardo"],
-      RegisterList: ["João Silva - R$ 30,90","Maria Soares -  R$ 40,90"]        
+      adminsList: ["Ana Clara", "Túlio", "Eduardo"],
+      RegisterList: ["João Silva - R$ 30,90", "Maria Soares -  R$ 40,90"]
     };
   },
-   methods: {
-     goToAddAdmin(){
+  methods: {
+    goToAddAdmin() {
       this.$router.push("/novoadmin");
-     },
-     getAllAdmins(){
-       let admins = [];
-       let accs = JSON.parse(localStorage.getItem("accounts"));
-       for (const acc of accs) {
-         console.log(acc);
-         if (acc.admin){
-           admins.push(acc.name);
-         }
-       }
-       return admins;
-     },
-     getFirstBuys(){
-       let buys = this.getAllBuys();
-       if(buys.length >= 10){
-         return buys.slice(0,10);
-       }
-       return buys;
-     },
-     getAllBuys(){
-        return JSON.parse(localStorage.getItem("buys")).reverse();
-     }
-   
+    },
+    getAllAdmins() {
+      let admins = [];
+      let accs = JSON.parse(localStorage.getItem("accounts"));
+      for (const acc of accs) {
+        console.log(acc);
+        if (acc.admin) {
+          admins.push(acc.name);
+        }
+      }
+      return admins;
+    },
+    getFirstBuys() {
+      let buys = this.getAllBuys();
+      if (buys.length >= 10) {
+        return buys.slice(0, 10);
+      }
+      return buys;
+    },
+    getAllBuys() {
+      return JSON.parse(localStorage.getItem("buys")).reverse();
+    }
+
   },
 };
 </script>
@@ -117,22 +119,22 @@ export default {
   margin-bottom: 3em;
 }
 
-.admin-list{
+.admin-list {
   margin: 2em 0;
   text-align: center;
 }
 
-.list{
+.list {
   padding: 1em;
   font-size: 1.5em;
   text-align: center;
 }
 
-.listAdmins:nth-child(2n){
+.listAdmins:nth-child(2n) {
   background-color: #8fd5fd;
 }
 
-.registro-list:nth-child(2n){
+.registro-list:nth-child(2n) {
   background-color: #8fd5fd;
 }
 

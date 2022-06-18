@@ -1,5 +1,3 @@
-
-
 <template>
 
   <div class="book-container">
@@ -35,7 +33,8 @@
             <span class="input-group-text" style="width: 87px">
               Sinopse
             </span>
-              <textarea class="form-control" placeholder="Sinopse do livro" style="resize: none;height: 100px;font-size: medium"
+              <textarea class="form-control" placeholder="Sinopse do livro"
+                        style="resize: none;height: 100px;font-size: medium"
                         type="text" ref="input_sinopse" v-bind:value="synopsis"/>
             </div>
             <br>
@@ -80,13 +79,18 @@
             <div>
               Adicionar nova categoria
               <input class="form-control" placeholder="Nova categoria" style="height: 45px;font-size: medium"
-                     type="text" ref="newCategory" >
-              <button class="btn btn-primary" type="button" @click="addCategory(this.$refs.newCategory.value)">Adicionar categoria</button>
+                     type="text" ref="newCategory">
+              <button class="btn btn-primary" type="button" @click="addCategory(this.$refs.newCategory.value)">Adicionar
+                categoria
+              </button>
             </div>
           </div>
           <!-- Modal footer -->
           <div class="modal-footer">
-            <button class="btn btn-primary" data-bs-dismiss="modal" @click="updateLivro(this.$refs.input_nome,this.$refs.input_preco,this.$refs.input_sinopse,this.$refs.input_editora,this.$refs.input_autor,this.$refs.input_tradutor,this.$refs.input_ano)" type="button">Alterar</button>
+            <button class="btn btn-primary" data-bs-dismiss="modal"
+                    @click="updateLivro(this.$refs.input_nome,this.$refs.input_preco,this.$refs.input_sinopse,this.$refs.input_editora,this.$refs.input_autor,this.$refs.input_tradutor,this.$refs.input_ano)"
+                    type="button">Alterar
+            </button>
             <button class="btn btn-danger" data-bs-dismiss="modal" type="button">Cancelar</button>
           </div>
         </div>
@@ -96,7 +100,7 @@
       Quantidade promocional restante: {{ promotion.numberBooks }}
     </div>
     <div class="book-basics">
-      <img class="img-livro" v-bind:src="'/src/assets/' + id + '.jpg'" />
+      <img class="img-livro" v-bind:src="'/src/assets/' + id + '.jpg'"/>
       <div class="home-book-info">
         <p class="title">{{ name }}</p>
         <ul v-for="category in categories" class="category">
@@ -108,11 +112,15 @@
     </div>
     <div class="synopsis">{{ synopsis }}</div>
     <button class="edit-info" v-if="isAdmin()" data-bs-target="#modalChangeInfos" data-bs-toggle="modal">
-      <img class="edit-fig"  src="@/components/icons/settings.png"/>Editar informações
+      <img class="edit-fig" src="@/components/icons/settings.png"/>Editar informações
     </button>
     <div class="buttons" v-else-if="!(inBag || inLib)">
-      <button type="button" class="btn btn-primary bag-book" ref="btn_carrinho" @click="showToast();atClick(id);hideBtns()">Adicionar ao carrinho</button>
-      <button type="button" class="btn btn-primary buy-book" ref="btn_compra" @click="atClick(id);goToCarrinho()">Comprar E-book</button>
+      <button type="button" class="btn btn-primary bag-book" ref="btn_carrinho"
+              @click="showToast();atClick(id);hideBtns()">Adicionar ao carrinho
+      </button>
+      <button type="button" class="btn btn-primary buy-book" ref="btn_compra" @click="atClick(id);goToCarrinho()">
+        Comprar E-book
+      </button>
     </div>
     <!-- TODO: arrumar o estilo dessa parte -->
     <div v-else-if="inLib">
@@ -136,11 +144,11 @@
     </div>
     <div class="info">
       <p>Tradutor(a):</p>
-      <p style="text-align: right">{{tradutor}}</p>
+      <p style="text-align: right">{{ tradutor }}</p>
     </div>
     <div class="info">
       <p>Ano:</p>
-      <p style="text-align: right">{{year}}</p>
+      <p style="text-align: right">{{ year }}</p>
     </div>
   </div>
 
@@ -162,33 +170,33 @@ import {VueCookieNext} from "vue-cookie-next";
 
 export default {
   name: "BookInfo",
-  props: ["name", "categories", "price", "synopsis","promotion","editor","author","tradutor","year","atClick","id","inBag","inLib"],
+  props: ["name", "categories", "price", "synopsis", "promotion", "editor", "author", "tradutor", "year", "atClick", "id", "inBag", "inLib"],
   data() {
     return {
-      categoriesCheck:[],
-      updateCategories:0
+      categoriesCheck: [],
+      updateCategories: 0
     };
   },
   mounted() {
     let categories = this.getAllCategories();
-    for (let i = 0; i < categories.length; i++){
+    for (let i = 0; i < categories.length; i++) {
       this.categoriesCheck[i] = this.searchInActualCategories(categories[i].name);
     }
   },
   methods: {
-    addCategory(newCategory){
+    addCategory(newCategory) {
       let categories = this.getAllCategories();
       let newCategoryObj = {};
       newCategoryObj.name = newCategory;
-      newCategoryObj.id = categories[categories.length-1].id+1;
+      newCategoryObj.id = categories[categories.length - 1].id + 1;
       categories.push(newCategoryObj);
-      localStorage.setItem("categories",JSON.stringify(categories));
+      localStorage.setItem("categories", JSON.stringify(categories));
       this.updateCategories++;
     },
     getAllCategories() {
       return JSON.parse(localStorage.getItem("categories"))
     },
-    searchInActualCategories(id){
+    searchInActualCategories(id) {
       for (const category of this.categories) {
         if (category === id) {
           return true;
@@ -196,28 +204,28 @@ export default {
       }
       return false;
     },
-    showToast(){
+    showToast() {
       this.$refs.toast.classList.add("show");
       console.log("show");
-      setTimeout(()=>{
+      setTimeout(() => {
         console.log("hide");
         this.$refs.toast.classList.remove("show");
-      },5000);
+      }, 5000);
     },
-    hideBtns(){
+    hideBtns() {
       this.$refs.btn_compra.remove();
       this.$refs.btn_carrinho.remove();
     },
-    logicalCategoriesToNumerical(){
+    logicalCategoriesToNumerical() {
       let categories = [];
-      for (let i = 0; i < this.categoriesCheck.length; i++){
-        if(this.categoriesCheck[i]){
+      for (let i = 0; i < this.categoriesCheck.length; i++) {
+        if (this.categoriesCheck[i]) {
           categories.push(i);
         }
       }
       return categories;
     },
-    updateLivro(nome,preco,sinopse,editora,autor,tradutor,ano){
+    updateLivro(nome, preco, sinopse, editora, autor, tradutor, ano) {
       let books = JSON.parse(localStorage.getItem("books"));
       let id = this.$route.query.id;
       for (let i = 0; i < books.length; i++) {
@@ -234,16 +242,16 @@ export default {
           break;
         }
       }
-      localStorage.setItem("books",JSON.stringify(books));
+      localStorage.setItem("books", JSON.stringify(books));
       this.$router.go(0);
     },
-    isAdmin(){
+    isAdmin() {
       let account = VueCookieNext.getCookie("account");
-      if(account === null)
+      if (account === null)
         return false;
       return account.adm === true;
     },
-    goToCarrinho(){
+    goToCarrinho() {
       this.$router.push("/carrinho");
     }
   }
@@ -256,7 +264,7 @@ export default {
   padding-left: 100px;
 }
 
-.promo {
+.container-promotion {
   color: white;
   font-size: 1.5em;
   text-align: center;
@@ -274,31 +282,37 @@ export default {
   font-family: "Grape Nuts", cursive;
   font-family: "Open Sans", sans-serif;
 }
+
 .img-livro {
   width: 252px;
   margin-left: 30px;
   float: left;
   padding: 10px;
 }
+
 .home-book-info {
   padding-left: 2em;
 }
+
 .title {
   font-size: 1.5em;
   padding-left: 150px;
   margin-left: 170px;
 }
+
 .category {
   color: #0b859f;
   padding-left: 150px;
   font-size: large;
   margin-left: 200px;
 }
+
 .price {
   font-size: 1.5em;
   text-align: right;
   padding-right: 20px;
 }
+
 .synopsis {
   font-size: large;
   max-width: 1076px;
@@ -335,10 +349,10 @@ export default {
 }
 
 .buttons {
-    display: flex;
-    justify-content: center;
-    flex-direction: column ;
-    align-content: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-content: center;
 }
 
 .bag-book {
@@ -380,7 +394,7 @@ export default {
 }
 
 
-.info{
+.info {
   background-color: #38b6ff;
   color: #fff;
   padding-right: 60px;
@@ -390,18 +404,16 @@ export default {
   justify-content: space-between;
 }
 
-.info:nth-child(odd){
+.info:nth-child(odd) {
   background-color: white;
   color: black;
 }
 
 
-
-
-.title-evaluation{
+.title-evaluation {
   text-align: center;
-  margin: 2em 0 ;
-  color:#257eb3;
+  margin: 2em 0;
+  color: #257eb3;
 }
 
 </style>

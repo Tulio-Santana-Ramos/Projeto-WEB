@@ -4,16 +4,16 @@ import LoginRequired from "@/components/LoginRequired.vue";
 </script>
 
 <template>
-<div v-if="isAdmin()">
+  <div v-if="isAdmin()">
     <img class="admin-pic" src="@/components/icons/admin-with-cogwheels.png"/>
     <h2 class="title">CRIAR ADMIN</h2>
     <NewAccount
-    :adminReg=true
-    :nextPage="next"
+        :adminReg=true
+        :nextPage="next"
     />
 
-</div>
-<LoginRequired v-else :text="text"></LoginRequired>
+  </div>
+  <LoginRequired v-else :text="text"></LoginRequired>
 </template>
 
 
@@ -22,15 +22,15 @@ import {VueCookieNext} from "vue-cookie-next";
 
 export default {
   name: 'app',
-  methods:{
-    isAdmin(){
+  methods: {
+    isAdmin() {
       let account = VueCookieNext.getCookie("account");
-      if(account === null)
+      if (account === null)
         return false;
       return account.adm === true;
     },
   },
-  data () {
+  data() {
     return {
       text: "Para acessar essa página é necessário ser um administrador",
       next: "/gerenciamento",
@@ -41,17 +41,17 @@ export default {
 
 <style scoped>
 
-.title{
-    font-weight: normal;
-    text-align: center;
-    margin-top: 90px;
-    margin-left: 175px;
+.title {
+  font-weight: normal;
+  text-align: center;
+  margin-top: 90px;
+  margin-left: 175px;
 }
 
-.admin-pic{
-    float: right;
-    margin-top: 100px;
-    margin-right: 50px;
-    height: 120px;
+.admin-pic {
+  float: right;
+  margin-top: 100px;
+  margin-right: 50px;
+  height: 120px;
 }
 </style>

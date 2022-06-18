@@ -1,13 +1,13 @@
 <template>
   <div class="home-book">
-    <img class="img-livro" v-bind:src="'/src/assets/' + id + '.jpg'" />
+    <img class="img-livro" v-bind:src="'/src/assets/' + id + '.jpg'"/>
     <div class="home-book-info">
       <p class="title">{{ name }}</p>
       <ul v-for="category in categories" class="category">
         <li>{{ category }}</li>
       </ul>
       <p class="price" v-if="!promo()">R$ {{ price }}</p>
-      <p class="price" v-else>R$ {{promotion.tempPrice}}</p>
+      <p class="price" v-else>R$ {{ promotion.tempPrice }}</p>
     </div>
     <div class="remove-button">
       <button type="button" class="btn btn-danger" @click="action(id)">Remover item</button>
@@ -18,12 +18,12 @@
 <script>
 export default {
   name: "books",
-  props: ["name", "price", "categories", "filename","promotion","action","id"],
+  props: ["name", "price", "categories", "filename", "promotion", "action", "id"],
   data() {
     return {};
   },
-  methods:{
-    promo(){
+  methods: {
+    promo() {
       return this.promotion.is;
     }
   }

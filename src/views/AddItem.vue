@@ -24,7 +24,7 @@ import AddBook from "@/components/AddBook.vue";
     </div>
     <h1 class="titlePage">Adicionar/Editar Livro</h1>
     <AddBook
-    :propagateChanges="showToast"
+        :propagateChanges="showToast"
     ></AddBook>
     <div class="manage-item"></div>
   </div>
@@ -32,7 +32,7 @@ import AddBook from "@/components/AddBook.vue";
     <Menu
         :plotDropDown="false"
     />
-    <LoginRequired  :text="text"></LoginRequired>
+    <LoginRequired :text="text"></LoginRequired>
   </div>
 
   <Footer></Footer>
@@ -47,14 +47,14 @@ export default {
       admin: true,
     };
   },
-  methods:{
-    showToast(){
+  methods: {
+    showToast() {
       this.$refs.toast.classList.add("show");
       console.log("show");
-      setTimeout(()=>{
+      setTimeout(() => {
         console.log("hide");
         this.$refs.toast.classList.remove("show");
-      },5000);
+      }, 5000);
     },
   }
 };

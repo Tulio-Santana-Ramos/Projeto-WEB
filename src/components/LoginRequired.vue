@@ -1,13 +1,13 @@
 <template>
   <div class="NoLogin">
-    <h1>{{text}}</h1>
+    <h1>{{ text }}</h1>
     <div>
       <button @click="goToLogin()" type="button" class="btn btn-primary">
         <a style="height: 100%"
-          ><img
+        ><img
             class="img-navbar"
             src="@/components/icons/user_white.png"
-            style="width: 50px; height: 50px; padding: 10px" /></a
+            style="width: 50px; height: 50px; padding: 10px"/></a
         >Login
       </button>
     </div>
@@ -21,7 +21,7 @@ export default {
   data() {
     return {};
   },
-    methods: {
+  methods: {
     goToLogin() {
       this.$router.push("/login");
     },

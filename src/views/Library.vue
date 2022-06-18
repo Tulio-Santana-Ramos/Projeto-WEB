@@ -17,10 +17,10 @@ import {VueCookieNext} from "vue-cookie-next";
   <div v-if="hadUser()" class="books">
     <div v-for="book in getUserBooks()">
       <Books
-        :name="book.name"
-        :categories="book.categories"
-        :pages="book.pages"
-        :id="book.id"
+          :name="book.name"
+          :categories="book.categories"
+          :pages="book.pages"
+          :id="book.id"
       />
     </div>
   </div>
@@ -45,14 +45,18 @@ import {VueCookieNext} from "vue-cookie-next";
 
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button class="btn btn-primary" data-bs-dismiss="modal" type="button" @click="this.$router.push('/login')">Login</button>
-          <button class="btn btn-primary" data-bs-dismiss="modal" type="button" @click="this.$router.push('/novousuario')">Cadastre-se</button>
+          <button class="btn btn-primary" data-bs-dismiss="modal" type="button" @click="this.$router.push('/login')">
+            Login
+          </button>
+          <button class="btn btn-primary" data-bs-dismiss="modal" type="button"
+                  @click="this.$router.push('/novousuario')">Cadastre-se
+          </button>
         </div>
 
       </div>
     </div>
   </div>
-  <Footer> </Footer>
+  <Footer></Footer>
 </template>
 
 <script>
@@ -60,26 +64,26 @@ import {VueCookieNext} from "vue-cookie-next";
 
 export default {
   name: "app",
-  methods:{
-    filterDropdown(id){
-      this.$router.push({path:"/biblioteca",query:{category:id}});
+  methods: {
+    filterDropdown(id) {
+      this.$router.push({path: "/biblioteca", query: {category: id}});
     },
-    goToBook(idLivro){
-      this.$router.push({path:"/livro",query:{id:idLivro}});
+    goToBook(idLivro) {
+      this.$router.push({path: "/livro", query: {id: idLivro}});
     },
-    hadUser(){
+    hadUser() {
       return VueCookieNext.getCookie("account") !== null;
     },
-    getAllCategories(){
+    getAllCategories() {
       return JSON.parse(localStorage.getItem("categories"))
     },
-    getAllBooks(){
+    getAllBooks() {
       return JSON.parse(localStorage.getItem("books"));
     },
-    getActualBooks(){
+    getActualBooks() {
       let temp = [];
       let books = this.getAllBooks();
-      if(this.$route.query.category === undefined)
+      if (this.$route.query.category === undefined)
         return books;
       let category = this.$route.query.category;
       for (const book of books) {
@@ -88,20 +92,20 @@ export default {
       }
       return temp;
     },
-    getUserBooks(){
+    getUserBooks() {
       let actualUser = VueCookieNext.getCookie("account");
       let libraries = JSON.parse(localStorage.getItem("libraries"));
       let allCategories = this.getAllCategories();
       let temp = [];
       for (const library of libraries) {
-        if(library.user === actualUser.id){
+        if (library.user === actualUser.id) {
           for (const book of this.getActualBooks()) {
             for (const bookLib of library.lib) {
               if (parseInt(book.id) === parseInt(bookLib.id)) {
                 let tempCategories = [];
                 for (const category of book.categories) {
-                  for (const fixedCategory of allCategories){
-                    if(category === fixedCategory.id) {
+                  for (const fixedCategory of allCategories) {
+                    if (category === fixedCategory.id) {
                       tempCategories.push(fixedCategory.name);
                       break;
                     }

@@ -1,27 +1,35 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light" style="overflow: visible">
     <div class="container-fluid">
-      <a class="navbar-brand"  @click="goToAdminHome()" ><img class="img-navbar navbar-brand" src="@/components/icons/logo.png"  style=" width:80px;height: 80px; padding: 10px;"></a>
-      <select v-if="plotDropDown" ref="drop" name="livros" id="book-select" style=" margin-left: 80px;margin-top: 15px " class="form-select form-select-lg mb-3" @change="filter(this.$refs.drop.value)" v-model="this.dropdownCategory">
+      <a class="navbar-brand" @click="goToAdminHome()"><img class="img-navbar navbar-brand"
+                                                            src="@/components/icons/logo.png"
+                                                            style=" width:80px;height: 80px; padding: 10px;"></a>
+      <select v-if="plotDropDown" ref="drop" name="livros" id="book-select" style=" margin-left: 80px;margin-top: 15px "
+              class="form-select form-select-lg mb-3" @change="filter(this.$refs.drop.value)"
+              v-model="this.dropdownCategory">
         <option value=-1 disabled hidden selected>Selecione a categoria</option>
         <option v-for="categorie in getAllCategories()" v-bind:value="categorie.id">
-          {{categorie.name}}
+          {{ categorie.name }}
         </option>
       </select>
       <div>
         <div class="input-group" style="max-width: 500px; margin-top: 30px">
-          <input type="text" class="form-control" placeholder="Busque um livro" style="max-height: 60px" v-model="textSearch" @focusout="active = false">
-          <span class="input-group-text" style="max-height: 60px; max-width: 60px"><img src="@/components/icons/research.png" ></span>
+          <input type="text" class="form-control" placeholder="Busque um livro" style="max-height: 60px"
+                 v-model="textSearch" @focusout="active = false">
+          <span class="input-group-text" style="max-height: 60px; max-width: 60px"><img
+              src="@/components/icons/research.png"></span>
         </div>
-        <div class="dropdown" >
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="display: none" ref="btnDrop">
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown" aria-expanded="false" style="display: none" ref="btnDrop">
             Dropdown button
           </button>
           <p/>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <div v-if="getMatchedBooks().length > 0">
-              <li v-for="book in getMatchedBooks()" @click="goToBook(book.id)" class="dropdown-item" style="cursor: pointer">
-                {{book.name}}
+              <li v-for="book in getMatchedBooks()" @click="goToBook(book.id)" class="dropdown-item"
+                  style="cursor: pointer">
+                {{ book.name }}
               </li>
             </div>
             <div v-else>
@@ -32,9 +40,17 @@
           </ul>
         </div>
       </div>
-      <a class="navbar-brand" @click="goToAddItem()"  style="height: 100%"><img class="img-navbar" src="@/components/icons/plus.png" style="width:60px;height: 60px;padding: 10px;"><span class="txt-navbar" >Adicionar itens</span></a>
-      <a class="navbar-brand" @click="goToAdminsPage()"  style="height: 100%"><img class="img-navbar" src="@/components/icons/admin-with-cogwheels.png" width="60px" style="width:60px;height: 60px;padding: 10px;"></a>
-      <a class="navbar-brand" @click="logout()"  style="height: 100%"><img class="img-navbar" src="@/components/icons/logout.png"  style="width:60px;height: 60px;padding: 10px;"></a>
+      <a class="navbar-brand" @click="goToAddItem()" style="height: 100%"><img class="img-navbar"
+                                                                               src="@/components/icons/plus.png"
+                                                                               style="width:60px;height: 60px;padding: 10px;"><span
+          class="txt-navbar">Adicionar itens</span></a>
+      <a class="navbar-brand" @click="goToAdminsPage()" style="height: 100%"><img class="img-navbar"
+                                                                                  src="@/components/icons/admin-with-cogwheels.png"
+                                                                                  width="60px"
+                                                                                  style="width:60px;height: 60px;padding: 10px;"></a>
+      <a class="navbar-brand" @click="logout()" style="height: 100%"><img class="img-navbar"
+                                                                          src="@/components/icons/logout.png"
+                                                                          style="width:60px;height: 60px;padding: 10px;"></a>
     </div>
   </nav>
 </template>
@@ -43,13 +59,13 @@
 import {VueCookieNext} from "vue-cookie-next";
 
 export default {
-  name:"menu",
-  props:["plotDropDown","filter","actualCategory"],
+  name: "menu",
+  props: ["plotDropDown", "filter", "actualCategory"],
   mounted() {
     if (this.actualCategory !== undefined)
       this.dropdownCategory = this.actualCategory;
-  },watch: {
-    textSearch(newText, oldText){
+  }, watch: {
+    textSearch(newText, oldText) {
       if (!this.active) {
         this.$refs.btnDrop.click()
         this.active = true;
@@ -57,33 +73,33 @@ export default {
     }
   },
   methods: {
-    goToBook(idLivro){
-      this.$router.push({path:"/livro",query:{id:idLivro}});
+    goToBook(idLivro) {
+      this.$router.push({path: "/livro", query: {id: idLivro}});
     },
-    logout(){
+    logout() {
       VueCookieNext.removeCookie("account");
       this.$router.go(0);
     },
-    hadUser(){
+    hadUser() {
       return VueCookieNext.getCookie("account") !== null;
     },
-    getAllBooks(){
+    getAllBooks() {
       return JSON.parse(localStorage.getItem("books"));
     },
-    getMatchedBooks(){
+    getMatchedBooks() {
       if (this.textSearch === "")
         return this.getAllBooks();
-      let regex = new RegExp("("+this.textSearch.toLowerCase()+")");
+      let regex = new RegExp("(" + this.textSearch.toLowerCase() + ")");
       let matchedBooks = [];
       let books = this.getAllBooks();
       for (const book of books) {
-        if(regex.exec(book.name.toLowerCase()) !== null){
+        if (regex.exec(book.name.toLowerCase()) !== null) {
           matchedBooks.push(book);
         }
       }
       return matchedBooks;
     },
-    goToHome(){
+    goToHome() {
       this.$router.push("/");
     },
     goToLogin() {
@@ -96,7 +112,7 @@ export default {
       this.$router.push("/biblioteca");
     },
 
-    goToAdminHome(){
+    goToAdminHome() {
       this.$router.push("/");
     },
     goToAdminsPage() {
@@ -105,24 +121,25 @@ export default {
     goToAddItem() {
       this.$router.push("/additem");
     },
-    getAllCategories(){
+    getAllCategories() {
       return JSON.parse(localStorage.getItem("categories"));
     }
-  },data(){
+  }, data() {
     return {
       dropdownCategory: -1,
-      textSearch:"",
-      active:false,
+      textSearch: "",
+      active: false,
     }
   },
 }
 </script>
 
 <style scoped>
-img{
+img {
   width: 100%;
   height: 100%;
 }
+
 .navbar {
   z-index: 500000;
   justify-content: space-between;
@@ -156,12 +173,12 @@ img{
   color: #38B6FF;
 }
 
-.navbar-brand:hover{
+.navbar-brand:hover {
   cursor: pointer;
 }
 
 
-#book-select{
+#book-select {
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.05);
   width: 350px;
   height: 50px;
@@ -180,7 +197,7 @@ img{
   margin-left: 40px;
 }
 
-.research{
+.research {
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.05);
   width: 350px;
   height: 30px;
@@ -205,36 +222,36 @@ img{
   padding-left: 40px;
 }
 
-.txt-navbar{
+.txt-navbar {
   font-size: xx-large;
 }
 
-.navigate a{
-  margin:0  1em;
+.navigate a {
+  margin: 0 1em;
   padding: 1em 0;
 }
 
-.navigate-button a{
+.navigate-button a {
   text-decoration: none;
   color: black;
 }
 
-.navigate-button-number a{
+.navigate-button-number a {
   text-decoration: none;
 }
 
 /* Media query para deixar o site minimamente responsivo */
 @media screen and (max-width: 1200px) {
 
-  .research{
+  .research {
     width: 200px;
   }
 
-  .img-navbar{
+  .img-navbar {
     width: 40px;
   }
 
-  .txt-navbar{
+  .txt-navbar {
     font-size: large;
   }
 }

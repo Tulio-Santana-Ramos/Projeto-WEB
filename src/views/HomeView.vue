@@ -19,14 +19,14 @@ import AdminMenu from "@/components/AdminMenu.vue";
   <div class="books">
     <div v-for="book in paginate()" @click="goToBook(book.id)">
       <Books
-        :name="book.name"
-        :price="book.price"
-        :categories="book.categories"
-        :promotion = "book.promo"
-        :id = "book.id"
+          :name="book.name"
+          :price="book.price"
+          :categories="book.categories"
+          :promotion="book.promo"
+          :id="book.id"
       />
     </div>
-    </div>
+  </div>
   <div style="width: 100%">
     <paginate
         v-model="page"
@@ -46,6 +46,7 @@ import AdminMenu from "@/components/AdminMenu.vue";
 <script>
 import Paginate from 'vuejs-paginate-next';
 import {VueCookieNext} from "vue-cookie-next";
+
 const maxBooks = 2;
 export default {
   components: {
@@ -54,72 +55,72 @@ export default {
   name: 'app',
   mounted() {
     console.log(this.$route.query.category);
-    if(this.$route.query.category !== undefined)
+    if (this.$route.query.category !== undefined)
       this.actualCategory = this.$route.query.category;
   },
   methods: {
-    filterDropdown(id){
-      this.$router.push({path:"/",query:{category:id}});
+    filterDropdown(id) {
+      this.$router.push({path: "/", query: {category: id}});
     },
-    goToBook(idLivro){
-      this.$router.push({path:"/livro",query:{id:idLivro}});
-     },
-    getActualPage(){
-      if(this.$route.query.page<=this.getNumPages())
+    goToBook(idLivro) {
+      this.$router.push({path: "/livro", query: {id: idLivro}});
+    },
+    getActualPage() {
+      if (this.$route.query.page <= this.getNumPages())
         return parseInt(this.$route.query.page);
       return 1;
     },
-    getNumPages(){
-      return (Math.ceil(this.getActualBooks().length/maxBooks));
+    getNumPages() {
+      return (Math.ceil(this.getActualBooks().length / maxBooks));
     },
-    changePage(numPage){
-      if (this.$route.query.category !== null){
-        this.$router.push({path:"/",query:{category:this.$route.query.category,page:numPage}});
+    changePage(numPage) {
+      if (this.$route.query.category !== null) {
+        this.$router.push({path: "/", query: {category: this.$route.query.category, page: numPage}});
         return;
       }
-      this.$router.push({path:"/",query:{page:numPage}});
+      this.$router.push({path: "/", query: {page: numPage}});
     },
-    getAllBooks(){
+    getAllBooks() {
       return JSON.parse(localStorage.getItem("books"));
     },
-    getAllCategories(){
+    getAllCategories() {
       return JSON.parse(localStorage.getItem("categories"))
     },
-    paginate(){
+    paginate() {
       let books = this.getActualBooks();
       let allCategories = this.getAllCategories();
       let temp = [];
       let page = this.$route.query.page;
-      if(page === undefined)
+      if (page === undefined)
         page = 1;
       else {
         if (page <= 0 || this.$route.query.page > books.length)
           this.$router.push("/");
       }
       page--;
-      for (let i = maxBooks*page; (i < maxBooks*(page+1)) && (i < books.length); i++){
+      for (let i = maxBooks * page; (i < maxBooks * (page + 1)) && (i < books.length); i++) {
         let tempCategories = [];
         let book = books[i];
-        for (let j = 0; j < book.categories.length; j++){
+        for (let j = 0; j < book.categories.length; j++) {
           let category = book.categories[j];
-          for (const fixedCategory of allCategories){
-            if(category === fixedCategory.id) {
+          for (const fixedCategory of allCategories) {
+            if (category === fixedCategory.id) {
               tempCategories.push(fixedCategory.name);
               break;
             }
           }
         }
-        if(tempCategories.length !== 0) {
+        if (tempCategories.length !== 0) {
           temp.push(books[i]);
-          temp[temp.length-1].categories = tempCategories;
+          temp[temp.length - 1].categories = tempCategories;
         }
       }
       return temp;
     },
-    getActualBooks(){
+    getActualBooks() {
       let temp = [];
       let books = this.getAllBooks();
-      if(this.$route.query.category === undefined)
+      if (this.$route.query.category === undefined)
         return books;
       let category = this.$route.query.category;
       for (const book of books) {
@@ -128,18 +129,18 @@ export default {
       }
       return temp;
     },
-    isAdmin(){
+    isAdmin() {
       let account = VueCookieNext.getCookie("account");
-      if(account === null)
+      if (account === null)
         return false;
       return account.adm === true;
     },
   },
-  data () {
+  data() {
     return {
-      prev_text:"Anterior",
-      pagination_class:"pagination",
-      next_text:"Proximo",
+      prev_text: "Anterior",
+      pagination_class: "pagination",
+      next_text: "Proximo",
       actualCategory: -1,
     };
   },
@@ -154,15 +155,14 @@ export default {
 @import '@/assets/base.css';
 
 body
-
-.books{
+.books {
   margin-top: 120px;
   padding: 0em 2vw;
   display: flex;
   flex-wrap: wrap;
 }
 
-.promo{
+.promo {
   background-color: #1B8C1F;
   color: white;
   text-align: center;
@@ -170,7 +170,7 @@ body
   padding: 2px 0;
 }
 
-.pagination{
+.pagination {
   padding: 15px;
 }
 

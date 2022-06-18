@@ -1,72 +1,71 @@
-
-
 <template>
-    <div id="centerDiv">
-        <img src="@/components/icons/Logo-icone.png" width="250px"
-            style="padding: 10px; margin-right: auto; margin-left: auto;">
+  <div id="centerDiv">
+    <img src="@/components/icons/Logo-icone.png" width="250px"
+         style="padding: 10px; margin-right: auto; margin-left: auto;">
 
 
-        <div style="margin-right: auto; margin-left: auto;">
+    <div style="margin-right: auto; margin-left: auto;">
 
 
-            <div class="input-group input-container" >
+      <div class="input-group input-container">
                 <span class="input-group-text" style="max-height: 45px; max-width: 60px; padding-right: 20px">
                 <img class="left-image" src="@/components/icons/email.png" style="width: 250%; height: 100%;">
                 </span>
-                <input class="form-control" placeholder="Email Cadastrado"
-                    style="width: 350px;height: 45px;font-size: medium">
-            </div>
-            <br>
-            <div class="input-group input-container" style="margin-right: auto; margin-left: auto;">
+        <input class="form-control" placeholder="Email Cadastrado"
+               style="width: 350px;height: 45px;font-size: medium">
+      </div>
+      <br>
+      <div class="input-group input-container" style="margin-right: auto; margin-left: auto;">
                 <span class="input-group-text" style="max-height: 45px; max-width: 60px; padding-right: 20px">
                 <img class="left-image" src="@/components/icons/password.png" style="width: 250%; height: 100%">
                 </span>
-                <input class="form-control" type="password" placeholder="Nova Senha" style="height: 45px;font-size: medium">
-                <span class="input-group-text right-span" style="max-height: 45px; max-width: 60px; padding-right: 20px">
+        <input class="form-control" type="password" placeholder="Nova Senha" style="height: 45px;font-size: medium">
+        <span class="input-group-text right-span" style="max-height: 45px; max-width: 60px; padding-right: 20px">
                 <img class="right-image" src="@/components/icons/eye.png" style="width: 250%; height: 100%">
                 </span>
-            </div>
-            <br>
-            <div class="input-group input-container" style="margin-right: auto; margin-left: auto;">
+      </div>
+      <br>
+      <div class="input-group input-container" style="margin-right: auto; margin-left: auto;">
                 <span class="input-group-text" style="max-height: 45px; max-width: 60px; padding-right: 20px">
                 <img class="left-image" src="@/components/icons/password.png" style="width: 250%; height: 100%">
                 </span>
-                <input class="form-control" type="password" placeholder="Confirmar Nova Senha" style="height: 45px;font-size: medium">
-                <span class="input-group-text right-span" style="max-height: 45px; max-width: 60px; padding-right: 20px">
+        <input class="form-control" type="password" placeholder="Confirmar Nova Senha"
+               style="height: 45px;font-size: medium">
+        <span class="input-group-text right-span" style="max-height: 45px; max-width: 60px; padding-right: 20px">
                 <img class="right-image" src="@/components/icons/eye.png" style="width: 250%; height: 100%">
                 </span>
-            </div>
-            <br>
-        </div>
-
-        <div style="margin-right: auto; margin-left: auto;">
-            <div class="login-btn"  data-bs-target="#modalCardNewKey" data-bs-toggle="modal">
-                <p>Salvar Alteração</p>
-            </div>
-        </div>
-
-        <div id="modalCardNewKey" class="modal" style="margin-top: 200px">
-          <div class="modal-dialog">
-            <div class="modal-content">
-
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Senha Alterada com sucesso!</h4>
-                <button class="btn-close" data-bs-dismiss="modal" type="button" @click="goToLogin()"></button>
-              </div>
-
-              <!-- Modal body -->
-              <div class="modal-body" style="font-family: 'Grape Nuts', cursive; font-family: 'Open Sans', sans-serif;">
-                <p>Todos os procedimentos foram seguidos corretamente e sua senha foi alterada.
-                  Agora, pode retornar à tela de login para acessar sua conta.
-                </p>
-              </div>
-
-            </div>
-          </div>
-        </div>
-    
+      </div>
+      <br>
     </div>
+
+    <div style="margin-right: auto; margin-left: auto;">
+      <div class="login-btn" data-bs-target="#modalCardNewKey" data-bs-toggle="modal">
+        <p>Salvar Alteração</p>
+      </div>
+    </div>
+
+    <div id="modalCardNewKey" class="modal" style="margin-top: 200px">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Senha Alterada com sucesso!</h4>
+            <button class="btn-close" data-bs-dismiss="modal" type="button" @click="goToLogin()"></button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body" style="font-family: 'Grape Nuts', cursive; font-family: 'Open Sans', sans-serif;">
+            <p>Todos os procedimentos foram seguidos corretamente e sua senha foi alterada.
+              Agora, pode retornar à tela de login para acessar sua conta.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
 </template>
 
 <script>
@@ -99,7 +98,7 @@ export default {
   font-size: 20px;
 }
 
-.right-span:hover{
+.right-span:hover {
   background-color: #DDD;
   cursor: pointer;
 }
