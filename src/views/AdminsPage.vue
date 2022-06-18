@@ -6,7 +6,7 @@ import Menu from "@/components/Menu.vue";
 </script>
 
 <template>
-  <div v-if="admin">
+  <div v-if="admin" style="min-height: calc(100vh - 410px)">
     <AdminMenu
         :plotDropDown="false"
     />
@@ -52,7 +52,7 @@ import Menu from "@/components/Menu.vue";
     </div>
 
   </div>
-  <div v-else>
+  <div style="min-height: calc(100vh - 410px)" v-else>
     <Menu
         :plotDropDown="false"
     />

@@ -56,16 +56,38 @@
         </div>
       </div>
       <div>
+        <!-- upload da img funcionando, TODO: do pdf não -->
+        <div style="display: flex; ">
         <div class="book-basics">
           <div class="DivinputImage">
+            <iframe name="dummyframe" id="dummyframe" style="display: none"></iframe>
+            <form  target="dummyframe"  action="http://localhost:8125/uploadImage" method="post" enctype="multipart/form-data" ref="formImg">
+              <label for="inputTag">
+                Selecione a capa do livro <br/>
+                <img src="@/components/icons/addBook.png" style="width: 60px"/>
+                <input id="inputTag" class="inputImage" type="file" v-on:change="checkImg()" ref="img"  name="fileupload"/>
+                <input type="hidden" v-bind:value="getNextId()" name="id">
+                <br/>
+                <span id="imageName"></span>
+
+              </label>
+            </form>
+          </div>
+        </div><div class="book-basics">
+        <div class="DivinputImage">
+          <iframe name="dummyframe" id="dummyframe" style="display: none"></iframe>
+          <form  target="dummyframe"  action="http://localhost:8126/uploadPdf" method="post" enctype="multipart/form-data" ref="formPdf">
             <label for="inputTag">
-              Selecione a capa do livro <br/>
-              <img src="@/components/icons/addBook.png" width="60px"/>
-              <input id="inputTag" class="inputImage" type="file"/>
+              Selecione o PDF do livro <br/>
+              <img src="@/components/icons/addBook.png" style="width: 60px"/>
+              <input id="inputTag" class="inputImage" type="file" v-on:change="checkPdf()" ref="pdf"  name="fileupload"/>
+              <input type="hidden" v-bind:value="getNextId()" name="id">
               <br/>
               <span id="imageName"></span>
             </label>
-          </div>
+          </form>
+        </div>
+      </div>
         </div>
         <div class="home-book-info">
           <p class="title">Selecione as categorias</p>
@@ -152,6 +174,16 @@
 <script>
 export default {
   methods: {
+    checkPdf(){
+      this.$refs.formPdf.submit();
+    },checkImg(){
+      console.log("OI");
+      this.$refs.formImg.submit();
+    },
+    getNextId(){
+      let books = JSON.parse(localStorage.getItem("books"));
+      return books[books.length-1].id+1;
+    },
     addBook(){
       let books = JSON.parse(localStorage.getItem("books"));
       let newBook = {};
@@ -186,7 +218,9 @@ export default {
   },
   data() {
     return {
-      checkBoxValues: []
+      checkBoxValues: [],
+      imgFile: null,
+      pdfFile: null,
     }
   },
   props:["propagateChanges"],
@@ -213,7 +247,7 @@ export default {
 .book-basics {
   margin-top: 20px;
   margin-left: 20px;
-  width: 80vw;
+  width: 25vw;
   font-family: "Grape Nuts", cursive;
   font-family: "Open Sans", sans-serif;
 }

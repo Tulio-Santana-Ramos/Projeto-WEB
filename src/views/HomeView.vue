@@ -27,16 +27,18 @@ import AdminMenu from "@/components/AdminMenu.vue";
       />
     </div>
     </div>
-  <paginate
-      v-model="page"
-      :page-count="getNumPages()"
-      :container-class="pagination_class"
-      :initial-page="getActualPage()"
-      :prev-text="prev_text"
-      :next-text="next_text"
-      :click-handler="changePage"
-  >
-  </paginate>
+  <div style="width: 100%">
+    <paginate
+        v-model="page"
+        :page-count="getNumPages()"
+        :container-class="pagination_class"
+        :initial-page="getActualPage()"
+        :prev-text="prev_text"
+        :next-text="next_text"
+        :click-handler="changePage"
+        style="position: relative;bottom: 0;left: calc(100% - 270px); width: 100%;"
+    />
+  </div>
   <Footer/>
 
 </template>
@@ -83,7 +85,6 @@ export default {
     getAllCategories(){
       return JSON.parse(localStorage.getItem("categories"))
     },
-    //TODO: Falta arruma essa funcao
     paginate(){
       let books = this.getActualBooks();
       let allCategories = this.getAllCategories();

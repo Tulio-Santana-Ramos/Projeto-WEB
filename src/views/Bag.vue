@@ -6,7 +6,8 @@ import {VueCookieNext} from 'vue-cookie-next'
 
 </script>
 
-<template>
+<template >
+  <div style="min-height: calc(100vh - 410px)">
   <Menu
       :plotDropDown=false
   />
@@ -30,7 +31,9 @@ import {VueCookieNext} from 'vue-cookie-next'
     <button type="button" @click="goToHome" class="btn btn-primary">Voltar a comprar</button>
     <button type="button" @click="goToFinishShop" class="btn btn-success">Finalizar compra</button>
   </div>
-  <Footer></Footer>
+
+  </div>
+  <Footer/>
 </template>
 
 <script>

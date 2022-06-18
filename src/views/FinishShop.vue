@@ -10,6 +10,7 @@ import {VueCookieNext} from 'vue-cookie-next'
 </script>
 
 <template>
+  <div style="min-height: calc(100vh - 270px)">
   <Menu
       :plotDropDown="false"
   />
@@ -171,6 +172,7 @@ import {VueCookieNext} from 'vue-cookie-next'
 
       </div>
     </div>
+  </div>
   </div>
   <Footer/>
 </template>

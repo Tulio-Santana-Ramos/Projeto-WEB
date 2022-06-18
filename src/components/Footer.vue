@@ -1,11 +1,10 @@
 <template>
-  <div class="footer">
+  <div class="footer" style="position: relative;bottom: 0;left: 0; width: 100%; height: 270px">
     <div style="margin-top: auto;margin-bottom: auto; padding-left:10px ;">
       <img src="@/components/icons/icon-branco.png" width="200vw">
     </div>
     <div class="txt-footer">
       <h2>Sobre nós</h2>
-      <!-- TODO: passar para Vuetify -->
       <p>WEBOOK é uma plataforma de venda e leitura de Ebooks.
         O objetivo é ajudar você, usuário, a se encontrar no maravilhoso universo dos livros.
         Com o desenvolvimento da tecnologia, pode-se acessar uma quantidade muito maior de livros em apenas alguns cliques.
@@ -19,7 +18,7 @@
       <a href="#home/3">Perfil do Cliente</a>
       <a href="#home/3">Biblioteca</a>
     </div>
-    <div class="txt-footer">
+    <div class="txt-footer" style="width: 300px">
       <h2>Atendimento</h2>
       <p>Email: atendimento@webook.com</p>
       <p>Telefone: (16) 9959-6780</p>
@@ -38,7 +37,7 @@ export default {
 
 .footer{
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   background-color: #38B6FF;
   padding: 2em 0;
   color: white;
