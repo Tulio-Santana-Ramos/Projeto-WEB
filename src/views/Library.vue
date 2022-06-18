@@ -23,8 +23,33 @@ import {VueCookieNext} from "vue-cookie-next";
     </div>
   </div>
   <LoginRequired v-else :text="text"></LoginRequired>
- 
 
+  <!-- The Modal -->
+  <div id="modalLogin" class="modal" style="margin-top: 200px">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Você não está logado</h4>
+          <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          Parece que você não está logado.
+          Para fazer compras no nosso site faça login ou crie uma conta
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button class="btn btn-primary" data-bs-dismiss="modal" type="button" @click="this.$router.push('/login')">Login</button>
+          <button class="btn btn-primary" data-bs-dismiss="modal" type="button" @click="this.$router.push('/novousuario')">Cadastre-se</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
   <Footer> </Footer>
 </template>
 
@@ -34,12 +59,13 @@ import {VueCookieNext} from "vue-cookie-next";
 export default {
   name: "app",
   methods:{
+    goToBook(idLivro){
+      this.$router.push({path:"/livro",query:{id:idLivro}});
+    },
     hadUser(){
       return VueCookieNext.getCookie("account") !== null;
     },
     getAllCategories(){
-      console.log(this.hadUser());
-      console.log(typeof VueCookieNext.getCookie("account"));
       return JSON.parse(localStorage.getItem("categories"))
     },
     getUserBooks(){
@@ -51,7 +77,7 @@ export default {
         if(library.user === actualUser.id){
           for (const book of JSON.parse(localStorage.getItem("books"))) {
             for (const bookLib of library.lib) {
-              if (parseInt(book.id) === parseInt(bookLib)) {
+              if (parseInt(book.id) === parseInt(bookLib.id)) {
                 let tempCategories = [];
                 for (const category of book.categories) {
                   for (const fixedCategory of allCategories){

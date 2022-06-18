@@ -19,7 +19,6 @@
       <a v-else class="navbar-brand" @click="logout()"  style="height: 100%"><img class="img-navbar" src="@/components/icons/logout.png"  style="width:60px;height: 60px;padding: 10px;"></a>
     </div>
   </nav>
-  <!-- TODO: fazer um modal para logoff -->
   <!-- TODO: fazer a persistencia da dropdown -->
 </template>
 

@@ -165,7 +165,6 @@ import {VueCookieNext} from 'vue-cookie-next'
 
         <!-- Modal footer -->
         <div class="modal-footer">
-          <!-- TODO: fazer o login virar um modal -->
           <button class="btn btn-primary" data-bs-dismiss="modal" type="button" @click="this.$router.push('/login')">Login</button>
           <button class="btn btn-primary" data-bs-dismiss="modal" type="button" @click="this.$router.push('/novousuario')">Cadastre-se</button>
         </div>

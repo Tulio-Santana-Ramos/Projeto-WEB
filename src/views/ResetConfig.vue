@@ -16,7 +16,7 @@ export default {
     localStorage.setItem("accounts",'[{"email":"admin","phone":"","name":"adm1","senha":"admin","admin":true,"id":0},{"email":"login","phone":"","name":"João da Silva","senha":"senha","admin":false,"id":1,"cards":[{"name":"Harry Potter","code":1010,"flag":"Nubank"},{"name":"Hermione","code":2020,"flag":"Banco do Brasil"}]},{"email":"c","senha":"c","admin":true,"name":"Clara","phone":"","id":2},{"email":"e","senha":"e","admin":true,"name":"Eduardo","phone":"","id":3},{"email":"t","senha":"t","admin":true,"name":"Tulio","phone":"","id":4}]');
     localStorage.setItem("categories",'[{"name":"Romance","id":0},{"name":"Sci-fy","id":1},{"name":"Aventura","id":2},{"name":"Juvenil","id":3}]');
     localStorage.setItem("buys","[]");
-    localStorage.setItem("libraries",'[{"user":1,"lib":[0,2]}]');
+    localStorage.setItem("libraries",'[{"user":1,"lib":[{"id":0,"eval":false},{"id":2,"eval":false}]}]');
   }
 }
 </script>

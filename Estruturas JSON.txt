@@ -77,3 +77,18 @@ Buys:
         "name":nomeDoCliente,
         "value":valorDaCompra
     }
+Libraries:
+    {
+        "user":1,
+        "lib":
+            [
+                {
+                    "id":0,
+                    "eval":false
+                },
+                {
+                    "id":2,
+                    "eval",false
+                }
+            ]
+    }

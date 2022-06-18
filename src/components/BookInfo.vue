@@ -111,9 +111,16 @@
       <img class="edit-fig"  src="@/components/icons/settings.png"/>Editar informações
     </button>
     <!-- TODO: verificar se ta na lib -->
-    <div class="buttons" v-else-if="!inBag">
+    <div class="buttons" v-else-if="!(inBag || inLib)">
       <button type="button" class="btn btn-primary bag-book" ref="btn_carrinho" @click="showToast();atClick(id);hideBtns()">Adicionar ao carrinho</button>
       <button type="button" class="btn btn-primary buy-book" ref="btn_compra" @click="atClick(id);goToCarrinho()">Comprar E-book</button>
+    </div>
+    <!-- TODO: arrumar o estilo dessa parte -->
+    <div v-else-if="inLib">
+      <span> Esse livro já se encontra na sua Biblioteca</span>
+    </div>
+    <div v-else>
+      <span> Esse livro já se encontra no seu carrinho</span>
     </div>
     <div v-else>
 

@@ -13,5 +13,5 @@ app.use(router)
 app.component('star-rating', StarRating);
 
 app.mount('#app')
-
+//TODO: passar as ref`s para model`s
 VueCookieNext.config({ expire: '7d' })
