@@ -3,8 +3,8 @@
     <div class="container-fluid">
       <a class="navbar-brand"  @click="goToHome()" ><img class="img-navbar navbar-brand" src="@/components/icons/logo.png"  style=" width:80px;height: 80px; padding: 10px;"></a>
       <a class="navbar-brand" @click="goToBiblioteca()" ><img class="img-navbar navbar-brand" src="@/components/icons/livro.png" style="padding: 10px;margin-bottom: 10px; width: 75%; height: 75%"><span class="txt-navbar" >Biblioteca</span></a>
-      <select v-if="plotDropDown" ref="drop" name="livros" id="book-select" style=" margin-left: 80px;margin-top: 15px " class="form-select form-select-lg mb-3" @change="filter(this.$refs.drop.value)" >
-        <option value="-1" disabled selected hidden>Selecione a categoria</option>
+      <select v-if="plotDropDown" ref="drop" name="livros" id="book-select" style=" margin-left: 80px;margin-top: 15px " class="form-select form-select-lg mb-3" @change="filter(this.$refs.drop.value)" v-model="this.dropdownCategory">
+        <option value=-1 disabled hidden selected>Selecione a categoria</option>
         <option v-for="categorie in getAllCategories()" v-bind:value="categorie.id">
           {{categorie.name}}
         </option>
@@ -27,8 +27,12 @@ import {VueCookieNext} from "vue-cookie-next";
 
 export default {
    name:"menu",
-   props:["plotDropDown","filter"],
-   methods: {
+   props:["plotDropDown","filter","actualCategory"],
+  mounted() {
+     if (this.actualCategory !== undefined)
+      this.dropdownCategory = this.actualCategory;
+  },
+  methods: {
      logout(){
        VueCookieNext.removeCookie("account");
        this.$router.go(0);
@@ -52,6 +56,11 @@ export default {
       return JSON.parse(localStorage.getItem("categories"));
     }
   },
+  data(){
+     return {
+       dropdownCategory: -1
+     }
+  }
 }
 </script>
 

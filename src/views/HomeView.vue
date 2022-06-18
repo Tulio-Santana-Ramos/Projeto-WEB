@@ -12,9 +12,10 @@ import AdminMenu from "@/components/AdminMenu.vue";
   <Menu v-else
         :plotDropDown="true"
         :filter="filterDropdown"
+        :actualCategory="this.$route.query.category"
   />
   <div class="books">
-    <div v-for="book in getActualBooks()" @click="goToBook(book.id)">
+    <div v-for="book in paginate()" @click="goToBook(book.id)">
       <Books
         :name="book.name"
         :price="book.price"
@@ -47,9 +48,13 @@ export default {
     paginate: Paginate,
   },
   name: 'app',
+  mounted() {
+    if(this.$route.query.category !== undefined)
+      this.actualCategory = this.$route.query.category;
+  },
   methods: {
     filterDropdown(id){
-      this.$router.push({path:"/",query:{id:id}});
+      this.$router.push({path:"/",query:{category:id}});
     },
     goToBook(idLivro){
       this.$router.push({path:"/livro",query:{id:idLivro}});
@@ -60,16 +65,14 @@ export default {
       return 1;
     },
     getNumPages(){
-      return (Math.ceil(this.getLengthBooks()/maxBooks));
+      return (Math.ceil(this.getActualBooks().length/maxBooks));
     },
     changePage(numPage){
-      if (this.$route.query.id !== null){
-        this.$router.push({path:"/",query:{id:this.$route.query.id,page:numPage}});
+      if (this.$route.query.category !== null){
+        this.$router.push({path:"/",query:{category:this.$route.query.category,page:numPage}});
         return;
       }
       this.$router.push({path:"/",query:{page:numPage}});
-    },getLengthBooks(){
-      return this.getAllBooks().length;
     },
     getAllBooks(){
       return JSON.parse(localStorage.getItem("books"));
@@ -78,21 +81,23 @@ export default {
       return JSON.parse(localStorage.getItem("categories"))
     },
     //TODO: Falta arruma essa funcao
-    getActualBooks(){
+    paginate(){
+      let books = this.getActualBooks();
+      let allCategories = this.getAllCategories();
       let temp = [];
-      let books = this.getAllBooks();
       let page = this.$route.query.page;
       if(page === undefined)
         page = 1;
       else {
-        if (page <= 0 || this.$route.query.page > this.getNumPages())
+        if (page <= 0 || this.$route.query.page > books.length)
           this.$router.push("/");
       }
       page--;
-      let allCategories = this.getAllCategories();
-      for (let i = maxBooks*page; (i < maxBooks+maxBooks*page) && (i < books.length); i++){
+      for (let i = maxBooks*page; (i < maxBooks*(page+1)) && (i < books.length); i++){
         let tempCategories = [];
-        for (const category of books[i].categories) {
+        let book = books[i];
+        for (let j = 0; j < book.categories.length; j++){
+          let category = book.categories[j];
           for (const fixedCategory of allCategories){
             if(category === fixedCategory.id) {
               tempCategories.push(fixedCategory.name);
@@ -100,11 +105,22 @@ export default {
             }
           }
         }
-
         if(tempCategories.length !== 0) {
           temp.push(books[i]);
           temp[temp.length-1].categories = tempCategories;
         }
+      }
+      return temp;
+    },
+    getActualBooks(){
+      let temp = [];
+      let books = this.getAllBooks();
+      if(this.$route.query.category === undefined)
+        return books;
+      let category = this.$route.query.category;
+      for (const book of books) {
+        if (book.categories.includes(parseInt(category)))
+          temp.push(book);
       }
       return temp;
     },
@@ -120,6 +136,7 @@ export default {
       prev_text:"Anterior",
       pagination_class:"pagination",
       next_text:"Proximo",
+      actualCategory: -1,
     };
   },
 };
