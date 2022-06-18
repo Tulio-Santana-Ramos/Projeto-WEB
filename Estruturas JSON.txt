@@ -10,7 +10,7 @@ payment_forms:
 account:
     {
         "id":0,
-        "adm":"ADM"
+        "adm":true
     }
 accounts:
     {
@@ -46,6 +46,7 @@ Book://pdf = id.pdf
         "editor": "Pottermore Publishing",
         "autor": "MOSS | J.K. ROWLING",
         "tradutor": "LIA WYLER",
+        "cards": [{"name":"Harry Potter","code":1010,"flag":"Nubank"},{"name":"Hermione","code":2020,"flag":"Banco do Brasil"}],
         "year": 2015,
         "id":0,
         "evaluations":[

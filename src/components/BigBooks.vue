@@ -1,6 +1,5 @@
 <template>
   <div class="home-book">
-    <!-- TODO: parece q um user pode ver a lib do outro -->
     <img class="img-livro" v-bind:src="'/src/assets/' + id + '.jpg'" />
     <div class="home-book-info">
       <p class="title">{{ name }}</p>

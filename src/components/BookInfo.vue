@@ -110,7 +110,6 @@
     <button class="edit-info" v-if="isAdmin()" data-bs-target="#modalChangeInfos" data-bs-toggle="modal">
       <img class="edit-fig"  src="@/components/icons/settings.png"/>Editar informações
     </button>
-    <!-- TODO: verificar se ta na lib -->
     <div class="buttons" v-else-if="!(inBag || inLib)">
       <button type="button" class="btn btn-primary bag-book" ref="btn_carrinho" @click="showToast();atClick(id);hideBtns()">Adicionar ao carrinho</button>
       <button type="button" class="btn btn-primary buy-book" ref="btn_compra" @click="atClick(id);goToCarrinho()">Comprar E-book</button>

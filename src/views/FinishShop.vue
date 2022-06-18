@@ -195,9 +195,16 @@ export default {
       newCard.name = nome;
       newCard.code = parseInt(numero);
       newCard.flag = bandeira;
-      let temp = JSON.parse(localStorage.getItem("cards"))
-      temp.push(newCard)
-      localStorage.setItem("cards",JSON.stringify(temp));
+      let acc = VueCookieNext.getCookie("account");
+      if(acc === null){
+        return '';
+      }
+      let accs = JSON.parse(localStorage.getItem("accounts"));
+      for (const accBD in accs) {
+        if(acc.id === accs[accBD].id)
+          accs[accBD].cards.push(newCard);
+      }
+      localStorage.setItem("accounts",JSON.stringify(accs));
       this.$router.go(0);
     },
     removeLivro(id){
@@ -266,7 +273,7 @@ export default {
         if(acc.id === accBD.id)
           return accBD.cards;
       }
-      return JSON.parse(localStorage.getItem("cards"));
+      return [];
     },
     getPaymentForms() {
       return JSON.parse(localStorage.getItem("payment_forms"));
