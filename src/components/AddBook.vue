@@ -61,7 +61,7 @@
         <div class="book-basics">
           <div class="DivinputImage">
             <iframe name="dummyframe" id="dummyframe" style="display: none"></iframe>
-            <form  target="dummyframe"  action="http://localhost:8125/uploadImage" method="post" enctype="multipart/form-data" ref="formImg">
+            <form  target="dummyframe"  action="http://localhost:8125/upload" method="post" enctype="multipart/form-data" ref="formImg">
               <label for="inputTag">
                 Selecione a capa do livro <br/>
                 <img src="@/components/icons/addBook.png" style="width: 60px"/>
@@ -76,7 +76,7 @@
         </div><div class="book-basics">
         <div class="DivinputImage">
           <iframe name="dummyframe" id="dummyframe" style="display: none"></iframe>
-          <form  target="dummyframe"  action="http://localhost:8126/uploadPdf" method="post" enctype="multipart/form-data" ref="formPdf">
+          <form  target="dummyframe"  action="http://localhost:8125/upload" method="post" enctype="multipart/form-data" ref="formPdf">
             <label for="inputTag">
               Selecione o PDF do livro <br/>
               <img src="@/components/icons/addBook.png" style="width: 60px"/>

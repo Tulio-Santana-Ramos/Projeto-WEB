@@ -11,13 +11,20 @@ http.createServer(function (req, res) {
     form.parse(req, function (error, fields, file) {
         let filepath = file.fileupload.filepath;
         let newpath = '../src/assets/';
-        newpath += fields.id + ".jpg";
+        let split = file.fileupload.originalFilename.split(".");
+        console.log(split);
+        console.log(split[split.length-1]);
+        if (split[split.length-1] === "pdf"){
+            newpath += fields.id + ".pdf";
+        }else{
+            newpath += fields.id + ".jpg";
+        }
         //Copy the uploaded file to a custom folder
         fs.rename(filepath, newpath, function () {
             //Send a NodeJS file upload confirmation message
             res.end();
         });
-        console.log("Imagem "+file.fileupload.originalFilename+" salva como "+fields.id+".jpg");
+        console.log("Imagem "+file.fileupload.originalFilename+" salva como "+ newpath);
     });
 
 }).listen(8125);
