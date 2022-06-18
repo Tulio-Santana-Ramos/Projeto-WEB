@@ -6,6 +6,7 @@ import AdminMenu from "@/components/AdminMenu.vue";
 </script>
 
 <template>
+  <div style="overflow: hidden">
   <AdminMenu v-if="isAdmin()"
              :plotDropDown="true"
              :filter="filterDropdown"
@@ -40,7 +41,7 @@ import AdminMenu from "@/components/AdminMenu.vue";
     />
   </div>
   <Footer/>
-
+  </div>
 </template>
 
 <script>
@@ -154,11 +155,11 @@ export default {
 @import "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css";
 @import '@/assets/base.css';
 
-body
 .books {
   margin-top: 120px;
   padding: 0em 2vw;
   display: flex;
+  min-height: 511px;
   flex-wrap: wrap;
 }
 

@@ -158,7 +158,6 @@
               {{ category.name }}
             </label>
           </ul>
-          <!-- todo fazer esse btn funcionar -->
           <button class="btn btn-secondary" style="width: 95%; margin-left: 5px" data-bs-target="#modal-add-card"
                   data-bs-toggle="modal"> Adicionar nova categoria
           </button>
