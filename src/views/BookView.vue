@@ -176,9 +176,11 @@ export default {
     },
     searchInBag(id) {
       let bag = JSON.parse(VueCookieNext.getCookie("bag"));
-      for (const book of bag) {
-        if (book.id === id)
-          return true;
+      if(bag !== null) {
+        for (const book of bag) {
+          if (book.id === id)
+            return true;
+        }
       }
       return false;
     },
@@ -217,7 +219,10 @@ export default {
         return;
       let bag = JSON.parse(VueCookieNext.getCookie("bag"));
       let newBook = {id: idLivro};
-      bag.push(newBook);
+      if(bag !== null)
+        bag.push(newBook);
+      else
+        bag = [newBook];
       let temp = JSON.stringify(bag);
       VueCookieNext.setCookie("bag", temp);
     }

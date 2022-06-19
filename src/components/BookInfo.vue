@@ -96,7 +96,7 @@
         </div>
       </div>
     </div>
-    <div v-if="promotion.is" class="promo">
+    <div v-if="promotion.is" class="container-promotion">
       Quantidade promocional restante: {{ promotion.numberBooks }}
     </div>
     <div class="book-basics">
@@ -114,23 +114,22 @@
     <button class="edit-info" v-if="isAdmin()" data-bs-target="#modalChangeInfos" data-bs-toggle="modal">
       <img class="edit-fig" src="@/components/icons/settings.png"/>Editar informações
     </button>
-    <div class="buttons" v-else-if="!(inBag || inLib)">
+    <div class="buttons" v-else-if="!(inBagVar || inLib)">
       <button type="button" class="btn btn-primary bag-book" ref="btn_carrinho"
-              @click="showToast();atClick(id);hideBtns()">Adicionar ao carrinho
+              @click="showToast();atClick(id);inBagVar = true">Adicionar ao carrinho
       </button>
-      <button type="button" class="btn btn-primary buy-book" ref="btn_compra" @click="atClick(id);goToCarrinho()">
+      <button type="button" class="btn btn-primary buy-book" ref="btn_compra" @click="atClick(id);inBagVar = true">
         Comprar E-book
       </button>
     </div>
     <!-- TODO: arrumar o estilo dessa parte -->
-    <div v-else-if="inLib">
-      <span> Esse livro já se encontra na sua Biblioteca</span>
+    <div v-else-if="inLib" class="haved">
+      <br>
+      <span style="background-color: #1b8c1f; border-radius: 10px; padding: 10px; font-size: large"> Esse livro já se encontra na sua Biblioteca</span>
     </div>
-    <div v-else>
-      <span> Esse livro já se encontra no seu carrinho</span>
-    </div>
-    <div v-else>
-
+    <div v-else class="haved">
+      <br>
+      <span style="background-color: #1b8c1f; border-radius: 10px; padding: 10px; font-size: large"> Esse livro já se encontra no seu carrinho</span>
     </div>
   </div>
   <div class="book-specifics">
@@ -174,10 +173,12 @@ export default {
   data() {
     return {
       categoriesCheck: [],
-      updateCategories: 0
+      updateCategories: 0,
+      inBagVar:false,
     };
   },
   mounted() {
+    this.inBagVar = this.inBag;
     let categories = this.getAllCategories();
     for (let i = 0; i < categories.length; i++) {
       this.categoriesCheck[i] = this.searchInActualCategories(categories[i].name);
@@ -259,9 +260,18 @@ export default {
 </script>
 
 <style scoped>
+.haved{
+  margin-left: 40%;
+}
+
 .book-container {
   margin-top: 150px;
   padding-left: 100px;
+}
+
+.container-promotion {
+  background-color: #1b8c1f;
+  border-radius: 10px 10px 0 0;
 }
 
 .container-promotion {

@@ -55,6 +55,7 @@ export default {
         this.bag = [];
         let allCategories = this.getAllCategories();
         for (const book of JSON.parse(localStorage.getItem("books"))) {
+          if (JSON.parse(VueCookieNext.getCookie("bag")) !== null)
           for (const bagElem of JSON.parse(VueCookieNext.getCookie("bag"))) {
             if (parseInt(book.id) === parseInt(bagElem.id)) {
               let tempCategories = [];
