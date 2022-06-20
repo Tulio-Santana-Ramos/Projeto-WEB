@@ -6,7 +6,7 @@ import NewAccount from "@/components/NewAccount.vue";
   <h2 class="title">CRIAR CONTA</h2>
   <img class="user-pic" src="@/components/icons/user.png"/>
   <NewAccount
-      :adminReg=true
+      :adminReg=false
       :nextPage="next"
   />
   <p class="use-conditions">Condições de uso</p>

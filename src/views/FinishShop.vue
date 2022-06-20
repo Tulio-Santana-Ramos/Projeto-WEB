@@ -20,11 +20,11 @@ import {VueCookieNext} from 'vue-cookie-next'
     <div>
       <div v-if="validateCard()">
         <fieldset>
-        <span class="normal-text" style="padding-left: 50px">
+          <div v-if="hadUser()">
+            <span class="normal-text" style="padding-left: 50px">
           1. Selecione um metodo de pagamento:
         </span>
-          <BlankLine/>
-          <div v-if="hadUser()">
+            <BlankLine/>
           <span class="normal-text" style="padding-left: 100px">
             Seus cartões de crédito:
           </span>
@@ -97,30 +97,34 @@ import {VueCookieNext} from 'vue-cookie-next'
                 </div>
               </div>
             </div>
+            <span v-for="(payment, index) in getPaymentForms()" class="other-payment">
+              <BlankLine/>
+              <div style="padding-left: 100px">
+                <DefaultPaymentOption
+                    :index="index+1"
+                    :input_name="payment_name"
+                    :life_time="payment.life_time"
+                    :name="payment.name"
+                />
+              </div>
+            </span>
+            <div style="padding-left: 150px; align-items: center;; margin: 40px 0;">
+              <button class="btn btn-primary" style="color: white; cursor: pointer;" type="button" @click="nextStep()">
+                Selecionar forma de pagamento
+              </button>
+            </div>
           </div>
-          <div v-else style="padding-left: 100px">
-            Para pagar com cartão é necessario fazer login:
+
+
+            <div v-else style="padding-left: 100px">
+            Para comprar é necessario fazer login:
             <button class="btn btn-primary" data-bs-dismiss="modal" type="button" @click="this.$router.push('/login')">
               Login
             </button>
           </div>
-          <span v-for="(payment, index) in getPaymentForms()" class="other-payment">
-          <BlankLine/>
-          <div style="padding-left: 100px">
-            <DefaultPaymentOption
-                :index="index+1"
-                :input_name="payment_name"
-                :life_time="payment.life_time"
-                :name="payment.name"
-            />
-          </div>
-        </span>
+
         </fieldset>
-        <div style="padding-left: 150px; align-items: center;; margin: 40px 0;">
-          <button class="btn btn-primary" style="color: white; cursor: pointer;" type="button" @click="nextStep()">
-            Selecionar forma de pagamento
-          </button>
-        </div>
+
       </div>
       <div v-else>
         <div>
@@ -299,7 +303,14 @@ export default {
       }
       let updateBookList = false;
       let bag = this.getBag();
+      if(bag === null)
+        this.$router.push("/");
+      let toAddInLib = [];
       for (const book of bag) {
+        let nextBook = {};
+        nextBook.id = book.id;
+        nextBook.eval = false;
+        toAddInLib.push(nextBook);
         if (book.promo.is) {
           updateBookList = true;
           book.promo.numberBooks--;
@@ -320,6 +331,32 @@ export default {
         }
         localStorage.setItem("books", JSON.stringify(books));
       }
+      let libs = JSON.parse(localStorage.getItem("libraries"));
+      let actualLib = null;
+      let libID = -1;
+      console.log(libs);
+      for (let i = 0; i < libs.length; i++) {
+        console.log(libs[i]);
+        if (libs[i].user === user.id) {
+          actualLib = libs[i].lib;
+          libID = i;
+        }
+      }
+      if (actualLib === null)
+        actualLib = [];
+      for (const bookToAdd of toAddInLib) {
+        actualLib.push(bookToAdd);
+      }
+      console.log(actualLib);
+      if(libID === -1){
+        let newLib = {};
+        newLib.user = user.id;
+        newLib.lib = actualLib;
+        libs.push(newLib);
+      }else{
+        libs[libID].lib = actualLib;
+      }
+      localStorage.setItem("libraries",JSON.stringify(libs));
       let oldBuys = JSON.parse(localStorage.getItem("buys"));
       let newBuy = {};
       let accounts = JSON.parse(localStorage.getItem("accounts"));

@@ -7,10 +7,9 @@ import AddBook from "@/components/AddBook.vue";
 </script>
 
 <template>
-  <div v-if="admin" style="min-height: calc(100vh - 410px)">
-    <AdminMenu
-        :plotDropDown="false"
-    />
+  <div v-if="isAdmin()" style="min-height: 511px">
+    <AdminMenu :plotDropDown="false" />
+
     <div class="toast-container position-fixed bottom-0 end-0 p-3 " style="z-index: 1000; ">
       <div class="toast " id="liveToast" ref="toast">
         <div class="toast-header">
@@ -28,7 +27,7 @@ import AddBook from "@/components/AddBook.vue";
     ></AddBook>
     <div class="manage-item"></div>
   </div>
-  <div style="min-height: calc(100vh - 410px)" v-else>
+  <div style="min-height: 699px" v-else>
     <Menu
         :plotDropDown="false"
     />
@@ -39,15 +38,22 @@ import AddBook from "@/components/AddBook.vue";
 </template>
 
 <script>
+import {VueCookieNext} from "vue-cookie-next";
+
 export default {
   name: "app",
   data() {
     return {
       text: "Para acessar essa página é necessário ser um administrador",
-      admin: true,
     };
   },
   methods: {
+    isAdmin() {
+      let account = VueCookieNext.getCookie("account");
+      if (account === null)
+        return false;
+      return account.adm === true;
+    },
     showToast() {
       this.$refs.toast.classList.add("show");
       console.log("show");

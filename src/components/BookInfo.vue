@@ -118,11 +118,10 @@
       <button type="button" class="btn btn-primary bag-book" ref="btn_carrinho"
               @click="showToast();atClick(id);inBagVar = true">Adicionar ao carrinho
       </button>
-      <button type="button" class="btn btn-primary buy-book" ref="btn_compra" @click="atClick(id);inBagVar = true">
+      <button type="button" class="btn btn-primary buy-book" ref="btn_compra" @click="atClick(id);inBagVar = true;this.$router.push('/finalizarCompra')">
         Comprar E-book
       </button>
     </div>
-    <!-- TODO: arrumar o estilo dessa parte -->
     <div v-else-if="inLib" class="haved">
       <br>
       <span style="background-color: #1b8c1f; border-radius: 10px; padding: 10px; font-size: large"> Esse livro já se encontra na sua Biblioteca</span>

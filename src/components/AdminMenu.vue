@@ -8,6 +8,7 @@
               class="form-select form-select-lg mb-3" @change="filter(this.$refs.drop.value)"
               v-model="this.dropdownCategory">
         <option value=-1 disabled hidden selected>Selecione a categoria</option>
+        <option value=-2>Todos os livros</option>
         <option v-for="categorie in getAllCategories()" v-bind:value="categorie.id">
           {{ categorie.name }}
         </option>

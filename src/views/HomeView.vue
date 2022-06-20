@@ -47,8 +47,8 @@ import AdminMenu from "@/components/AdminMenu.vue";
 <script>
 import Paginate from 'vuejs-paginate-next';
 import {VueCookieNext} from "vue-cookie-next";
-
-const maxBooks = 2;
+//TODO: dropdown que mostra todas as categorias
+const maxBooks = 15;
 export default {
   components: {
     paginate: Paginate,
@@ -121,7 +121,7 @@ export default {
     getActualBooks() {
       let temp = [];
       let books = this.getAllBooks();
-      if (this.$route.query.category === undefined)
+      if (this.$route.query.category === undefined || parseInt(this.$route.query.category) === -2)
         return books;
       let category = this.$route.query.category;
       for (const book of books) {

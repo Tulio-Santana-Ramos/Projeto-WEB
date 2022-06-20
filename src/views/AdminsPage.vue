@@ -6,7 +6,7 @@ import Menu from "@/components/Menu.vue";
 </script>
 
 <template>
-  <div v-if="admin" style="min-height: calc(100vh - 410px)">
+  <div v-if="isAdmin()" style="min-height: 699px">
     <AdminMenu
         :plotDropDown="false"
     />
@@ -54,7 +54,7 @@ import Menu from "@/components/Menu.vue";
     </div>
 
   </div>
-  <div style="min-height: calc(100vh - 410px)" v-else>
+  <div style="min-height: 699px" v-else>
     <Menu
         :plotDropDown="false"
     />
@@ -64,17 +64,22 @@ import Menu from "@/components/Menu.vue";
 </template>
 
 <script>
+import {VueCookieNext} from "vue-cookie-next";
+
 export default {
   name: "app",
   data() {
     return {
       text: "Para acessar essa página é necessário ser um administrador",
-      admin: true,
-      adminsList: ["Ana Clara", "Túlio", "Eduardo"],
-      RegisterList: ["João Silva - R$ 30,90", "Maria Soares -  R$ 40,90"]
     };
   },
   methods: {
+    isAdmin() {
+      let account = VueCookieNext.getCookie("account");
+      if (account === null)
+        return false;
+      return account.adm === true;
+    },
     goToAddAdmin() {
       this.$router.push("/novoadmin");
     },

@@ -45,13 +45,13 @@
           <div class="container-upload">
             <div class="div-input-upload">
               <iframe id="dummy-frame" name="dummy-frame"></iframe>
-              <form ref="form-upload-image" action="http://localhost:8125/upload" enctype="multipart/form-data"
+              <form ref="form_upload_image" action="http://localhost:8125/upload" enctype="multipart/form-data"
                     method="post" target="dummy-frame">
-                <label for="input-image">
-                  Selecione a capa do livro
+                <label for="input-image" >
+                  <span ref="lbl_img"> Selecione a capa do livro </span>
                   <br/>
                   <!-- TODO: colocar um marcador que foi enviado o arquivo -->
-                  <img src="@/components/icons/addBook.png" style="width: 60px"/>
+                  <img src="@/components/icons/addBook.png" style="width: 60px" ref="img_img"/>
                   <input id="input-image" ref="img" class="input-file-hidden" name="file-upload" type="file"
                          v-on:change="checkImg()"/>
                   <input name="id" type="hidden" v-bind:value="getNextId()">
@@ -61,12 +61,12 @@
           </div>
           <div class="container-upload">
             <div class="div-input-pdf div-input-upload">
-              <form ref="form-upload-pdf" action="http://localhost:8125/upload" enctype="multipart/form-data"
+              <form ref="form_upload_pdf" action="http://localhost:8125/upload" enctype="multipart/form-data"
                     method="post" target="dummy-frame">
-                <label for="input-pdf">
-                  Selecione o PDF do livro
+                <label for="input-pdf" >
+                  <span ref="lbl_pdf"> Selecione o PDF do livro </span>
                   <br/>
-                  <img src="@/components/icons/addBook.png" style="width: 60px"/>
+                  <img src="@/components/icons/addBook.png" style="width: 60px" ref="img_pdf"/>
                   <input id="input-pdf" ref="pdf" class="input-file-hidden" name="file-upload" type="file"
                          v-on:change="checkPdf()"/>
                   <input name="id" type="hidden" v-bind:value="getNextId()">
@@ -133,21 +133,20 @@
               <input ref="input_number_page" class="form-control" type="text"/>
             </div>
             <p/>
-
-          </div>
-        </div>
-        <!--
-        <div class="container-main" style="display: flex">
-           <div class="input-group" style="height: 300px;margin-bottom: 15px;" >
-                    <div class="input-group-prepend">
+            <div class="container-main" style="display: flex">
+              <div class="input-group" style="height: 300px;margin-bottom: 15px;" >
+                <div class="input-group-prepend">
                       <span id="" class="input-group-text" style="height: 300px; min-width: 100px">
                         Descrição
                       </span>
-                    </div>
-                    <textarea class="form-control"  ref="input_description" style="border-radius: 10px"/>
-                    <br/>
-                  </div>
-        </div>-->
+                </div>
+                <textarea class="form-control"  ref="input_description" style="border-radius: 10px"/>
+                <br/>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
       <div class="container-main-right">
         <div class="container-categories">
@@ -257,11 +256,14 @@ export default {
       this.categories = categories;
     },
     checkPdf() {
-      this.$refs.form - upload - pdf.submit();
+      this.$refs.img_pdf.src = "./src/components/icons/done.png";
+      this.$refs.lbl_pdf.innerText = "Upload feito";
+      this.$refs.form_upload_pdf.submit();
     },
     checkImg() {
-      console.log("OI");
-      this.$refs.form - upload - image.submit();
+      this.$refs.img_img.src = "./src/components/icons/done.png";
+      this.$refs.lbl_img.innerText = "Upload feito";
+      this.$refs.form_upload_image.submit();
     },
     getNextId() {
       let books = JSON.parse(localStorage.getItem("books"));
@@ -284,7 +286,7 @@ export default {
         newBook.promo.numberBooks = 0;
         newBook.promo.tempPrice = 0;
       }
-      newBook.synopsis = this.$refs.input_description.value
+      newBook.synopsis = this.$refs.input_description.value;
       newBook.editor = this.$refs.input_editora.value;
       newBook.autor = this.$refs.input_autor.value;
       newBook.tradutor = this.$refs.input_tradutor.value;

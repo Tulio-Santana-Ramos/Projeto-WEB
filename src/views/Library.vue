@@ -15,7 +15,10 @@ import {VueCookieNext} from "vue-cookie-next";
 
   <h1 class="titlePage">Biblioteca de livros</h1>
   <div v-if="hadUser()" class="books">
-    <div v-for="book in getUserBooks()">
+    <div v-if="getUserBooks().length === 0">
+      Você ainda não comprou nenhum livro :(
+    </div>
+    <div v-else v-for="book in getUserBooks()">
       <Books
           :name="book.name"
           :categories="book.categories"
@@ -144,6 +147,7 @@ export default {
   padding: 0em 2vw;
   display: flex;
   flex-wrap: wrap;
+  min-height: 501px;
 }
 
 .NoLogin {

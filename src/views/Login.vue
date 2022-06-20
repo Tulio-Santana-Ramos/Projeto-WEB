@@ -39,6 +39,7 @@ import {VueCookieNext} from 'vue-cookie-next'
       </button>
 
     </div>
+    <br>
     <div style="display: flex; justify-content:space-around; width: 500px; margin-right: auto; margin-left: auto; ">
       <div>
         <a class="login-options" @click="goToNewPassword()">
