@@ -8,10 +8,10 @@ import AddBook from "../components/AddBook.vue";
 
 <template>
   <div v-if="isAdmin()" style="min-height: 511px">
-    <AdminMenu :plotDropDown="false" />
+    <AdminMenu :plotDropDown=false />
     <!-- Toast para quando o livro é adicionado -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3 " style="z-index: 1000; ">
-      <div class="toast " id="liveToast" ref="toast">
+      <div class="toast" id="liveToast" ref="toast">
         <div class="toast-header">
           <strong class="me-auto">Livro adicionado</strong>
           <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
@@ -25,13 +25,10 @@ import AddBook from "../components/AddBook.vue";
     <AddBook :propagateChanges="showToast" />
   </div>
   <div style="min-height: 699px" v-else>
-    <Menu
-        :plotDropDown="false"
-    />
-    <LoginRequired :text="text"></LoginRequired>
+    <Menu :plotDropDown=false />
+    <LoginRequired :text="text"/>
   </div>
-
-  <Footer></Footer>
+  <Footer/>
 </template>
 
 <script>

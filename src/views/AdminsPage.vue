@@ -1,16 +1,15 @@
 <script setup>
-import Footer from "@/components/Footer.vue";
-import AdminMenu from "@/components/AdminMenu.vue";
-import LoginRequired from "@/components/LoginRequired.vue";
-import Menu from "@/components/Menu.vue";
+import Footer from "../components/Footer.vue";
+import AdminMenu from "../components/AdminMenu.vue";
+import LoginRequired from "../components/LoginRequired.vue";
+import Menu from "../components/Menu.vue";
 </script>
 
 <template>
+  <!-- Exibi o site se o usuário logado for administrador -->
   <div v-if="isAdmin()" style="min-height: 699px">
-    <AdminMenu
-        :plotDropDown="false"
-    />
-    <!-- The Modal -->
+    <AdminMenu :plotDropDown="false" />
+    <!-- O modal que mostra todas as compras -->
     <div id="modalBuys" class="modal" style="margin-top: 200px">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -34,18 +33,25 @@ import Menu from "@/components/Menu.vue";
         </div>
       </div>
     </div>
-    <div class="dados">
+    <!-- Div principal do site -->
+    <div class="container-show-datas">
+      <!-- Div para mostrar todos os admins -->
       <div style="width:50%; text-align: center;">
         <h1 class="titlePage">Administradores</h1>
         <div class="list">
-          <p v-for="admins in getAllAdmins()" class="listAdmins">{{ admins }}</p>
+          <p v-for="admins in getAllAdmins()" class="listAdmins">
+            {{ admins }}
+          </p>
         </div>
         <button @click="goToAddAdmin()" type="button" class="btn btn-success">Adicionar Administradores</button>
       </div>
+      <!-- Div para mostrar o histórico de compras -->
       <div style="width:50%; text-align: center;">
         <h1 class="titlePage">Histórico de compras</h1>
         <div class="list">
-          <p v-for="buys in getFirstBuys()" class="registro-list">{{ buys.name + " - R$" + buys.value }}</p>
+          <p v-for="buys in getFirstBuys()" class="registro-list">
+            {{ buys.name + " - R$" + buys.value }}
+          </p>
         </div>
         <button type="button" class="btn btn-primary" data-bs-target="#modalBuys" data-bs-toggle="modal">Visualizar
           todas as compras
@@ -54,13 +60,12 @@ import Menu from "@/components/Menu.vue";
     </div>
 
   </div>
+  <!-- Se o usuário não está logado em uma conta de administrador ele vem pra cá -->
   <div style="min-height: 699px" v-else>
-    <Menu
-        :plotDropDown="false"
-    />
-    <LoginRequired :text="text"></LoginRequired>
+    <Menu :plotDropDown="false" />
+    <LoginRequired :text="blockAdmin" />
   </div>
-  <Footer></Footer>
+  <Footer/>
 </template>
 
 <script>
@@ -70,30 +75,43 @@ export default {
   name: "app",
   data() {
     return {
-      text: "Para acessar essa página é necessário ser um administrador",
+      blockAdmin: "Para acessar essa página é necessário ser um administrador"
     };
   },
   methods: {
+    /**
+     * Analisa o ‘cookie’ que guarda a conta atual e retorna se é uma conta de administrador ou não
+     * @returns true se a conta é de administrador, false se não está logado ou se não é administrador
+     */
     isAdmin() {
       let account = VueCookieNext.getCookie("account");
-      if (account === null)
+      if (account === null)//Se não foi feito o login esse cookie da null
         return false;
       return account.adm === true;
     },
+    /**
+     * Redireciona a pagina para a pagina novoadmin
+     */
     goToAddAdmin() {
       this.$router.push("/novoadmin");
     },
+    /**
+     * Retorna uma lista de objetos com todos os admins
+     */
     getAllAdmins() {
       let admins = [];
-      let accs = JSON.parse(localStorage.getItem("accounts"));
-      for (const acc of accs) {
-        console.log(acc);
-        if (acc.admin) {
-          admins.push(acc.name);
+      let accounts = JSON.parse(localStorage.getItem("accounts"));
+      for (const account of accounts) {
+        console.log(account);
+        if (account.admin) {
+          admins.push(account.name);
         }
       }
       return admins;
     },
+    /**
+     * Retorna somente as 10 primeiras compras
+     */
     getFirstBuys() {
       let buys = this.getAllBuys();
       if (buys.length >= 10) {
@@ -101,16 +119,18 @@ export default {
       }
       return buys;
     },
+    /**
+     * Retorna todas as compras
+     */
     getAllBuys() {
       return JSON.parse(localStorage.getItem("buys")).reverse();
     }
-
-  },
+  }
 };
 </script>
 
 <style scoped>
-@import "@/assets/base.css";
+@import "../assets/base.css";
 
 .titlePage {
   color: #38b6ff;
@@ -118,15 +138,9 @@ export default {
   text-align: center;
 }
 
-.dados {
+.container-show-datas {
   display: flex;
-  justify-content: column;
   margin-bottom: 3em;
-}
-
-.admin-list {
-  margin: 2em 0;
-  text-align: center;
 }
 
 .list {
@@ -142,6 +156,5 @@ export default {
 .registro-list:nth-child(2n) {
   background-color: #8fd5fd;
 }
-
 
 </style>
