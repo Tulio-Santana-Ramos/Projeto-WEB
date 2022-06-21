@@ -1,23 +1,24 @@
 <script setup>
-import Footer from "@/components/Footer.vue";
-import Menu from "@/components/Menu.vue";
-import AdminMenu from "@/components/AdminMenu.vue";
-import BookInfo from "@/components/BookInfo.vue";
-import Evaluation from "@/components/avaliationResult.vue";</script>
+import Footer from "../components/Footer.vue";
+import Menu from "../components/Menu.vue";
+import AdminMenu from "../components/AdminMenu.vue";
+import BookInfo from "../components/BookInfo.vue";
+import Evaluation from "../components/avaliationResult.vue";
+</script>
 
 
 <template>
-  <AdminMenu v-if="isAdmin()"
-             :plotDropDown="false"
-  />
-  <Menu v-else
-        :plotDropDown="false"
-  />
+  <!-- Seleciona qual menu deve colocar -->
+  <AdminMenu v-if="isAdmin()" :plotDropDown="false" />
+  <Menu v-else :plotDropDown="false" />
+  <!-- Se for ADM coloca os botões de gerenciamento do livro-->
   <div class="adm-operations" v-if="isAdmin()">
-    <button class="add-book" data-bs-target="#modalAddPromo" data-bs-toggle="modal"><img
-        src="@/components/icons/addition.png" style="width: 50px; height: 50px;"/> Adicionar promoção
+    <!-- Botão para adicionar a promoção ao livro -->
+    <button class="add-book" data-bs-target="#modalAddPromo" data-bs-toggle="modal">
+      <img src="../components/icons/addition.png" style="width: 50px; height: 50px;" alt=""/>
+      Adicionar promoção
     </button>
-    <!-- The Modal -->
+    <!-- Um modal para adicionar a promoção do livro -->
     <div id="modalAddPromo" class="modal" style="margin-top: 200px">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -30,6 +31,7 @@ import Evaluation from "@/components/avaliationResult.vue";</script>
 
           <!-- Modal body -->
           <div class="modal-body">
+            <!-- Div para colocar todos os inputs da promoção -->
             <div>
               <div class="input-group input-container">
                     <span class="input-group-text" style="width: 87px;">
@@ -38,7 +40,9 @@ import Evaluation from "@/components/avaliationResult.vue";</script>
                 <input class="form-control" placeholder="Quantos livros colocar em promoção"
                        style="width: 350px;height: 45px;font-size: medium"
                        ref="input_qntd">
-                <br>
+              </div>
+              <p/>
+              <div class="input-group input-container">
                 <span class="input-group-text" style="width: 87px;">
                       Valor
                     </span>
@@ -60,12 +64,14 @@ import Evaluation from "@/components/avaliationResult.vue";</script>
         </div>
       </div>
     </div>
-    <button class="remove-book" data-bs-target="#modalRemLivro" data-bs-toggle="modal"><img
-        src="@/components/icons/remove.png" style="width: 50px; height: 50px;"/> Excluir livro
+    <!-- Botão para remover o livro da base de dados -->
+    <button class="remove-book" data-bs-target="#modalRemLivro" data-bs-toggle="modal">
+      <img src="../components/icons/remove.png" style="width: 50px; height: 50px;" alt=""/>
+      Excluir livro
     </button>
-    <!-- The Modal -->
-    <div id="modalRemLivro" class="modal" style="margin-top: 200px">
-      <div class="modal-dialog">
+    <!-- Um modal para confirmar a remoção do livro -->
+    <div id="modalRemLivro" class="modal" style="margin-top: 200px;">
+      <div class="modal-dialog" style="min-width: 550px">
         <div class="modal-content">
 
           <!-- Modal Header -->
@@ -77,7 +83,9 @@ import Evaluation from "@/components/avaliationResult.vue";</script>
           <!-- Modal body -->
           <div class="modal-body">
             <div>
-              <span style="color: red">Atenção! <br> Esta ação é irreversivel, tem certeza que deseja realiza-la?</span>
+              <span style="color: red">
+                Atenção! <br> Esta ação é irreversível, tem certeza que deseja realiza-la?
+              </span>
             </div>
           </div>
 
@@ -94,29 +102,30 @@ import Evaluation from "@/components/avaliationResult.vue";</script>
   </div>
 
   <div>
+    <!-- Coloca todas as informações do livro na tela-->
     <BookInfo
-        :name="this.getBookDetails().name"
-        :price="book.price"
-        :categories="book.categories"
-        :promotion="book.promo"
-        :synopsis="book.synopsis"
-        :editor="book.editor"
-        :author="book.autor"
-        :tradutor="book.tradutor"
-        :year="book.year"
-        :atClick="addToBag"
-        :id="book.id"
-        :inBag="searchInBag(book.id)"
-        :inLib="searchInLib(book.id)"
+      :name="this.getBookDetails().name"
+      :price="book.price"
+      :categories="book.categories"
+      :promotion="book.promo"
+      :synopsis="book.synopsis"
+      :editor="book.editor"
+      :author="book.autor"
+      :tradutor="book.tradutor"
+      :year="book.year"
+      :atClick="addToBag"
+      :id="book.id"
+      :inBag="searchInBag(book.id)"
+      :inLib="searchInLib(book.id)"
     />
   </div>
-
+  <!-- Div para mostrar as avaliações dos livros-->
   <div class="book-stats">
     <div v-for="book in book.evaluations">
-      <Evaluation :info="book.info" :stars="book.stars"></Evaluation>
+      <Evaluation :info="book.info" :stars="book.stars"/>
     </div>
   </div>
-  <Footer></Footer>
+  <Footer/>
 </template>
 
 <script>
@@ -125,39 +134,52 @@ import {VueCookieNext} from "vue-cookie-next";
 export default {
   name: 'app',
   methods: {
-    addPromo(qntd, valor) {
+    /**
+     * Se o livro tiver promoção aumenta, se não tiver cria
+     * @param {string} quantidadePromocional define a promoção a ser somada
+     * @param {string} valorPromocional define o novo valor promocional
+     */
+    addPromo(quantidadePromocional, valorPromocional) {
       let books = JSON.parse(localStorage.getItem("books"));
       let id = this.$route.query.id;
-      for (let book of books) {
-        if (parseInt(book.id) === parseInt(id)) {
-          if (!book.promo.is) {
+      for (let book of books) { // Seleciona na lista de livros qual é que vai ter promoção e adiciona ela
+        if (parseInt(book.id) === parseInt(id[0])) {
+          if (!book.promo.is) { // Se não tem promoção cria
             let promo = {}
             promo.is = true;
-            promo.numberBooks = qntd;
-            promo.tempPrice = valor;
+            promo.numberBooks = quantidadePromocional;
+            promo.tempPrice = valorPromocional;
             book.promo = promo;
-          } else {
-            book.promo.numberBooks = parseInt(book.promo.numberBooks) + parseInt(qntd);
-            book.promo.tempPrice = valor;
+          } else { // Se não, adiciona
+            book.promo.numberBooks = parseInt(book.promo.numberBooks) + parseInt(quantidadePromocional);
+            book.promo.tempPrice = valorPromocional;
           }
-          this.book = book;
+          this.book = book; // Devolve o livro atualizada para data e atualiza a view
           break;
         }
       }
-      localStorage.setItem("books", JSON.stringify(books));
+      localStorage.setItem("books", JSON.stringify(books)); // Devolve a lista de livros para o servidor
     },
+    /**
+     * Remove o livro da base de dados
+     */
     remLivro() {
       let books = JSON.parse(localStorage.getItem("books"));
       let id = this.$route.query.id;
-      for (let i = 0; i < books.length; i++) {
-        if (parseInt(books[i].id) === parseInt(id)) {
-          books.splice(i, 1);
+      for (let i = 0; i < books.length; i++) { // Varre a lista de livros buscando o livro
+        if (parseInt(books[i].id) === parseInt(id[0])) {
+          books.splice(i, 1); // Remove ele
           break;
         }
       }
-      localStorage.setItem("books", JSON.stringify(books));
-      this.$router.push("/");
+      localStorage.setItem("books", JSON.stringify(books)); // Salva
+      this.$router.push("/"); // Redefine a rota para a home
     },
+    /**
+     * Verifica se o livro está na biblioteca
+     * @param id Id para ser verificado
+     * @returns {boolean} retorna se o livro está na biblioteca
+     */
     searchInLib(id) {
       let acc = VueCookieNext.getCookie("account");
       if (acc === undefined || acc === null)
@@ -174,6 +196,11 @@ export default {
       }
       return false;
     },
+    /**
+     * Verifica se o livro está no carrinho de compras
+     * @param id Id para ser verificado
+     * @returns {boolean} retorna se o livro está no carrinho
+     */
     searchInBag(id) {
       let bag = JSON.parse(VueCookieNext.getCookie("bag"));
       if(bag !== null) {
@@ -184,21 +211,31 @@ export default {
       }
       return false;
     },
+    /**
+     * Analisa o ‘cookie’ que guarda a conta atual e retorna se é uma conta de administrador ou não
+     * @returns {boolean} true se a conta é de administrador, false se não está logado ou se não é administrador
+     */
     isAdmin() {
       let account = VueCookieNext.getCookie("account");
       if (account === null)
         return false;
       return account.adm === true;
     },
+    /**
+     * Retorna todas as categorias na base de dados
+     */
     getAllCategories() {
       return JSON.parse(localStorage.getItem("categories"))
     },
+    /**
+     * Retorna o livro atual com todas as categorias ja convertidas para texto
+     */
     getBookDetails() {
       let books = JSON.parse(localStorage.getItem("books"));
       let id = this.$route.query.id;
       let allCategories = this.getAllCategories();
       for (let book of books) {
-        if (parseInt(book.id) === parseInt(id)) {
+        if (parseInt(book.id) === parseInt(id[0])) {
           let tempCategories = [];
           for (const category of book.categories) {
             for (const fixedCategory of allCategories) {
@@ -214,12 +251,16 @@ export default {
         }
       }
     },
+    /**
+     * Adiciona um livro ao carrinho de compras
+     * @param idLivro id do livro a ser adicionado
+     */
     addToBag(idLivro) {
       if (this.searchInBag(idLivro))
         return;
       let bag = JSON.parse(VueCookieNext.getCookie("bag"));
       let newBook = {id: idLivro};
-      if(bag !== null)
+      if(bag !== null) // Se o carrinho não existe, cria
         bag.push(newBook);
       else
         bag = [newBook];
@@ -229,19 +270,13 @@ export default {
   },
   data() {
     return {
-      book: {},
+      book: {},//Livro que esta sendo exibido
     };
   },
 };
 </script>
 
 <style scoped>
-
-.evaluation {
-  padding-left: 10px;
-  border-style: solid;
-  border-color: #fff #fff #38b6ff #fff;
-}
 
 .book-stats {
   color: black;
@@ -258,8 +293,7 @@ export default {
   text-align-last: right;
   padding-right: 25%;
   font-size: large;
-  font-family: "Grape Nuts", cursive;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Grape Nuts", cursive,  "Open Sans", sans-serif;
 }
 
 .add-book {
