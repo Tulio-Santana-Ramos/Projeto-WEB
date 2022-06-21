@@ -1,6 +1,6 @@
 # WEBOOK - Plataforma Online para Venda de Ebooks
 
-![Screenshot](/src/components/logo.png)
+![Screenshot](Pages/img/Logo-icone.png)
 
 Repositório destinado ao projeto final da disciplina de Introdução ao Desenvolvimento WEB - SCC0219. Este projeto visa o
 desenvolvimento de uma plataforma de venda e leitura de Ebooks, os Ebooks em si são ilimitados, mas o site conta com
