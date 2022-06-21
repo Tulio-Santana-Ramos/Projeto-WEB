@@ -1,34 +1,86 @@
 <script setup>
 import useValidate from "@vuelidate/core";
-import {required} from "@vuelidate/validators";
+import { required } from "@vuelidate/validators";
 </script>
 
 <template>
-  <img class="logo" src="@/components/icons/Logo-icone.png"/>
-  <div class="new-acc">
-    <p class="field">
-      Nome: <input type="text" placeholder="Nome" ref="name"/>
-    </p>
-    <p class="field">
-      E-mail: <input type="email" placeholder="E-mail" ref="email"/>
-    </p>
-    <p class="field">
-      Telefone: <input type="text" placeholder="Telefone" ref="phone"/>
-    </p>
-    <p class="field">
-      Senha: <input type="password" placeholder="Senha" ref="pass"/>
-    </p>
-    <p class="field">
-      Confirme Senha: <input type="password" placeholder="Confirme Senha" ref="pass2"/>
-    </p>
-    <span style="color: red" ref="passError"></span>
-    <br>
-    <button class="create" @click="submit()">CRIAR CONTA</button>
+  <div class="body-new-acc">
+    <div class="new-acc">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-default">Nome:</span>
+        </div>
+        <input
+          type="text"
+          class="form-control"
+          aria-label="Nome"
+          aria-describedby="inputGroup-sizing-default"
+          ref="name"
+        />
+      </div>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-default">E-mail:</span>
+        </div>
+        <input
+          type="text"
+          class="form-control"
+          aria-label="Default"
+          aria-describedby="inputGroup-sizing-default"
+          ref="email"
+        />
+      </div>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-default">Telefone:</span>
+        </div>
+        <input
+          type="text"
+          class="form-control"
+          aria-label="Default"
+          aria-describedby="inputGroup-sizing-default"
+          ref="phone"
+        />
+      </div>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-default">Senha:</span>
+        </div>
+        <input
+          type="password"
+          class="form-control"
+          aria-label="Default"
+          aria-describedby="inputGroup-sizing-default"
+          ref="pass"
+        />
+      </div>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-default"
+            >Confirme sua senha:</span
+          >
+        </div>
+        <input
+          type="password"
+          class="form-control"
+          aria-label="Default"
+          aria-describedby="inputGroup-sizing-default"
+          ref="pass2"
+        />
+      </div>
+
+      <span style="color: red" ref="passError"></span>
+      <br />
+      <button type="button" class="btn btn-success" @click="submit()">CRIAR CONTA</button>
+    </div>
   </div>
 </template>
 
 <script>
-
 export default {
   name: "NewAccount",
   props: ["adminReg", "nextPage"],
@@ -51,53 +103,25 @@ export default {
       accs.push(newAccount);
       localStorage.setItem("accounts", JSON.stringify(accs));
       this.$router.push(this.nextPage);
-    }
+    },
   },
 };
 </script>
 
 <style scoped>
-
-.logo {
-  float: left;
-  margin-top: 20px;
-}
-
 .new-acc {
-  font-size: 1.5em;
-  font-family: 'Grape Nuts', cursive;
-  font-family: 'Open Sans', sans-serif;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 50vw;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.field {
-  width: 400px;
-  height: 70px;
-  margin-bottom: 25px;
-  text-align: left;
+.body-new-acc {
+  justify-content: center;
+  margin: 20px 0;
 }
 
-.field input {
-  border-style: solid;
-  border-radius: 10px;
-  width: 500px;
-  height: 50px;
-  border-color: black;
-}
-
-.create {
-  border-radius: 10px;
-  background-color: #38B6FF;
-  color: #fff;
-  text-align: center;
-  width: 500px;
-  height: 80px;
-}
-
-.create:hover {
-  background-color: #1872a7;
+.input-group-text{
+  min-width: 100px;
 }
 </style>

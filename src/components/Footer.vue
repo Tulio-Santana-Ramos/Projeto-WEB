@@ -9,8 +9,7 @@
         O objetivo é ajudar você, usuário, a se encontrar no maravilhoso universo dos livros.
         Com o desenvolvimento da tecnologia, pode-se acessar uma quantidade muito maior de livros em apenas alguns
         cliques.
-        Pensando nisso, construimos uma plataforma simples e convidativa para que você possa ler oque desejar e quando
-        quiser.
+       
         Temos um catálogo vasto com livros para todos os gostos, temos certeza encontrará muitos títulos
         interessantes.</p>
     </div>

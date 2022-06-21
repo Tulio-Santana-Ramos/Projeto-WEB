@@ -1,13 +1,14 @@
-import {createRouter, createWebHistory} from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
 /**
  * Responsável por criar as rotas do site, cada rota tem um arquivo na pasta view que
  * corresponde ao conteudo mostrado na rota.
-*/
+ */
 
 const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
+    history: createWebHistory(
+        import.meta.env.BASE_URL),
     routes: [
         /**
          * Rota para a pagina principal da loja
@@ -24,7 +25,8 @@ const router = createRouter({
             path: '/biblioteca',
             name: 'biblioteca',
 
-            component: () => import('../views/Library.vue')
+            component: () =>
+                import ('../views/Library.vue')
         },
         /**
          * Rota para a pagina de login
@@ -33,7 +35,8 @@ const router = createRouter({
             path: '/login',
             name: 'login',
 
-            component: () => import('../views/Login.vue')
+            component: () =>
+                import ('../views/Login.vue')
         },
         /**
          * Rota para visualizar as informações do livro
@@ -42,7 +45,8 @@ const router = createRouter({
             path: '/livro',
             name: 'bookpage',
 
-            component: () => import('../views/BookView.vue')
+            component: () =>
+                import ('../views/BookView.vue')
         },
         /**
          * Rota para criar um usuário
@@ -51,7 +55,8 @@ const router = createRouter({
             path: '/novousuario',
             name: 'newuser',
 
-            component: () => import('../views/NewUser.vue')
+            component: () =>
+                import ('../views/NewUser.vue')
         },
         /**
          * Rota para criar um administrador
@@ -60,7 +65,8 @@ const router = createRouter({
             path: '/novoadmin',
             name: 'newadmin',
 
-            component: () => import('../views/NewAdmin.vue')
+            component: () =>
+                import ('../views/NewAdmin.vue')
         },
         /**
          * Rota para adicionar um novo item ao banco de dados
@@ -69,7 +75,8 @@ const router = createRouter({
             path: '/additem',
             name: 'additem',
 
-            component: () => import('../views/AddItem.vue')
+            component: () =>
+                import ('../views/AddItem.vue')
         },
         /**
          * Rota para visualizar o carrinho de compras
@@ -78,7 +85,8 @@ const router = createRouter({
             path: '/carrinho',
             name: 'carrinho',
 
-            component: () => import('../views/Bag.vue')
+            component: () =>
+                import ('../views/Bag.vue')
         },
         /**
          * Rota para finalizar a compra
@@ -87,7 +95,8 @@ const router = createRouter({
             path: '/finalizarCompra',
             name: 'finalizarCompra',
 
-            component: () => import('../views/FinishShop.vue')
+            component: () =>
+                import ('../views/FinishShop.vue')
         },
         /**
          * Rota para o administrador visualizar os dados mais importantes
@@ -96,7 +105,8 @@ const router = createRouter({
             path: '/gerenciamento',
             name: 'gerenciamento',
 
-            component: () => import('../views/AdminsPage.vue')
+            component: () =>
+                import ('../views/AdminsPage.vue')
         },
         /**
          * Rota para cadastrar uma nova senha
@@ -105,7 +115,8 @@ const router = createRouter({
             path: '/novachave',
             name: 'novachave',
 
-            component: () => import('../views/NewKey.vue')
+            component: () =>
+                import ('../views/NewKey.vue')
         },
         /**
          * Rota usada para redefinir as configurações do servidor
@@ -114,7 +125,8 @@ const router = createRouter({
             path: '/resetConfig',
             name: 'resetConfig',
 
-            component: () => import('../views/ResetConfig.vue')
+            component: () =>
+                import ('../views/ResetConfig.vue')
         },
         /**
          * Rota para abrir a visualização do livro
@@ -123,7 +135,8 @@ const router = createRouter({
             path: '/lerLivro',
             name: 'lerLivro',
 
-            component: () => import('../views/ReadBook.vue')
+            component: () =>
+                import ('../views/ReadBook.vue')
         }
     ]
 })
