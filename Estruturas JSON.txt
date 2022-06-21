@@ -1,0 +1,95 @@
+Bag:
+    {
+        "id":key
+    }
+payment_forms:
+    {
+        "name": nome,
+        "life_time": tempo
+    }
+account:
+    {
+        "id":0,
+        "adm":true
+    }
+accounts:
+    {
+        "email":login,
+        "senha":senha,
+        "admin":bool,
+        "name":string,
+        "phone":string,
+        "id": int,
+        "cards":[
+        {
+            "name":"Harry Potter",
+            "code":1010,
+            "flag":"Nubank"
+        }]
+    }
+Book://pdf = id.pdf
+     //img = id.jpg
+    {
+        "name": "Harry Potter e a pedra filosofal0",
+        "pages":int,
+        "categories": [
+            0,
+            1
+        ],
+        "price": "30.90",
+        "promo": {
+            "is":true,
+            "numberBooks":10,
+            "tempPrice":5
+        }
+        "synopsis": "Quando virou o envelope, com a mão trêmula, Harry viu um lacre de cera púrpura com um brasão; um leão, uma águia, um texugo e uma cobra circulando uma grande letra \"H\". Harry Potter nunca havia ouvido falar de Hogwarts quando as cartas começaram a aparecer no capacho da Rua dos Alfeneiros, nº 4. Escritos a tinta verde-esmeralda em pergaminho amarelado com um lacre de cera púrpura, as cartas eram rapidamente confiscadas por seus pavorosos tio e tia. Então, no aniversário de onze anos de Harry, um gigante com olhos que luziam como besouros negros chamado Rúbeo Hagrid surge com notícias surpreendentes: Harry Potter é um bruxo e tem uma vaga na Escola de Magia e Bruxaria de Hogwarts. Uma incrível aventura está para começar!",
+        "editor": "Pottermore Publishing",
+        "autor": "MOSS | J.K. ROWLING",
+        "tradutor": "LIA WYLER",
+        "cards": [{"name":"Harry Potter","code":1010,"flag":"Nubank"},{"name":"Hermione","code":2020,"flag":"Banco do Brasil"}],
+        "year": 2015,
+        "id":0,
+        "evaluations":[
+            {
+                "info": "Muito mal escrito!",
+                "stars": 2
+            },{
+                "info": "Bom pra passar o tempo, mas nada impressionante",
+                "stars": 3
+            },{
+                "info": "Genial",
+                "stars": 4
+            },{
+                "info": "Muito mal escrito!",
+                "stars": 2
+            },{
+                "info": "Muito mal escrito!",
+                "stars": 2
+            }
+        ]
+    }
+Categories:
+    {
+        "name":name,
+        "id":int
+    }
+Buys:
+    {
+        "name":nomeDoCliente,
+        "value":valorDaCompra
+    }
+Libraries:
+    {
+        "user":1,
+        "lib":
+            [
+                {
+                    "id":0,
+                    "eval":false
+                },
+                {
+                    "id":2,
+                    "eval",false
+                }
+            ]
+    }
