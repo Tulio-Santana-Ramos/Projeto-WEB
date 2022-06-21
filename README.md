@@ -84,34 +84,36 @@ assim como nos sistemas operacionais Windows e Linux (Ubuntu).
 
 ## Building:
 
-#### Recomendação de IDE e extensões úteis:
+### Recomendação de IDE e extensões úteis:
 
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and
 disable Vetur)
 
 + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
-#### Configuração customizável:
+### Configuração customizável:
 
 See [Vite Configuration Reference](https://vitejs.dev/config/).
 
-#### Configurando o projeto:
+### Configurando o projeto:
 
 ```sh
 npm install
 ```
 
-#### Compile and Hot-Reload for Development
+### Compile and Hot-Reload for Development
 
 ```sh
 npm run dev
 ```
+### Finalizar configuração do localStorage e dos Cookies
+#### Para completar a configuração do site sem usar um servidor é necessário ir para a rota /resetConfig, isso vai salvar algumas variáveis necessárias para a execução do código
+#### Alguns logins que vem com as configurações padrões são:
+Conta administrador:  
+Login: admin | Senha: admin  
+Conta padrão:
+Login: login | Senha: senha
 
-#### Compile and Minify for Production
-
-```sh
-npm run build
-```
 
 ## Problemas:
 
