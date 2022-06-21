@@ -36,7 +36,7 @@ e navegar para realizar as ações possíveis do usuário seja ele admin ou user
   </div>
 
   <!-- Realiza a paginação do sistema de acordo com o número de livros que o sistema possui -->
-  <div style="width: 100%">
+  <div style="width: 100%; margin-bottom:56px">
     <paginate
         v-model="page"
         :page-count="getNumPages()"
