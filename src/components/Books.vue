@@ -74,4 +74,8 @@ export default {
   padding: 2px 0;
 }
 
+
+
+
+
 </style>

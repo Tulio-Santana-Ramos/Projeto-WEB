@@ -1,4 +1,4 @@
-import {createRouter, createWebHistory} from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
 /*
@@ -7,9 +7,9 @@ corresponde ao contéudo mostrado na rota.
 */
 
 const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
-    routes: [
-        {
+    history: createWebHistory(
+        import.meta.env.BASE_URL),
+    routes: [{
             path: '/',
             name: 'home',
             component: HomeView
@@ -18,78 +18,85 @@ const router = createRouter({
             path: '/biblioteca',
             name: 'biblioteca',
 
-            component: () => import('../views/Library.vue')
+            component: () =>
+                import ('../views/Library.vue')
         },
         {
             path: '/login',
             name: 'login',
 
-            component: () => import('../views/Login.vue')
+            component: () =>
+                import ('../views/Login.vue')
         },
         {
             path: '/livro',
             name: 'bookpage',
 
-            component: () => import('../views/BookView.vue')
+            component: () =>
+                import ('../views/BookView.vue')
         },
         {
             path: '/novousuario',
             name: 'newuser',
 
-            component: () => import('../views/NewUser.vue')
+            component: () =>
+                import ('../views/NewUser.vue')
         },
         {
             path: '/novoadmin',
             name: 'newadmin',
 
-            component: () => import('../views/NewAdmin.vue')
+            component: () =>
+                import ('../views/NewAdmin.vue')
         },
         {
             path: '/additem',
             name: 'additem',
 
-            component: () => import('../views/AddItem.vue')
+            component: () =>
+                import ('../views/AddItem.vue')
         },
         {
             path: '/carrinho',
             name: 'carrinho',
 
-            component: () => import('../views/Bag.vue')
+            component: () =>
+                import ('../views/Bag.vue')
         },
         {
             path: '/finalizarCompra',
             name: 'finalizarCompra',
 
-            component: () => import('../views/FinishShop.vue')
+            component: () =>
+                import ('../views/FinishShop.vue')
         },
         {
             path: '/gerenciamento',
             name: 'gerenciamento',
 
-            component: () => import('../views/AdminsPage.vue')
+            component: () =>
+                import ('../views/AdminsPage.vue')
         },
         {
             path: '/novachave',
             name: 'novachave',
 
-            component: () => import('../views/NewKey.vue')
-        }, {
-            path: '/test',
-            name: 'test',
-
-            component: () => import('../views/Test.vue')
+            component: () =>
+                import ('../views/NewKey.vue')
         },
         {
             path: '/resetConfig',
             name: 'resetConfig',
 
-            component: () => import('../views/ResetConfig.vue')
+            component: () =>
+                import ('../views/ResetConfig.vue')
         },
         {
             path: '/lerLivro',
             name: 'lerLivro',
 
-            component: () => import('../views/ReadBook.vue')
+            component: () =>
+                import ('../views/ReadBook.vue')
         }
     ]
 })
