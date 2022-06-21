@@ -50,14 +50,10 @@ esvaziados somente quando o pagamento é efetuado ou quando os clientes removem 
 Gerenciamento de produto: os administradores podem criar/atualizar/ler/excluir/adicionar Ebooks e promoções. Por
 exemplo, eles podem alterar a quantidade em estoque.
 
-Como funcionalidade extra, optamos por implementar a visualização da preview do ebook em sua página. O usuário poderá
-ler o Epílogo ou as páginas iniciais do primeiro capítulo, dependendo da constituição do produto. Além disso, em nossa
-plataforma, o usuário terá acesso aos ebooks comprados por meio de sua “biblioteca”, dessa forma, a leitura pré e pós
-compra do produto poderá ser efetuada de maneira direta dentro do ambiente criado. E outra funcionalidade extra é o
+Como funcionalidade extra, optamos por implementar a visualização do ebook comprado por meio da “biblioteca”, dessa forma, a leitura do produto poderá ser efetuada de maneira direta dentro do ambiente criado. E outra funcionalidade extra é o
 sistema de avaliação dos livros por parte do cliente, que pode escrever um review e dar uma nota para cada livro
-comprado.
+comprado, e esse review será mostrado na página juntamente com as informações do livro.
 
-O sistema é responsivo e visa uma boa acessibilidade e usabilidade para os usuários.
 
 ## Descrição:
 
@@ -74,39 +70,30 @@ no [Figma](https://www.figma.com/file/q7jnpJB5LKc1Gr9y7ymZ2c/WEBOOK?node-id=0%3A
 
 ## Comentários sobre o código:
 
+Os arquivos mais importante possuem comentários explicando seu funcionamento.
+
 ## Plano de teste:
 
 Pretendemos usar o Insomnia para verificar a validade das requisições (GET, POST, DELETE) no back-end. Além disso, serão
 efetuados testes nos navegadores Microsoft Edge, Firefox e Google Chrome, navegadores utilizados amplamente no mercado,
 assim como nos sistemas operacionais Windows e Linux (Ubuntu).
 
+Para essa etapa da entrega verificamos nossa plataforma em diversos navegadores, testamos todas as rotas, fizemos diferentes perfis de usuário, criamos um perfil de admin, adicionamos livros, tentamos comprar até esgotar a promoção, tentamos acessar as páginas de admin sendo um usuário comum, entre outros e em todos os testes feitos por cada um dos desenvolvedores a plataforma se saiu bem.
+
 ## Resultados dos testes:
+
 
 ## Building:
 
-### Recomendação de IDE e extensões úteis:
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and
-disable Vetur)
-
-+ [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-### Configuração customizável:
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-### Configurando o projeto:
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
-
 ```sh
 npm run dev
 ```
-### Finalizar configuração do localStorage e dos Cookies
+
 #### Para completar a configuração do site sem usar um servidor é necessário ir para a rota /resetConfig, isso vai salvar algumas variáveis necessárias para a execução do código
 #### Alguns logins que vem com as configurações padrões são:
 Conta administrador:  
