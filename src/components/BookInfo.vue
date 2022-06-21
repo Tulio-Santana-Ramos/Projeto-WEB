@@ -329,7 +329,9 @@ export default {
   padding-top: 5px;
   padding-left: 150px;
   padding-bottom: 5px;
+  padding-right: 50px;
   word-wrap: break-word;
+  text-align: justify;
 }
 
 .edit-info {

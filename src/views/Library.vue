@@ -6,6 +6,7 @@ import LoginRequired from "@/components/LoginRequired.vue";
 import {VueCookieNext} from "vue-cookie-next";
 </script>
 
+<!-- Página para visualizar, ler e avaliar todos os livros comprados pelo usuário-->
 <template>
   <Menu
       :plotDropDown="true"
@@ -14,10 +15,13 @@ import {VueCookieNext} from "vue-cookie-next";
   />
 
   <h1 class="titlePage">Biblioteca de livros</h1>
+  <!-- Verifica se o user está logado, caso não esteja mostra página de LoginRequired-->
   <div v-if="hadUser()" class="books">
+    <!-- Verifica se o user possui algum livro comprado-->
     <div v-if="getUserBooks().length === 0">
       Você ainda não comprou nenhum livro :(
     </div>
+    <!-- Realiza um for por todos os livros comprados pelo usuário-->
     <div v-else v-for="book in getUserBooks()">
       <Books
           :name="book.name"

@@ -3,30 +3,35 @@ import NewAccount from "@/components/NewAccount.vue";
 import LoginRequired from "@/components/LoginRequired.vue";
 </script>
 
-<template>
-  <div v-if="isAdmin()">
-    <img class="admin-pic" src="@/components/icons/admin-with-cogwheels.png"/>
-    <h2 class="title">CRIAR ADMIN</h2>
-    <NewAccount
-        :adminReg=true
-        :nextPage="next"
-    />
 
+<!-- Página feita para adicionar um novo admin no sistema -->
+<template>
+  <!-- Página só consegue ser acessada se o usuário com login já é admin -->
+  <div v-if="isAdmin()">
+    <img class="admin-pic" src="@/components/icons/admin-with-cogwheels.png" />
+    <h2 class="title">CRIAR ADMIN</h2>
+    <!-- Campos necessários para cadastro de novo admin com flag indicando que usuário
+    a ser cadastro é admin (pois o mesmo componente é usado para cadastro de admin e 
+    usuário normal) e a props next page
+    passa qual é a próxima rota ao clicar no botão de criar conta -->-->
+    <NewAccount :adminReg="true" :nextPage="next" />
   </div>
+  <!-- Caso o usuário não esteja logado ou não seja admin não consegue acessar a página-->
   <LoginRequired v-else :text="text"></LoginRequired>
 </template>
 
-
 <script>
-import {VueCookieNext} from "vue-cookie-next";
+import { VueCookieNext } from "vue-cookie-next";
 
 export default {
-  name: 'app',
+  name: "app",
+  /**
+   * verifica se usuário está logado e se é administrador
+   */
   methods: {
     isAdmin() {
       let account = VueCookieNext.getCookie("account");
-      if (account === null)
-        return false;
+      if (account === null) return false;
       return account.adm === true;
     },
   },
@@ -34,13 +39,12 @@ export default {
     return {
       text: "Para acessar essa página é necessário ser um administrador",
       next: "/gerenciamento",
-    }
-  }
-}
+    };
+  },
+};
 </script>
 
 <style scoped>
-
 .title {
   font-weight: normal;
   text-align: center;

@@ -5,8 +5,13 @@ import Menu from "@/components/Menu.vue";
 import AdminMenu from "@/components/AdminMenu.vue";
 </script>
 
+<!-- Página feita como home do sistema, através dela é possível visualizar todos os livros do sistema
+e navegar para realizar as ações possíveis do usuário seja ele admin ou user padrão-->
+
 <template>
   <div style="overflow: hidden">
+  <!-- Verifica se usuário é admin e de acordo com os privilegios de acesso mostra menu de admin
+  ou de usuário padrão-->
   <AdminMenu v-if="isAdmin()"
              :plotDropDown="true"
              :filter="filterDropdown"
@@ -18,6 +23,7 @@ import AdminMenu from "@/components/AdminMenu.vue";
         :actualCategory="this.$route.query.category"
   />
   <div class="books">
+    <!-- Realiza um for por todos os livros registrado no sistema e os mostra para o usuário-->
     <div v-for="book in paginate()" @click="goToBook(book.id)">
       <Books
           :name="book.name"
@@ -28,6 +34,8 @@ import AdminMenu from "@/components/AdminMenu.vue";
       />
     </div>
   </div>
+
+  <!-- Realiza a paginação do sistema de acordo com o número de livros que o sistema possui -->
   <div style="width: 100%">
     <paginate
         v-model="page"
@@ -40,6 +48,8 @@ import AdminMenu from "@/components/AdminMenu.vue";
         style="position: relative;bottom: 0;left: calc(100% - 270px); width: 100%;"
     />
   </div>
+
+  <!-- Chama o component do footer -->
   <Footer/>
   </div>
 </template>
@@ -47,8 +57,7 @@ import AdminMenu from "@/components/AdminMenu.vue";
 <script>
 import Paginate from 'vuejs-paginate-next';
 import {VueCookieNext} from "vue-cookie-next";
-//TODO: dropdown que mostra todas as categorias
-const maxBooks = 15;
+const maxBooks = 15; //define a quantidade máxima de livros que será mostrada por página
 export default {
   components: {
     paginate: Paginate,
@@ -159,7 +168,7 @@ export default {
   margin-top: 120px;
   padding: 0em 2vw;
   display: flex;
-  min-height: 511px;
+  min-height: 50vh;
   flex-wrap: wrap;
 }
 
