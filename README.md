@@ -70,7 +70,12 @@ no [Figma](https://www.figma.com/file/q7jnpJB5LKc1Gr9y7ymZ2c/WEBOOK?node-id=0%3A
 
 ## Comentários sobre o código:
 
-Os arquivos mais importante possuem comentários explicando seu funcionamento.
+Toda a estrutura usada dentro do localStorage e dos Cookies é JSON e está documenta dentro do arquivo Estruturas JSON.txt, na rota resetConfig tem alguns dados predefinidos para facilitar os testes. (Vide a seção de Building para entender melhor o funcionamento)  
+Para fazer o upload das capas e pdf's dos livros é necessario iniciar o servidor node que esta dentro da pasta uploadListener
+```sh
+node upload.js
+```
+Sem isso ele renderizará incorretamente as capas de alguns livros.
 
 ## Plano de teste:
 
@@ -94,7 +99,7 @@ npm install
 npm run dev
 ```
 
-#### Para completar a configuração do site pela primeira vez ao rodar sem usar um servidor é necessário ir para a rota /resetConfig (ela é uma tela em branco mesmo), isso vai salvar algumas variáveis necessárias para a execução do código, após isso voltar para a rota inicial e agora sim o site está funcionando!
+#### Para completar a configuração do site pela primeira vez ao rodar sem usar um servidor é necessário ir para a rota /resetConfig (ela é uma tela em branco mesmo), isso vai salvar algumas variáveis necessárias para a execução do código, após isso voltar para a rota inicial e agora sim o site está funcionando! Você pode usa-la para voltar sempre para as configurações iniciais.
 #### Alguns logins que vem com as configurações padrões são:
 Conta administrador:  
 Login: admin | Senha: admin  
