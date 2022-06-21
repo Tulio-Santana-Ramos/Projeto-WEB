@@ -139,6 +139,9 @@ import {VueCookieNext} from 'vue-cookie-next'
 <script>
 export default {
   methods: {
+    /**
+     * Troca o campo de senha para texto, libera a visualização do campo
+     */
     swapPasswordView() {
       console.log(this.$refs.pass.type === "password");
       if (this.$refs.pass.type === "password")
@@ -146,6 +149,9 @@ export default {
       else
         this.$refs.pass.type = "password";
     },
+    /**
+     * Busca o usuário e verifica se a senha bate com a da base
+     */
     login() {
       let accs = JSON.parse(localStorage.getItem("accounts"));
       let login = this.$refs.log.value, pass = this.$refs.pass.value;
@@ -160,9 +166,15 @@ export default {
         }
       }
     },
+    /**
+     * Redefine a rota para criar novo usuario
+     */
     goToNewClient() {
       this.$router.push("/novousuario");
     },
+    /**
+     * Redefine a rota para
+     */
     goToNewPassword() {
       this.$router.push("/novachave");
     },
