@@ -14,6 +14,10 @@ export default {
     VuePdfEmbed,
   },
   methods: {
+    /**
+     * Passa a URL para o embed do vue para ler pdf
+     * @returns {string}
+     */
     getSrc() {
       return "/src/assets/" + VueCookieNext.getCookie("lastBook") + ".pdf";
     }

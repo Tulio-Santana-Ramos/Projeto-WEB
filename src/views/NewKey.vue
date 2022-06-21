@@ -51,7 +51,7 @@
           <!-- Modal Header -->
           <div class="modal-header">
             <h4 class="modal-title">Senha Alterada com sucesso!</h4>
-            <button class="btn-close" data-bs-dismiss="modal" type="button" @click="goToLogin()"></button>
+            <button class="btn-close" data-bs-dismiss="modal" type="button" @click="changePassword()"></button>
           </div>
 
           <!-- Modal body -->
@@ -71,7 +71,10 @@
 <script>
 export default {
   methods: {
-    goToLogin() {
+    /**
+     * Muda a senha dentro do banco
+     */
+    changePassword() {
       let accounts = JSON.parse(localStorage.getItem("accounts"));
       for (let account of accounts) {
         if (account.email === this.$refs.email.value) {

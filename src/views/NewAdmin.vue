@@ -29,6 +29,10 @@ export default {
    * verifica se usuário está logado e se é administrador
    */
   methods: {
+    /**
+     * Retorna se o usuario atual é administrador
+     * @returns {boolean}
+     */
     isAdmin() {
       let account = VueCookieNext.getCookie("account");
       if (account === null) return false;

@@ -7,6 +7,9 @@ import {VueCookieNext} from "vue-cookie-next";
 
 export default {
   name: "ResetConfig",
+  /**
+   * Reseta todas as informações do banco
+   */
   mounted() {
     VueCookieNext.setCookie("bag", '[]');
     localStorage.setItem("payment_forms", '[{"name": "Boleto", "life_time": "1 dia"},{"name": "Pix", "life_time": "30 minutos"}]');
