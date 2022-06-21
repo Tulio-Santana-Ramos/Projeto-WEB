@@ -159,7 +159,7 @@ export default {
   margin-top: 120px;
   padding: 0em 2vw;
   display: flex;
-  min-height: 511px;
+  min-height: 50vh;
   flex-wrap: wrap;
 }
 

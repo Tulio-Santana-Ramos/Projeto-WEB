@@ -1,8 +1,8 @@
 <template>
   <div class="home-book">
-    <img class="img-livro" v-bind:src="'/src/assets/' + id + '.jpg'"/>
+    <img class="img-livro" v-bind:src="'/src/assets/' + id + '.jpg'" />
     <div class="home-book-info">
-      <p class="title">{{ name }} </p>
+      <p class="title">{{ name }}</p>
       <ul v-for="category in categories" class="category">
         <li>{{ category }}</li>
       </ul>
@@ -24,13 +24,12 @@ export default {
   methods: {
     promo() {
       return this.promotion.is;
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
-
 .img-livro {
   width: 152px;
 }
@@ -43,19 +42,20 @@ export default {
 
 .home-book {
   display: flex;
-  width: 325px;
+  width: 21vw;
   margin: 2vw 0;
   margin-right: 2vw;
+  min-height: 236px;
 }
 
 .home-book-info {
   padding-left: 2em;
-  font-family: 'Grape Nuts', cursive;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Grape Nuts", cursive;
+  font-family: "Open Sans", sans-serif;
 }
 
 .category {
-  color: #0B859F;
+  color: #0b859f;
 }
 
 .title {
@@ -67,15 +67,10 @@ export default {
 }
 
 .promo {
-  background-color: #1B8C1F;
+  background-color: #1b8c1f;
   color: white;
   text-align: center;
   border-radius: 5px;
   padding: 2px 0;
 }
-
-
-
-
-
 </style>
