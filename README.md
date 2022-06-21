@@ -63,7 +63,7 @@ utilizado Node.js e MongoDB para o banco de dados.
 
 ### Diagrama de Navegação:
 
-![Screenshot](/public/Diagram.png)
+![Screenshot](/Diagram.png)
 
 As diferentes telas criadas como mockup podem ser encontradas diretamente
 no [Figma](https://www.figma.com/file/q7jnpJB5LKc1Gr9y7ymZ2c/WEBOOK?node-id=0%3A1)
