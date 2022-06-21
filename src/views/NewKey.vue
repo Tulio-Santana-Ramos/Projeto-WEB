@@ -1,7 +1,7 @@
 <template>
   <div id="centerDiv">
-    <img src="@/components/icons/Logo-icone.png" width="250px"
-         style="padding: 10px; margin-right: auto; margin-left: auto;">
+    <img src="@/components/icons/Logo-icone.png"
+         style="padding: 10px; margin-right: auto; margin-left: auto; width:250px">
 
 
     <div style="margin-right: auto; margin-left: auto;">
@@ -11,7 +11,7 @@
                 <span class="input-group-text" style="max-height: 45px; max-width: 60px; padding-right: 20px">
                 <img class="left-image" src="@/components/icons/email.png" style="width: 250%; height: 100%;">
                 </span>
-        <input class="form-control" placeholder="Email Cadastrado"
+        <input class="form-control" placeholder="Email Cadastrado" ref="email"
                style="width: 350px;height: 45px;font-size: medium">
       </div>
       <br>
@@ -19,7 +19,7 @@
                 <span class="input-group-text" style="max-height: 45px; max-width: 60px; padding-right: 20px">
                 <img class="left-image" src="@/components/icons/password.png" style="width: 250%; height: 100%">
                 </span>
-        <input class="form-control" type="password" placeholder="Nova Senha" style="height: 45px;font-size: medium">
+        <input class="form-control" type="password" placeholder="Nova Senha" style="height: 45px;font-size: medium" ref="senha">
         <span class="input-group-text right-span" style="max-height: 45px; max-width: 60px; padding-right: 20px">
                 <img class="right-image" src="@/components/icons/eye.png" style="width: 250%; height: 100%">
                 </span>
@@ -72,6 +72,13 @@
 export default {
   methods: {
     goToLogin() {
+      let accounts = JSON.parse(localStorage.getItem("accounts"));
+      for (let account of accounts) {
+        if (account.email === this.$refs.email.value) {
+          account.senha = this.$refs.senha.value;
+        }
+      }
+      localStorage.setItem("accounts",JSON.stringify(accounts));
       this.$router.push("/login");
     }
   }

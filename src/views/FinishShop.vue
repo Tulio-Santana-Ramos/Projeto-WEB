@@ -1,48 +1,49 @@
 <script setup>
-import Footer from "@/components/Footer.vue";
-import Menu from "@/components/Menu.vue";
-import CreditCard from "@/components/CreditCard.vue";
-import DefaultPaymentOption from "@/components/DefaultPaymentOption.vue";
-import BlankLine from "@/components/BlankLine.vue";
-import Books from "@/components/BagBook.vue";
+import Footer from "../components/Footer.vue";
+import Menu from "../components/Menu.vue";
+import CreditCard from "../components/CreditCard.vue";
+import DefaultPaymentOption from "../components/DefaultPaymentOption.vue";
+import BlankLine from "../components/BlankLine.vue";
+import Books from "../components/BagBook.vue";
 import {VueCookieNext} from 'vue-cookie-next'
 
 </script>
 
 <template>
+  <!-- Div com toda a finalização da compra -->
   <div style="min-height: calc(100vh - 270px)">
-    <Menu
-        :plotDropDown="false"
-    />
+    <Menu :plotDropDown="false"/>
     <div style="text-align: center; padding-top: 150px; padding-bottom: 20px">
       <span style="color: #38B6FF; font-size: 50px">Finalizar sua compra</span>
     </div>
     <div>
-      <div v-if="validateCard()">
+      <!-- verifica em qual parte da finalização da compra está -->
+      <!-- se estiver na parte 1 -->
+      <div v-if="verifyState()">
+        <!-- fieldset para fazer todas os radios funcionarem juntos -->
         <fieldset>
+          <!-- Se não foi feito o login não permite a compra -->
           <div v-if="hadUser()">
             <span class="normal-text" style="padding-left: 50px">
-          1. Selecione um metodo de pagamento:
-        </span>
+              1. Selecione um método de pagamento:
+            </span>
             <BlankLine/>
-          <span class="normal-text" style="padding-left: 100px">
-            Seus cartões de crédito:
-          </span>
+            <span class="normal-text" style="padding-left: 100px">
+              Seus cartões de crédito:
+            </span>
+            <!-- coloca todos os cartões de créditos -->
             <div v-for="(card,index) in getCreditCards()" class="card-div">
               <input type="radio" v-bind:name="payment_name" v-bind:value="'0 '+index"/>
-              <CreditCard
-                  :code="card.code"
-                  :flag="card.flag"
-                  :name="card.name"
-              />
+              <CreditCard :code="card.code" :flag="card.flag" :name="card.name" />
             </div>
+            <!-- Div para adicionar um cartão ao usuário -->
             <div style="padding-left: 150px">
               <button class="btn btn-secondary" data-bs-target="#modalCard" data-bs-toggle="modal" style="margin: 10px"
-                      type="button">+ Adicionar novo cartão
+                      type="button">
+                + Adicionar novo cartão
               </button>
             </div>
-
-            <!-- The Modal -->
+            <!-- Modal para adicionar um novo cartão -->
             <div id="modalCard" class="modal" style="margin-top: 200px">
               <div class="modal-dialog">
                 <div class="modal-content">
@@ -60,27 +61,27 @@ import {VueCookieNext} from 'vue-cookie-next'
                       <span class="input-group-text" style="width: 87px;">
                         Nome
                       </span>
-                        <input class="form-control" placeholder="Nome do titular"
-                               style="width: 350px;height: 45px;font-size: medium"
-                               ref="input_nome">
+                        <input ref="input_nome" class="form-control"
+                               placeholder="Nome do titular"
+                               style="width: 350px;height: 45px;font-size: medium">
                       </div>
                       <br>
                       <div class="input-group input-container" style="margin-right: auto; margin-left: auto;">
                       <span class="input-group-text">
                         Bandeira
                       </span>
-                        <input class="form-control" placeholder="Bandeira do cartão"
-                               style="height: 45px;font-size: medium"
-                               type="text" ref="input_bandeira">
+                        <input ref="input_bandeira" class="form-control"
+                               placeholder="Bandeira do cartão"
+                               style="height: 45px;font-size: medium" type="text">
                       </div>
                       <br>
                       <div class="input-group input-container" style="margin-right: auto; margin-left: auto;">
                       <span class="input-group-text" style="width: 87px">
                         Numero
                       </span>
-                        <input class="form-control" placeholder="Número do cartão"
-                               style="height: 45px;font-size: medium"
-                               type="number" ref="input_num">
+                        <input ref="input_num" class="form-control"
+                               placeholder="Número do cartão"
+                               style="height: 45px;font-size: medium" type="number">
                       </div>
                     </div>
                   </div>
@@ -88,8 +89,8 @@ import {VueCookieNext} from 'vue-cookie-next'
                   <!-- Modal footer -->
                   <div class="modal-footer">
                     <button class="btn btn-primary" data-bs-dismiss="modal"
-                            @click="addCard(this.$refs.input_nome.value,this.$refs.input_bandeira.value,this.$refs.input_num.value)"
-                            type="button">Adicionar
+                            type="button"
+                            @click="addCard(this.$refs.input_nome.value,this.$refs.input_bandeira.value,this.$refs.input_num.value)">Adicionar
                     </button>
                     <button class="btn btn-danger" data-bs-dismiss="modal" type="button">Cancelar</button>
                   </div>
@@ -97,53 +98,51 @@ import {VueCookieNext} from 'vue-cookie-next'
                 </div>
               </div>
             </div>
+            <!-- Span para adicionar as outra formas de pagamento-->
             <span v-for="(payment, index) in getPaymentForms()" class="other-payment">
               <BlankLine/>
-              <div style="padding-left: 100px">
-                <DefaultPaymentOption
-                    :index="index+1"
-                    :input_name="payment_name"
-                    :life_time="payment.life_time"
-                    :name="payment.name"
-                />
-              </div>
+              <span style="padding-left: 100px">
+                <DefaultPaymentOption :index="index+1" :input_name="payment_name" :life_time="payment.life_time"
+                    :name="payment.name" />
+              </span>
             </span>
+            <!-- Botão para efetivar a escolha de pagamento -->
             <div style="padding-left: 150px; align-items: center;; margin: 40px 0;">
               <button class="btn btn-primary" style="color: white; cursor: pointer;" type="button" @click="nextStep()">
                 Selecionar forma de pagamento
               </button>
             </div>
           </div>
-
-
-            <div v-else style="padding-left: 100px">
-            Para comprar é necessario fazer login:
+          <!-- Se não estiver logado mostra essa tela -->
+          <div v-else style="padding-left: 100px; font-size: large">
+            Para comprar é necessário fazer login:
             <button class="btn btn-primary" data-bs-dismiss="modal" type="button" @click="this.$router.push('/login')">
               Login
             </button>
           </div>
-
         </fieldset>
-
       </div>
+      <!-- se estiver na parte 2 (final) -->
       <div v-else>
         <div>
           <div>
-          <span class="normal-text" style="padding-left: 50px">
-              2. Confirme sua compra
-          </span>
+            <span class="normal-text" style="padding-left: 50px">
+                2. Confirme sua compra
+            </span>
+            <!-- Div com todos os livros do carrinho -->
             <div v-for="book in getBag()" style="padding-left: 100px">
               <Books
+                  :id="book.id"
                   :Isinpromo="book.promo"
+                  :action="removeLivro"
                   :categories="book.categories"
                   :name="book.name"
-                  :id="book.id"
                   :price="book.price"
                   :promotion="book.promo"
-                  :action="removeLivro"
               />
             </div>
           </div>
+          <!-- Div para mostrar o total da compra e finalizar a compra-->
           <div style="padding-left: 50px">
             Total da compra: {{ getFullPrice() }}
             <br>
@@ -152,40 +151,6 @@ import {VueCookieNext} from 'vue-cookie-next'
               Finalizar Compra
             </button>
           </div>
-        </div>
-      </div>
-    </div>
-    <button data-bs-target="#modalLogin" data-bs-toggle="modal"
-            style="border-width:0;width: 0;height: 0; cursor: default"
-            type="button" ref="modalButton"/>
-
-    <!-- The Modal -->
-    <div id="modalLogin" class="modal" style="margin-top: 200px">
-      <div class="modal-dialog">
-        <div class="modal-content">
-
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h4 class="modal-title">Você não está logado</h4>
-            <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
-          </div>
-
-          <!-- Modal body -->
-          <div class="modal-body">
-            Parece que você não está logado.
-            Para fazer compras no nosso site faça login ou crie uma conta
-          </div>
-
-          <!-- Modal footer -->
-          <div class="modal-footer">
-            <button class="btn btn-primary" data-bs-dismiss="modal" type="button" @click="this.$router.push('/login')">
-              Login
-            </button>
-            <button class="btn btn-primary" data-bs-dismiss="modal" type="button"
-                    @click="this.$router.push('/novousuario')">Cadastre-se
-            </button>
-          </div>
-
         </div>
       </div>
     </div>
@@ -201,13 +166,26 @@ export default {
   data() {
     return {
       payment_name: "paymentForm",
-      bag: null
+      bag: null // lista atual do carrinho de compra
     };
   },
+  mounted() {
+    this.getBag();
+  },
   methods: {
+    /**
+     * Verifica se o usuário está logado
+     * @returns {boolean} Retorna false se o usuário não está logado
+     */
     hadUser() {
       return VueCookieNext.getCookie("account") !== null;
     },
+    /**
+     * Adiciona o cartão à conta do usuário
+     * @param nome nome do dono do cartão
+     * @param bandeira bandeira do cartão
+     * @param numero numero do cartão
+     */
     addCard(nome, bandeira, numero) {
       let newCard = {};
       newCard.name = nome;
@@ -215,22 +193,29 @@ export default {
       newCard.flag = bandeira;
       let acc = VueCookieNext.getCookie("account");
       if (acc === null) {
-        return '';
+        return ;
       }
-      let accs = JSON.parse(localStorage.getItem("accounts"));
-      for (const accBD in accs) {
-        if (acc.id === accs[accBD].id)
-          accs[accBD].cards.push(newCard);
+      let accounts = JSON.parse(localStorage.getItem("accounts"));
+      for (const accBD in accounts) {
+        if (acc.id === accounts[accBD].id)
+          accounts[accBD].cards.push(newCard);
       }
-      localStorage.setItem("accounts", JSON.stringify(accs));
+      localStorage.setItem("accounts", JSON.stringify(accounts));
       this.$router.go(0);
     },
+    /**
+     * Remove um livro do carrinho de compras
+     * @param id do livro a ser removido
+     */
     removeLivro(id) {
-      VueCookieNext.setCookie("bag", JSON.stringify(this.getBag().filter(function (value) {
+      this.bag = this.bag.filter(function (value) { //Aplica um filtro no vetor para remover um elemento
         return value.id !== id;
-      })));
-      this.$router.go(0);
+      })
+      VueCookieNext.setCookie("bag", JSON.stringify(this.bag));
     },
+    /**
+     * Retorna a soma dos valores da compra
+     */
     getFullPrice() {
       let full = 0;
       for (let b of this.getBag()) {
@@ -241,47 +226,69 @@ export default {
       }
       return (Math.round(full * 100) / 100).toFixed(2);
     },
-    validateCard() {
-      let payment_form = parseInt(this.$route.query.payment_form);
+    /**
+     * Verifica em qual estado da compra esta
+     * @returns {boolean} retorna True se está na primeira fase
+     */
+    verifyState() {
+      let payment_form = parseInt(this.$route.query.payment_form[0]);
       if (isNaN(payment_form))
         return true;
-      let payment_id = parseInt(this.$route.query.id);
+      let payment_id = parseInt(this.$route.query.id[0]);
       if (isNaN(payment_id))
         return true;
       if (payment_id < 0)
         return false;
     },
+    /**
+     * Retorna todas as categorias da base de dados
+     */
     getAllCategories() {
       return JSON.parse(localStorage.getItem("categories"))
     },
+    /**
+     * Se bag não foi definido carrega ela do localStorage,
+     * Se bag ja foi definido retorna
+     * @returns this.bag
+     */
     getBag() {
-      if (this.bag === null) {
-        this.bag = [];
+      if (this.bag === null) { //Verifica se a variável ja foi inicializada
+        this.bag = []; //Define como um vetor vazio
         let allCategories = this.getAllCategories();
-        for (const book of JSON.parse(localStorage.getItem("books"))) {
-          for (const bagElem of JSON.parse(VueCookieNext.getCookie("bag"))) {
-            if (parseInt(book.id) === parseInt(bagElem.id)) {
-              let tempCategories = [];
-              for (const category of book.categories) {
-                for (const fixedCategory of allCategories) {
-                  if (category === fixedCategory.id) {
-                    tempCategories.push(fixedCategory.name);
-                    break;
+        let bag = JSON.parse(VueCookieNext.getCookie("bag"));
+        for (const book of JSON.parse(localStorage.getItem("books"))) { //Para cada livro na lista de livros ele verifica se está no carrinho
+          if (bag !== null)
+            for (const bagElem of bag) {
+              if (parseInt(book.id) === parseInt(bagElem.id)) {
+                let tempCategories = []; //Cria uma variável para converter as categorias numéricas em categorias escritas
+                for (const category of book.categories) {
+                  for (const fixedCategory of allCategories) {
+                    if (category === fixedCategory.id) {
+                      tempCategories.push(fixedCategory.name);
+                      break;
+                    }
                   }
                 }
+                book.categories = tempCategories;
+                this.bag.push(book);//Adiciona o livro no carrinho interno da pagina
               }
-              book.categories = tempCategories;
-              this.bag.push(book);
             }
-          }
+          else
+            break;
         }
       }
       return this.bag;
     },
+    /**
+     * Passa para a próxima fase de compra
+     */
     nextStep() {
       let options = document.querySelector('input[name=' + this.payment_name + ']:checked').value.split(" ");
       this.$router.push({path: "/finalizarCompra/", query: {payment_form: options[0], id: options[1]}});
     },
+    /**
+     * Retorna todos os cartões do usuário logado
+     */
     getCreditCards() {
       let acc = VueCookieNext.getCookie("account");
       if (acc === null) {
@@ -293,35 +300,38 @@ export default {
       }
       return [];
     },
+    /**
+     * Retorna as formas de pagamento
+     */
     getPaymentForms() {
       return JSON.parse(localStorage.getItem("payment_forms"));
     },
+    /**
+     * Finaliza a compra do usuário e salva as variáveis importantes
+     */
     finishShop() {
       let user = VueCookieNext.getCookie("account");
-      if (user === null) {
-        this.$refs.modalButton.click();
-      }
-      let updateBookList = false;
-      let bag = this.getBag();
-      if(bag === null)
+      let updateBookList = false; // verifica se algum livro comprado é promocional
+      let bag = this.getBag(); // Se o carrinho de compras está vazio volta para a home
+      if (bag === null)
         this.$router.push("/");
-      let toAddInLib = [];
-      for (const book of bag) {
+      let toAddInLib = []; // Vetor para adicionar à biblioteca
+      for (const book of bag) { // verifica todos os livros do carrinho de compra
         let nextBook = {};
         nextBook.id = book.id;
         nextBook.eval = false;
         toAddInLib.push(nextBook);
-        if (book.promo.is) {
+        if (book.promo.is) { // Se o livro é promocional diminui a quantidade da promoção
           updateBookList = true;
           book.promo.numberBooks--;
-          if (book.promo.numberBooks <= 0) {
+          if (book.promo.numberBooks <= 0) { // Se a promoção acabou remove a promoção
             book.promo.is = false;
             book.promo.tempPrice = 0;
             book.promo.numberBooks = 0;
           }
         }
       }
-      if (updateBookList) {
+      if (updateBookList) { // Se algum livro era promocional atualiza os livros
         let books = JSON.parse(localStorage.getItem("books"));
         for (let i = 0; i < books.length; i++) {
           for (let buyBook of bag) {
@@ -331,12 +341,11 @@ export default {
         }
         localStorage.setItem("books", JSON.stringify(books));
       }
+      //Adiciona os novos livros à biblioteca
       let libs = JSON.parse(localStorage.getItem("libraries"));
       let actualLib = null;
       let libID = -1;
-      console.log(libs);
       for (let i = 0; i < libs.length; i++) {
-        console.log(libs[i]);
         if (libs[i].user === user.id) {
           actualLib = libs[i].lib;
           libID = i;
@@ -347,16 +356,16 @@ export default {
       for (const bookToAdd of toAddInLib) {
         actualLib.push(bookToAdd);
       }
-      console.log(actualLib);
-      if(libID === -1){
+      if (libID === -1) {
         let newLib = {};
         newLib.user = user.id;
         newLib.lib = actualLib;
         libs.push(newLib);
-      }else{
+      } else {
         libs[libID].lib = actualLib;
       }
-      localStorage.setItem("libraries",JSON.stringify(libs));
+      localStorage.setItem("libraries", JSON.stringify(libs));
+      // Salva as compras para os relatórios
       let oldBuys = JSON.parse(localStorage.getItem("buys"));
       let newBuy = {};
       let accounts = JSON.parse(localStorage.getItem("accounts"));
