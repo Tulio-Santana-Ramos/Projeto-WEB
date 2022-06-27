@@ -79,13 +79,31 @@ Sem isso ele renderizará incorretamente as capas de alguns livros.
 
 ## Plano de teste:
 
-Pretendemos usar o Insomnia para verificar a validade das requisições (GET, POST, DELETE) no back-end. Além disso, serão
-efetuados testes nos navegadores Microsoft Edge, Firefox e Google Chrome, navegadores utilizados amplamente no mercado,
-assim como nos sistemas operacionais Windows e Linux (Ubuntu).
+Para realizar os teste é necessario, além de iniciar o vue, rodar a pagina de configuração inicial que se encontra na rota /resetConfig, ela simula a existencia de um servidor para os dados vitais do site, sem a devida execução o site pode parecer completamente desconfigurado.
 
-Para essa etapa da entrega verificamos nossa plataforma em diversos navegadores, testamos todas as rotas, fizemos diferentes perfis de usuário, criamos um perfil de admin, adicionamos livros, tentamos comprar até esgotar a promoção, tentamos acessar as páginas de admin sendo um usuário comum, entre outros e em todos os testes feitos por cada um dos desenvolvedores a plataforma se saiu bem.
+O site permite várias ações, testamos todas elas:
+
+Como cliente:
+  1. Realizar pesquisa do livro por nome
+  2. Realizar pesquisa do livro por categoria
+  3. Navegar no pagination dos livros na home
+  4. Fazer login 
+  5. Registrar novo usuário
+  6. Comprar livro estando logado e sem estar logado (pedir login)
+  7. Verificar se o livro comprado foi para biblioteca
+  8. Verificar se é possível ler o livro 
+  9. Fazer avaliação do livro e verificar se a avaliação aparece na página principal do livro
+
+Como administrador:
+  1. Registrar novo livro
+  2. Editar campos de livro existente
+  3. Adicionar promoção
+  4. Excluir promoção
+  5. Adicionar administrador
 
 ## Resultados dos testes:
+
+Em todos os testes o projeto se comportou como o esperado.
 
 
 ## Building:
