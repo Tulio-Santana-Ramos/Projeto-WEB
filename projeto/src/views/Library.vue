@@ -88,7 +88,7 @@ export default {
         return books;
       let category = this.$route.query.category;
       for (const book of books) {
-        if (book.categories.includes(parseInt(category[0])))
+        if (book.categories.includes(parseInt(category)))
           temp.push(book);
       }
       return temp;

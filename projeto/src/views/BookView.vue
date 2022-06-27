@@ -143,7 +143,7 @@ export default {
       let books = JSON.parse(localStorage.getItem("books"));
       let id = this.$route.query.id;
       for (let book of books) { // Seleciona na lista de livros qual é que vai ter promoção e adiciona ela
-        if (parseInt(book.id) === parseInt(id[0])) {
+        if (parseInt(book.id) === parseInt(id)) {
           if (!book.promo.is) { // Se não tem promoção cria
             let promo = {}
             promo.is = true;
@@ -167,7 +167,7 @@ export default {
       let books = JSON.parse(localStorage.getItem("books"));
       let id = this.$route.query.id;
       for (let i = 0; i < books.length; i++) { // Varre a lista de livros buscando o livro
-        if (parseInt(books[i].id) === parseInt(id[0])) {
+        if (parseInt(books[i].id) === parseInt(id)) {
           books.splice(i, 1); // Remove ele
           break;
         }
@@ -235,7 +235,7 @@ export default {
       let id = this.$route.query.id;
       let allCategories = this.getAllCategories();
       for (let book of books) {
-        if (parseInt(book.id) === parseInt(id[0])) {
+        if (parseInt(book.id) === parseInt(id)) {
           let tempCategories = [];
           for (const category of book.categories) {
             for (const fixedCategory of allCategories) {
