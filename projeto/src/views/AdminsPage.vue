@@ -22,12 +22,14 @@ import Menu from "../components/Menu.vue";
 
           <!-- Modal body -->
           <div class="modal-body">
-            <p v-for="buys in getAllBuys()" class="registro-list">{{ buys.name + " - R$" + buys.value }}</p>
+            <div>
+              <p v-for="buys in getAllBuys()" class="registro-list">{{ buys.name + " - R$" + buys.value }}</p>
+            </div>
           </div>
 
           <!-- Modal footer -->
           <div class="modal-footer">
-            <button class="btn btn-danger" data-bs-dismiss="modal" type="button">Fechar</button>
+            <button class="btn btn-danger" data-bs-dismiss="modal" type="fechar">Cancelar</button>
           </div>
 
         </div>
@@ -130,7 +132,6 @@ export default {
 </script>
 
 <style scoped>
-@import "../assets/base.css";
 
 .titlePage {
   color: #38b6ff;
@@ -147,6 +148,7 @@ export default {
   padding: 1em;
   font-size: 1.5em;
   text-align: center;
+  margin: 0;
 }
 
 .listAdmins:nth-child(2n) {
@@ -155,6 +157,10 @@ export default {
 
 .registro-list:nth-child(2n) {
   background-color: #8fd5fd;
+}
+
+p{
+  margin: 0;
 }
 
 </style>

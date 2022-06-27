@@ -49,11 +49,7 @@ import { VueCookieNext } from "vue-cookie-next";
                 v-bind:name="payment_name"
                 v-bind:value="'0 ' + index"
               />
-              <CreditCard
-                :code="card.code"
-                :flag="card.flag"
-                :name="card.name"
-              />
+              <CreditCard :code="card.code" :name="card.name" />
             </div>
             <!-- Div para adicionar um cartão ao usuário -->
             <div style="padding-left: 150px">
@@ -93,6 +89,7 @@ import { VueCookieNext } from "vue-cookie-next";
                           class="form-control"
                           placeholder="Nome do titular"
                           style="width: 350px; height: 45px; font-size: medium"
+                          v-model="this.inputName"
                         />
                       </div>
                       <br />
@@ -100,13 +97,31 @@ import { VueCookieNext } from "vue-cookie-next";
                         class="input-group input-container"
                         style="margin-right: auto; margin-left: auto"
                       >
-                        <span class="input-group-text"> Bandeira </span>
+                        <span class="input-group-text"> Validade </span>
                         <input
-                          ref="input_bandeira"
+                          ref="input_validade"
                           class="form-control"
                           placeholder="Bandeira do cartão"
                           style="height: 45px; font-size: medium"
-                          type="text"
+                          type="date"
+                          v-model="this.inputExpiration"
+                        />
+                      </div>
+                      <br />
+                      <div
+                        class="input-group input-container"
+                        style="margin-right: auto; margin-left: auto"
+                      >
+                        <span class="input-group-text" style="width: 87px">
+                          CVV
+                        </span>
+                        <input
+                          ref="input_CVV"
+                          class="form-control"
+                          placeholder="CVV"
+                          style="height: 45px; font-size: medium"
+                          type="number"
+                          v-model="this.inputCVV"
                         />
                       </div>
                       <br />
@@ -123,6 +138,7 @@ import { VueCookieNext } from "vue-cookie-next";
                           placeholder="Número do cartão"
                           style="height: 45px; font-size: medium"
                           type="number"
+                          v-model="this.inputNumero"
                         />
                       </div>
                     </div>
@@ -134,10 +150,13 @@ import { VueCookieNext } from "vue-cookie-next";
                       class="btn btn-primary"
                       data-bs-dismiss="modal"
                       type="button"
+                      ref="btnAddCard"
+                      disabled
                       @click="
                         addCard(
                           this.$refs.input_nome.value,
-                          this.$refs.input_bandeira.value,
+                          this.$refs.input_validade.value,
+                          this.$refs.input_CVV.value,
                           this.$refs.input_num.value
                         )
                       "
@@ -259,7 +278,26 @@ export default {
     return {
       payment_name: "paymentForm",
       bag: null, // lista atual do carrinho de compra
+      inputName: "",
+      inputCVV: "",
+      inputExpiration: "",
+      inputNumero: ""
     };
+  },
+  watch:{
+      inputName(novo,velho){
+        this.onUpdateFieldCard();
+      },
+      inputCVV(novo,velho){
+        this.onUpdateFieldCard();
+      },
+      inputExpiration(){
+        this.onUpdateFieldCard();
+      },
+      inputNumero(){
+        this.onUpdateFieldCard();
+      }
+
   },
   mounted() {
     this.getBag();
@@ -275,14 +313,24 @@ export default {
     /**
      * Adiciona o cartão à conta do usuário
      * @param nome nome do dono do cartão
-     * @param bandeira bandeira do cartão
+     * @param validade validade do cartão
+     * @param CVV CVV do cartão
      * @param numero numero do cartão
      */
-    addCard(nome, bandeira, numero) {
+    addCard(nome, validade,CVV, numero) {
       let newCard = {};
+
+      const zeros = "0000000000000000";
       newCard.name = nome;
-      newCard.code = parseInt(numero);
-      newCard.flag = bandeira;
+      if(numero.length < 16)
+        newCard.code = zeros.substring(numero.length,16) + numero;
+      else
+        newCard.code = numero.substring(0,16);
+      newCard.expiration = validade;
+      if(CVV.length < 3)
+        newCard.CVV = zeros.substring(CVV.length,3) + CVV
+      else
+        newCard.CVV = CVV.substring(0,3);
       let acc = VueCookieNext.getCookie("account");
       if (acc === null) {
         return;
@@ -474,6 +522,10 @@ export default {
       localStorage.setItem("buys", JSON.stringify(oldBuys));
       this.$router.push("/");
     },
+    onUpdateFieldCard(){
+      let validation = this.$refs.input_nome.value == "" || this.$refs.input_validade.value  == "" || this.$refs.input_CVV.value  == "" || this.$refs.input_num.value == "" ;
+      this.$refs.btnAddCard.disabled = validation
+    }
   },
 };
 </script>

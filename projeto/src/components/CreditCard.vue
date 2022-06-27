@@ -1,13 +1,13 @@
 <template>
   <span>
-    Cartão do {{ flag }} terminado em {{ code }} - {{ name }}
+    Cartão de {{ name }} terminado em {{ code.substring(code.length-4) }}
   </span>
 </template>
 
 <script>
 export default {
   name: "CreditCard",
-  props: ["name", "code", "flag"]
+  props: ["name", "code"]
 }
 </script>
 

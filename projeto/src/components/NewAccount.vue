@@ -16,6 +16,7 @@ import { required } from "@vuelidate/validators";
           aria-label="Nome"
           aria-describedby="inputGroup-sizing-default"
           ref="name"
+          v-model="this.nome"
         />
       </div>
 
@@ -29,6 +30,7 @@ import { required } from "@vuelidate/validators";
           aria-label="Default"
           aria-describedby="inputGroup-sizing-default"
           ref="email"
+          v-model="this.email"
         />
       </div>
 
@@ -42,6 +44,7 @@ import { required } from "@vuelidate/validators";
           aria-label="Default"
           aria-describedby="inputGroup-sizing-default"
           ref="phone"
+          v-model="this.tel"
         />
       </div>
 
@@ -55,6 +58,7 @@ import { required } from "@vuelidate/validators";
           aria-label="Default"
           aria-describedby="inputGroup-sizing-default"
           ref="pass"
+          v-model="this.pass1"
         />
       </div>
 
@@ -70,12 +74,13 @@ import { required } from "@vuelidate/validators";
           aria-label="Default"
           aria-describedby="inputGroup-sizing-default"
           ref="pass2"
+          v-model="this.pass2"
         />
       </div>
 
       <span style="color: red" ref="passError"></span>
       <br />
-      <button type="button" class="btn btn-success" @click="submit()">CRIAR CONTA</button>
+      <button type="button" class="btn btn-success" @click="submit()" disabled ref="btn">CRIAR CONTA</button>
     </div>
   </div>
 </template>
@@ -85,12 +90,39 @@ export default {
   name: "NewAccount",
   props: ["adminReg", "nextPage"],
   data() {
-    return {};
+    return {
+      nome:"",
+      email:"",
+      tel:"",
+      pass1:"",
+      pass2:""
+    };
+  },
+  watch:{
+    nome(){
+      this.validateFields();
+    },
+    email(){
+      this.validateFields();
+    },
+    tel(){
+      this.validateFields();
+    },
+    pass1(){
+      this.validateFields();
+    },
+    pass2(){
+      this.validateFields();
+    }
   },
   methods: {
+    validateFields(){
+      this.$refs.btn.disabled = (this.nome == "" ||this.email == "" ||this.tel == "" ||this.pass1 == "" ||this.pass2 == "" );
+    },
     submit() {
       if (this.$refs.pass.value !== this.$refs.pass2.value) {
         this.$refs.passError.innerText = "As senhas não conhecidem";
+        return ;
       }
       let accs = JSON.parse(localStorage.getItem("accounts"));
       let newAccount = {};

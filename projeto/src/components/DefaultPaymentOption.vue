@@ -1,7 +1,7 @@
 <template>
   <span>{{ name }}</span>
   <br>
-  <span style="padding-left: 50px">
+  <span style="padding-left: 150px">
     <input type="radio" v-bind:name="input_name" v-bind:value="index + ' 0'"/>
     Expira em {{ life_time }}
   </span>
