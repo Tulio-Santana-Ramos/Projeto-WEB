@@ -108,6 +108,9 @@ Em todos os testes o projeto se comportou como o esperado.
 
 ## Building:
 
+```sh
+cd projeto
+```
 
 ```sh
 npm install
