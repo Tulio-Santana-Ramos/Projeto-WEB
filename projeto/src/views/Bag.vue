@@ -35,18 +35,25 @@ import {VueCookieNext} from 'vue-cookie-next'
 
 <script>
 import {VueCookieNext} from "vue-cookie-next";
+import axios from "axios";
 
 export default {
   name: "app",
   data() {
     return {
-      bag: null // Essa variável vai guardar o carrinho de compras atual
+      bag: null, // Essa variável vai guardar o carrinho de compras atual,
+      all_books:[],
+      categories:[]
     };
   },
   /**
    * Quando a pagina inicia ja carrega os itens na bag
    */
-  mounted() {
+  async mounted() {
+    const res_books = await axios.get("http://localhost:3000/api/book/");
+    this.all_books = res_books.data;
+    const res_cat = await axios.get("http://localhost:3000/api/category/");
+    this.categories = res_cat.data;
     this.getBag();
   },
   methods: {
@@ -55,7 +62,7 @@ export default {
      * objeto pode ser encontrada em Estruturas JSON.txt
      */
     getAllCategories() {
-      return JSON.parse(localStorage.getItem("categories"))
+      return this.categories
     },
     /**
      * Se bag não foi definido carrega ela do localStorage,
@@ -67,7 +74,7 @@ export default {
         this.bag = []; //Define como um vetor vazio
         let allCategories = this.getAllCategories();
         let bag = JSON.parse(VueCookieNext.getCookie("bag"));
-        for (const book of JSON.parse(localStorage.getItem("books"))) { //Para cada livro na lista de livros ele verifica se está no carrinho
+        for (const book of this.all_books) { //Para cada livro na lista de livros ele verifica se está no carrinho
           if (bag !== null)
             for (const bagElem of bag) {
               if (parseInt(book.id) === parseInt(bagElem.id)) {

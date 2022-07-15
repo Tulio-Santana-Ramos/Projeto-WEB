@@ -152,19 +152,28 @@ export default {
     /**
      * Busca o usuário e verifica se a senha bate com a da base
      */
-    login() {
-      let accs = JSON.parse(localStorage.getItem("accounts"));
-      let login = this.$refs.log.value, pass = this.$refs.pass.value;
-      for (const acc of accs) {
-        if (acc.email === login && acc.senha === pass) {
-          let account = {};
-          account.id = acc.id;
-          account.adm = acc.admin;
-          VueCookieNext.setCookie("account", JSON.stringify(account));
-          this.$router.push("/");
-          break;
-        }
+    async login() {
+      let xhr = new XMLHttpRequest();
+      let data = {email:this.$refs.log.value, senha:this.$refs.pass.value, op:"l"};
+
+      let res = await fetch("http://localhost:3000/api/acc/", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      });
+      if(res.status === 200){
+        let json = await res.json();
+        let account = {};
+        account = json;
+        account.adm = account.admin;
+        VueCookieNext.setCookie("account", JSON.stringify(account));
+        this.$router.push("/");
+      }else{
+        // TODO: arrumar o login fail
+        console.log("Deu errado")
       }
+
+
     },
     /**
      * Redefine a rota para criar novo usuario

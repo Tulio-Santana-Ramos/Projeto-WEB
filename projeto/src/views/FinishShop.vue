@@ -271,6 +271,7 @@ import { VueCookieNext } from "vue-cookie-next";
 
 <script>
 import { VueCookieNext } from "vue-cookie-next";
+import axios from "axios";
 
 export default {
   name: "FinishShop",
@@ -281,7 +282,10 @@ export default {
       inputName: "",
       inputCVV: "",
       inputExpiration: "",
-      inputNumero: ""
+      inputNumero: "",
+      all_books:[],
+      payment_form: [],
+      categories: []
     };
   },
   watch:{
@@ -299,8 +303,16 @@ export default {
       }
 
   },
-  mounted() {
+  async mounted() {
     this.getBag();
+    const res_books = await axios.get("http://localhost:3000/api/book/");
+    this.all_books = res_books.data;
+    const res_cat = await axios.get("http://localhost:3000/api/category/");
+    this.categories = res_cat.data;
+    const res = await axios.get("http://localhost:3000/api/payment/")
+    this.payment_form = res.data;
+
+
   },
   methods: {
     /**
@@ -335,6 +347,7 @@ export default {
       if (acc === null) {
         return;
       }
+      //Todo: update cards
       let accounts = JSON.parse(localStorage.getItem("accounts"));
       for (const accBD in accounts) {
         if (acc.id === accounts[accBD].id) accounts[accBD].cards.push(newCard);
@@ -379,7 +392,7 @@ export default {
      * Retorna todas as categorias da base de dados
      */
     getAllCategories() {
-      return JSON.parse(localStorage.getItem("categories"));
+      return this.categories;
     },
     /**
      * Se bag não foi definido carrega ela do localStorage,
@@ -392,7 +405,7 @@ export default {
         this.bag = []; //Define como um vetor vazio
         let allCategories = this.getAllCategories();
         let bag = JSON.parse(VueCookieNext.getCookie("bag"));
-        for (const book of JSON.parse(localStorage.getItem("books"))) {
+        for (const book of this.all_books) {
           //Para cada livro na lista de livros ele verifica se está no carrinho
           if (bag !== null)
             for (const bagElem of bag) {
@@ -435,21 +448,17 @@ export default {
       if (acc === null) {
         return "";
       }
-      for (const accBD of JSON.parse(localStorage.getItem("accounts"))) {
-        if (acc.id === accBD.id) return accBD.cards;
-      }
-      return [];
+      return acc.cards;
     },
     /**
      * Retorna as formas de pagamento
      */
     getPaymentForms() {
-      return JSON.parse(localStorage.getItem("payment_forms"));
+      return this.payment_form;
     },
     /**
      * Finaliza a compra do usuário e salva as variáveis importantes
-     */
-    finishShop() {
+     */ async finishShop() {
       let user = VueCookieNext.getCookie("account");
       let updateBookList = false; // verifica se algum livro comprado é promocional
       let bag = this.getBag(); // Se o carrinho de compras está vazio volta para a home
@@ -473,9 +482,10 @@ export default {
           }
         }
       }
+      //TODO: rota SellBook pra vender os livros com desconto
       if (updateBookList) {
         // Se algum livro era promocional atualiza os livros
-        let books = JSON.parse(localStorage.getItem("books"));
+        let books = this.all_books;
         for (let i = 0; i < books.length; i++) {
           for (let buyBook of bag) {
             if (books[i].id === buyBook.id) books[i].promo = buyBook.promo;
@@ -507,17 +517,17 @@ export default {
       }
       localStorage.setItem("libraries", JSON.stringify(libs));
       // Salva as compras para os relatórios
-      let oldBuys = JSON.parse(localStorage.getItem("buys"));
       let newBuy = {};
-      let accounts = JSON.parse(localStorage.getItem("accounts"));
-      for (const userAcc of accounts) {
-        if (parseInt(userAcc.id) === parseInt(user.id)) {
-          newBuy.name = userAcc.name;
-          break;
-        }
+      newBuy.name = user.name;
+      newBuy.value = this.getFullPrice().toString();
+      let res = await fetch("http://localhost:3000/api/buy/", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(newBuy)
+      });
+      if (res.status !== 200) {
+        console.log("Deu errado")
       }
-      newBuy.value = this.getFullPrice();
-      oldBuys.push(newBuy);
       VueCookieNext.setCookie("bag", "");
       localStorage.setItem("buys", JSON.stringify(oldBuys));
       this.$router.push("/");

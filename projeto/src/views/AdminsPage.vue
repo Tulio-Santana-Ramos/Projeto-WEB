@@ -72,12 +72,36 @@ import Menu from "../components/Menu.vue";
 
 <script>
 import {VueCookieNext} from "vue-cookie-next";
+import axios from "axios";
 
 export default {
   name: "app",
+  async mounted(){
+    let xhr = new XMLHttpRequest();
+    let data = {_id:VueCookieNext.getCookie("account")._id, op:"a"};
+    let res = await fetch("http://localhost:3000/api/acc/", {
+      method: "POST",
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    });
+    if(res.status === 200){
+      let temp = await res.json();
+      let nomes = []
+      for (let i = 0; i < temp.length; i++){
+        nomes.push(temp[i].name);
+      }
+      this.all_admins = nomes;
+    }else{
+      console.log("Deu errado")
+    }
+    const res_cat = await axios.get("http://localhost:3000/api/buy/");
+    this.all_buys = res_cat.data;
+  },
   data() {
     return {
-      blockAdmin: "Para acessar essa página é necessário ser um administrador"
+      blockAdmin: "Para acessar essa página é necessário ser um administrador",
+      all_admins: [],
+      all_buys: []
     };
   },
   methods: {
@@ -101,15 +125,7 @@ export default {
      * Retorna uma lista de objetos com todos os admins
      */
     getAllAdmins() {
-      let admins = [];
-      let accounts = JSON.parse(localStorage.getItem("accounts"));
-      for (const account of accounts) {
-        console.log(account);
-        if (account.admin) {
-          admins.push(account.name);
-        }
-      }
-      return admins;
+      return this.all_admins
     },
     /**
      * Retorna somente as 10 primeiras compras
@@ -125,7 +141,7 @@ export default {
      * Retorna todas as compras
      */
     getAllBuys() {
-      return JSON.parse(localStorage.getItem("buys")).reverse();
+      return this.all_buys.reverse();
     }
   }
 };

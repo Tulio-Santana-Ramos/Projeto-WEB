@@ -61,13 +61,18 @@
 
 <script>
 import {VueCookieNext} from "vue-cookie-next";
+import axios from "axios";
 
 export default {
   name: "menu",
   props: ["plotDropDown", "filter", "actualCategory"],
-  mounted() {
+  async mounted() {
     if (this.actualCategory !== undefined)
       this.dropdownCategory = this.actualCategory;
+    const res_books = await axios.get("http://localhost:3000/api/book/");
+    this.all_books = res_books.data;
+    const res_cat = await axios.get("http://localhost:3000/api/category/");
+    this.categories = res_cat.data;
   },
   watch: {
     textSearch(newText, oldText) {
@@ -82,6 +87,8 @@ export default {
       dropdownCategory: -1,
       textSearch: "",
       active: false,
+      all_books: [],
+      categories: []
     }
   },
   methods: {
@@ -96,7 +103,7 @@ export default {
       return VueCookieNext.getCookie("account") !== null;
     },
     getAllBooks() {
-      return JSON.parse(localStorage.getItem("books"));
+      return this.all_books;
     },
     getMatchedBooks() {
       if (this.textSearch === "")
@@ -124,7 +131,7 @@ export default {
       this.$router.push("/biblioteca");
     },
     getAllCategories() {
-      return JSON.parse(localStorage.getItem("categories"));
+      return this.categories;
     }
   },
 }

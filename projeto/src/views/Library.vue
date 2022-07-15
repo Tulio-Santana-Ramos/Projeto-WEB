@@ -38,6 +38,7 @@ import {VueCookieNext} from "vue-cookie-next";
 
 <script>
 import {VueCookieNext} from "vue-cookie-next";
+import axios from "axios";
 
 export default {
   name: "app",
@@ -68,14 +69,14 @@ export default {
      * @returns {any}
      */
     getAllCategories() {
-      return JSON.parse(localStorage.getItem("categories"))
+      return this.categories
     },
     /**
      * Retorna todos os livros
      * @returns {any}
      */
     getAllBooks() {
-      return JSON.parse(localStorage.getItem("books"));
+      return this.all_books;
     },
     /**
      * Retorna todos os livros
@@ -127,10 +128,18 @@ export default {
       return temp;
     }
   },
+  async mounted() {
+    const res_books = await axios.get("http://localhost:3000/api/book/");
+    this.all_books = res_books.data;
+    const res_cat = await axios.get("http://localhost:3000/api/category/");
+    this.categories = res_cat.data;
+  },
   data() {
     return {
       user: true,
       text: "Para acessar a biblioteca e visualizar seus livros faça o login",
+      all_books:[],
+      categories: []
     };
   },
 

@@ -96,7 +96,7 @@
         </div>
       </div>
     </div>
-    <div v-if="promotion.is" class="container-promotion">
+    <div v-if="typeof (promotion) !== 'undefined' && promotion.is" class="container-promotion">
       Quantidade promocional restante: {{ promotion.numberBooks }}
     </div>
     <div class="book-basics">
@@ -104,10 +104,10 @@
       <div class="home-book-info">
         <p class="title">{{ name }}</p>
         <ul v-for="category in categories" class="category">
-          <li>{{ category }}</li>
+          <li>{{ category.name }}</li>
         </ul>
-        <p class="price" v-if="!promotion.is">R$ {{ price }}</p>
-        <p class="price" v-else>R$ {{ promotion.tempPrice }}</p>
+        <p class="price" v-if="typeof (promotion) !== 'undefined' && !promotion.is">R$ {{ price }}</p>
+        <p class="price" v-else-if="typeof (promotion) !== 'undefined'">R$ {{ promotion.tempPrice }}</p>
       </div>
     </div>
     <div class="synopsis">{{ synopsis }}</div>
@@ -165,6 +165,7 @@
 </template>
 <script>
 import {VueCookieNext} from "vue-cookie-next";
+import axios from "axios";
 
 export default {
   name: "BookInfo",
@@ -174,13 +175,15 @@ export default {
       categoriesCheck: [],
       updateCategories: 0,
       inBagVar:false,
+      categories:[]
     };
   },
-  mounted() {
+  async mounted() {
+    const res_cat = await axios.get("http://localhost:3000/api/category/");
+    this.categories = res_cat.data;
     this.inBagVar = this.inBag;
-    let categories = this.getAllCategories();
-    for (let i = 0; i < categories.length; i++) {
-      this.categoriesCheck[i] = this.searchInActualCategories(categories[i].name);
+    for (let i = 0; i < this.categories.length; i++) {
+      this.categoriesCheck[i] = this.searchInActualCategories(this.categories[i].name);
     }
   },
   methods: {
@@ -194,7 +197,7 @@ export default {
       this.updateCategories++;
     },
     getAllCategories() {
-      return JSON.parse(localStorage.getItem("categories"))
+      return this.categories
     },
     searchInActualCategories(id) {
       for (const category of this.categories) {

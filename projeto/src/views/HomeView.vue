@@ -24,7 +24,7 @@ e navegar para realizar as ações possíveis do usuário seja ele admin ou user
   />
   <div class="books">
     <!-- Realiza um for por todos os livros registrado no sistema e os mostra para o usuário-->
-    <div v-for="book in paginate()" @click="goToBook(book.id)">
+    <div v-for="book in paginated" @click="goToBook(book.id)">
       <Books
           :name="book.name"
           :price="book.price"
@@ -57,8 +57,10 @@ e navegar para realizar as ações possíveis do usuário seja ele admin ou user
 <script>
 import Paginate from 'vuejs-paginate-next';
 import {VueCookieNext} from "vue-cookie-next";
+import axios from "axios";
 const maxBooks = 15; //define a quantidade máxima de livros que será mostrada por página
 export default {
+
   components: {
     paginate: Paginate,//Guarda as variáveis para poder usar a paginação corretamente
   },
@@ -66,9 +68,14 @@ export default {
   /**
    * Define a categoria a ser buscada
    */
-  mounted() {
+  async mounted() {
     if (this.$route.query.category !== undefined)
       this.actualCategory = this.$route.query.category;
+    const res_books = await axios.get("http://localhost:3000/api/book/");
+    this.all_books = res_books.data;
+    const res_cat = await axios.get("http://localhost:3000/api/category/");
+    this.all_categories = res_cat.data;
+    this.paginated = this.paginate()
   },
   methods: {
     /**
@@ -117,14 +124,14 @@ export default {
      * @returns {any}
      */
     getAllBooks() {
-      return JSON.parse(localStorage.getItem("books"));
+      return this.all_books;
     },
     /**
      * Retorna todas as categorias
      * @returns {any}
      */
     getAllCategories() {
-      return JSON.parse(localStorage.getItem("categories"))
+      return this.all_categories;
     },
     /**
      * Corta os livros para fazer a paginação corretamente e retorna esse corte
@@ -195,6 +202,9 @@ export default {
       next_text: "Proximo",
       // Usado para o filtro de categoria
       actualCategory: -1,
+      all_books: [],
+      paginated: [],
+      all_categories:[]
     };
   },
 };

@@ -104,7 +104,7 @@ import Evaluation from "../components/avaliationResult.vue";
   <div>
     <!-- Coloca todas as informações do livro na tela-->
     <BookInfo
-      :name="this.getBookDetails().name"
+      :name="book.name"
       :price="book.price"
       :categories="book.categories"
       :promotion="book.promo"
@@ -130,50 +130,54 @@ import Evaluation from "../components/avaliationResult.vue";
 
 <script>
 import {VueCookieNext} from "vue-cookie-next";
+import axios from "axios";
 
 export default {
   name: 'app',
+  async mount(){
+    const res_books = await axios.get("http://localhost:3000/api/book/?id="+this.$route.query.id);
+    this.all_books = res_books.data;
+    const res_cat = await axios.get("http://localhost:3000/api/category/");
+    this.categories = res_cat.data;
+    let id = this.$route.query.id;
+    console.log(this.book)
+  },
   methods: {
     /**
      * Se o livro tiver promoção aumenta, se não tiver cria
      * @param {string} quantidadePromocional define a promoção a ser somada
      * @param {string} valorPromocional define o novo valor promocional
-     */
-    addPromo(quantidadePromocional, valorPromocional) {
-      let books = JSON.parse(localStorage.getItem("books"));
-      let id = this.$route.query.id;
-      for (let book of books) { // Seleciona na lista de livros qual é que vai ter promoção e adiciona ela
-        if (parseInt(book.id) === parseInt(id)) {
-          if (!book.promo.is) { // Se não tem promoção cria
-            let promo = {}
-            promo.is = true;
-            promo.numberBooks = quantidadePromocional;
-            promo.tempPrice = valorPromocional;
-            book.promo = promo;
-          } else { // Se não, adiciona
-            book.promo.numberBooks = parseInt(book.promo.numberBooks) + parseInt(quantidadePromocional);
-            book.promo.tempPrice = valorPromocional;
-          }
-          this.book = book; // Devolve o livro atualizada para data e atualiza a view
-          break;
-        }
+     */ async addPromo(quantidadePromocional, valorPromocional) {
+      if (!this.book.promo.is) { // Se não tem promoção cria
+        let promo = {}
+        promo.is = true;
+        promo.numberBooks = quantidadePromocional;
+        promo.tempPrice = valorPromocional;
+        this.book.promo = promo;
+      } else { // Se não, adiciona
+        this.book.promo.numberBooks = parseInt(book.promo.numberBooks) + parseInt(quantidadePromocional);
+        this.book.promo.tempPrice = valorPromocional;
       }
-      localStorage.setItem("books", JSON.stringify(books)); // Devolve a lista de livros para o servidor
+      let res = await fetch("http://localhost:3000/api/book/?id=" + this.book._id, {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      });
+      if (res.status !== 200)
+        console.log("Deu errado")
+
     },
     /**
      * Remove o livro da base de dados
-     */
-    remLivro() {
-      let books = JSON.parse(localStorage.getItem("books"));
-      let id = this.$route.query.id;
-      for (let i = 0; i < books.length; i++) { // Varre a lista de livros buscando o livro
-        if (parseInt(books[i].id) === parseInt(id)) {
-          books.splice(i, 1); // Remove ele
-          break;
-        }
-      }
-      localStorage.setItem("books", JSON.stringify(books)); // Salva
-      this.$router.push("/"); // Redefine a rota para a home
+     */ async remLivro() {
+      let res = await fetch("http://localhost:3000/api/book/?id=" + this.book._id, {
+        method: "DELETE",
+        headers: {'Content-Type': 'application/json'},
+        body: ""
+      });
+      if (res.status !== 200)
+        console.log("Deu errado");
+      await this.$router.push("/"); // Redefine a rota para a home
     },
     /**
      * Verifica se o livro está na biblioteca
@@ -225,13 +229,13 @@ export default {
      * Retorna todas as categorias na base de dados
      */
     getAllCategories() {
-      return JSON.parse(localStorage.getItem("categories"))
+      return this.categories;
     },
     /**
      * Retorna o livro atual com todas as categorias ja convertidas para texto
      */
     getBookDetails() {
-      let books = JSON.parse(localStorage.getItem("books"));
+      let books = this.all_books;
       let id = this.$route.query.id;
       let allCategories = this.getAllCategories();
       for (let book of books) {
@@ -271,6 +275,8 @@ export default {
   data() {
     return {
       book: {},//Livro que esta sendo exibido
+      all_books:[],
+      categories:[]
     };
   },
 };

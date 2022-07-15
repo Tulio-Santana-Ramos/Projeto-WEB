@@ -54,7 +54,7 @@
                   <img src="@/components/icons/addBook.png" style="width: 60px" ref="img_img"/>
                   <input id="input-image" ref="img" class="input-file-hidden" name="file-upload" type="file"
                          v-on:change="checkImg()"/>
-                  <input name="id" type="hidden" v-bind:value="getNextId()">
+                  <input name="id" type="hidden" v-bind:value="this.next_id">
                 </label>
               </form>
             </div>
@@ -69,7 +69,7 @@
                   <img src="@/components/icons/addBook.png" style="width: 60px" ref="img_pdf"/>
                   <input id="input-pdf" ref="pdf" class="input-file-hidden" name="file-upload" type="file"
                          v-on:change="checkPdf()"/>
-                  <input name="id" type="hidden" v-bind:value="getNextId()">
+                  <input name="id" type="hidden" v-bind:value="this.next_id">
                 </label>
               </form>
             </div>
@@ -227,21 +227,31 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   props: ["propagateChanges"],
-  mounted() {
-    this.categories = this.getAllCategories();
+  async mounted() {
+    if (this.$route.query.category !== undefined)
+      this.actualCategory = this.$route.query.category;
+    const res_books = await axios.get("http://localhost:3000/api/book/");
+    this.all_books = res_books.data;
+    const res_cat = await axios.get("http://localhost:3000/api/category/");
+    this.categories = res_cat.data;
+    this.next_id = this.all_books[this.all_books.length - 1].id + 1
   },
   data() {
     return {
       checkBoxValues: [],
       imgFile: null,
       pdfFile: null,
-      categories: []
+      categories: [],
+      all_books:[],
+      next_id: 0
     }
   },
   methods: {
-    addCategory(nome) {
+    async addCategory(nome) {
       let categories = this.getAllCategories();
       for (const category of categories) {
         if (category.name.toLowerCase() === nome.toLowerCase()) {
@@ -252,7 +262,18 @@ export default {
       newCategory.name = nome;
       newCategory.id = categories[categories.length - 1].id + 1;
       categories.push(newCategory);
-      localStorage.setItem("categories", JSON.stringify(categories));
+
+      let xhr = new XMLHttpRequest();
+
+      let res = await fetch("http://localhost:3000/api/acc/", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(newCategory)
+      });
+      if (res.status !== 200) {
+        console.log("Deu errado")
+      }
+
       this.categories = categories;
     },
     checkPdf() {
@@ -265,12 +286,8 @@ export default {
       this.$refs.lbl_img.innerText = "Upload feito";
       this.$refs.form_upload_image.submit();
     },
-    getNextId() {
-      let books = JSON.parse(localStorage.getItem("books"));
-      return books[books.length - 1].id + 1;
-    },
-    addBook() {
-      let books = JSON.parse(localStorage.getItem("books"));
+    async addBook() {
+      let books = this.all_books;
       let newBook = {};
       newBook.name = this.$refs.input_name.value;
       newBook.pages = parseInt(this.$refs.input_number_page.value);
@@ -294,10 +311,21 @@ export default {
       newBook.id = books[books.length - 1].id + 1;//Coloca o id do novo livro como o ultimo +1
       newBook.evaluations = [];
       books.push(newBook);
-      localStorage.setItem("books", JSON.stringify(books));
+
+      let xhr = new XMLHttpRequest();
+
+      let res = await fetch("http://localhost:3000/api/acc/", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(books)
+      });
+      if (res.status !== 200) {
+        console.log("Deu errado")
+      }
+
     },
     getAllCategories() {
-      return JSON.parse(localStorage.getItem("categories"))
+      return this.categories;
     }
   },
 
