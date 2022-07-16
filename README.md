@@ -121,7 +121,7 @@ npm install
 ```
 
 ```sh
-npm run dev
+npm run dev -- --port 3001
 ```
 
 No segundo:
