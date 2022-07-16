@@ -26,13 +26,25 @@ router.get('/', async (req,res)=> {
 })
 
 router.post('/', async(req,res)=>{
-    const newBook = new Book(req.body)
-    try{
-        const book = await newBook.save()
-        if (!book) throw Error("Erro ao inserir")
-        res.status(200).json(book)
-    }catch (error){
-        res.status(500).json({message: error.message})
+    if(req.body.op ==='e'){
+        let _id = req.body.id;
+        const book = await Book.findOne({id:_id});
+        delete req.body.id;
+        delete req.body.op;
+        book.evaluations.push(req.body);
+        Book.findOneAndUpdate({id:_id},book,
+            function (err, docs) {}
+            );
+        res.status(200).json("OK");
+    }else {
+        const newBook = new Book(req.body)
+        try {
+            const book = await newBook.save()
+            if (!book) throw Error("Erro ao inserir")
+            res.status(200).json(book)
+        } catch (error) {
+            res.status(500).json({message: error.message})
+        }
     }
 })
 

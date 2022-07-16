@@ -11,6 +11,7 @@ const acc = require('./routes/api/accounts')
 const payment = require('./routes/api/payment')
 const category = require('./routes/api/category')
 const buy = require('./routes/api/buy')
+const lib = require('./routes/api/library')
 
 
 const router = express.Router();
@@ -34,5 +35,8 @@ app.use('/api/acc',acc)
 app.use('/api/payment',payment)
 app.use('/api/category', category)
 app.use('/api/buy',buy)
+app.use('/api/lib',lib)
 
-app.listen(3000, ()=>console.log("B"))
+module.exports = router
+
+app.listen(3000)

@@ -20,7 +20,7 @@
 
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Avalie o livro {{ book.name }}</h4>
+          <h4 class="modal-title">Avalie o livro {{ this.$props.name }}</h4>
           <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
         </div>
 
@@ -51,6 +51,7 @@
 <script>
 
 import {VueCookieNext} from "vue-cookie-next";
+import axios from "axios";
 
 export default {
   name: "books",
@@ -64,28 +65,24 @@ export default {
 
     },
     evaluateBook(id) {
-
-      let books = JSON.parse(localStorage.getItem("books"));
-      for (const book of books) {
+      for (const book of this.all_books) {
         if (id === book.id) {
           this.book = book;
         }
       }
 
     },
-    evaluate() {
+    async evaluate() {
 
-      let newEvaluation = {};
-      newEvaluation.info = this.opnion;
-      newEvaluation.stars = this.rating;
-      this.book.evaluations.push(newEvaluation);
-      let books = JSON.parse(localStorage.getItem("books"));
-      for (const index in books) {
-        if (this.id === books[index].id) {
-          books[index] = this.book;
-        }
+      let newEvaluation = {info:this.opnion,stars:this.rating,op:"e",id:this.$props.id};
+      let res = await fetch("http://localhost:3000/api/book/", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(newEvaluation)
+      });
+      if (res.status !== 200) {
+        console.log("Deu errado")
       }
-      localStorage.setItem("books", JSON.stringify(books));
       let actualUser = VueCookieNext.getCookie("account");
       let libraries = JSON.parse(localStorage.getItem("libraries"));
       console.log(actualUser);
@@ -103,49 +100,30 @@ export default {
 
     },
     isEvaluated() {
-
-      let actualUser = VueCookieNext.getCookie("account");
-      let libraries = JSON.parse(localStorage.getItem("libraries"));
-      for (const library of libraries) {
-        if (actualUser.id === library.user) {
-          for (const book of library.lib) {
-            if (book.id === this.id) {
-              return book.eval;
-            }
-          }
+      for (const book in this.library.lib) {
+        if (book.id === this.id) {
+          return book.eval;
         }
       }
-
     }
   },
   data() {
     return {
-      rating: 0,
-      opnion: "",
-      eval: 0,
-      book: {
-        name: "Harry Potter e a pedra filosofal",
-        pages: 100,
-        categories: [0, 1],
-        price: 30.90,
-        promo: {
-          is: true,
-          numberBooks: 10,
-          tempPrice: 5
-        },
-        synopsis: "Quando virou o envelope, com a mão trêmula, Harry viu um lacre de cera púrpura com um brasão; um leão, uma águia, um texugo e uma cobra circulando uma grande letra \"H\". Harry Potter nunca havia ouvido falar de Hogwarts quando as cartas começaram a aparecer no capacho da Rua dos Alfeneiros, nº 4. Escritos a tinta verde-esmeralda em pergaminho amarelado com um lacre de cera púrpura, as cartas eram rapidamente confiscadas por seus pavorosos tio e tia. Então, no aniversário de onze anos de Harry, um gigante com olhos que luziam como besouros negros chamado Rúbeo Hagrid surge com notícias surpreendentes: Harry Potter é um bruxo e tem uma vaga na Escola de Magia e Bruxaria de Hogwarts. Uma incrível aventura está para começar!",
-        editor: "Pottermore Publishing",
-        autor: "MOSS | J.K. ROWLING",
-        tradutor: "LIA WYLER",
-        year: 2015,
-        id: 0,
-        evaluations: [{info: "Muito mal escrito!", stars: 2}, {
-          info: "Bom pra passar o tempo, mas nada impressionante",
-          stars: 3
-        }, {info: "Genial", stars: 4}, {info: "Muito mal escrito!", stars: 2}, {info: "Muito mal escrito!", stars: 2}]
-      },
+      library:[],
+      opnion:"",
+      all_books:[]
     };
   },
+  async mounted() {
+    const res_books = await axios.get("http://localhost:3000/api/book/");
+    this.all_books = res_books.data;
+    let actualUser = VueCookieNext.getCookie("account")
+    if (actualUser !== '') {
+      const res_lib = await axios.get("http://localhost:3000/api/lib/?id=" + actualUser._id);
+      this.library = res_lib.data;
+      console.log(this.library)
+    }
+  }
 };
 </script>
 

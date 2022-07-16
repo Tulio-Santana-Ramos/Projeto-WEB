@@ -1,7 +1,7 @@
 const {Schema, model} = require('mongoose')
 
 const LibSchema = new Schema({
-    user:int,
+    user:Number,
     lib: [Schema.Types.Mixed]
 })
 

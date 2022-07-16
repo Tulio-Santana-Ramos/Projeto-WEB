@@ -328,31 +328,37 @@ export default {
      * @param validade validade do cartão
      * @param CVV CVV do cartão
      * @param numero numero do cartão
-     */
-    addCard(nome, validade,CVV, numero) {
+     */ async addCard(nome, validade, CVV, numero) {
       let newCard = {};
 
       const zeros = "0000000000000000";
       newCard.name = nome;
-      if(numero.length < 16)
-        newCard.code = zeros.substring(numero.length,16) + numero;
+      if (numero.length < 16)
+        newCard.code = zeros.substring(numero.length, 16) + numero;
       else
-        newCard.code = numero.substring(0,16);
+        newCard.code = numero.substring(0, 16);
       newCard.expiration = validade;
-      if(CVV.length < 3)
-        newCard.CVV = zeros.substring(CVV.length,3) + CVV
+      if (CVV.length < 3)
+        newCard.CVV = zeros.substring(CVV.length, 3) + CVV
       else
-        newCard.CVV = CVV.substring(0,3);
+        newCard.CVV = CVV.substring(0, 3);
       let acc = VueCookieNext.getCookie("account");
       if (acc === null) {
         return;
       }
-      //Todo: update cards
-      let accounts = JSON.parse(localStorage.getItem("accounts"));
-      for (const accBD in accounts) {
-        if (acc.id === accounts[accBD].id) accounts[accBD].cards.push(newCard);
-      }
-      localStorage.setItem("accounts", JSON.stringify(accounts));
+      newCard.op = "u";
+      newCard._id = acc._id;
+      let res = await fetch("http://localhost:3000/api/acc/", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(newCard)
+      });
+      if (res.status !== 200)
+        console.log("Deu errado")
+      delete newCard.op;
+      delete newCard._id;
+      acc.cards.push(newCard);
+      VueCookieNext.setCookie("account",acc);
       this.$router.go(0);
     },
     /**
@@ -492,6 +498,7 @@ export default {
           }
         }
         localStorage.setItem("books", JSON.stringify(books));
+        localStorage.setItem("books", JSON.stringify(books));
       }
       //Adiciona os novos livros à biblioteca
       let libs = JSON.parse(localStorage.getItem("libraries"));
@@ -529,8 +536,7 @@ export default {
         console.log("Deu errado")
       }
       VueCookieNext.setCookie("bag", "");
-      localStorage.setItem("buys", JSON.stringify(oldBuys));
-      this.$router.push("/");
+      await this.$router.push("/");
     },
     onUpdateFieldCard(){
       let validation = this.$refs.input_nome.value == "" || this.$refs.input_validade.value  == "" || this.$refs.input_CVV.value  == "" || this.$refs.input_num.value == "" ;

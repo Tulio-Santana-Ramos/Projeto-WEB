@@ -18,11 +18,11 @@ import {VueCookieNext} from "vue-cookie-next";
   <!-- Verifica se o user está logado, caso não esteja mostra página de LoginRequired-->
   <div v-if="hadUser()" class="books">
     <!-- Verifica se o user possui algum livro comprado-->
-    <div v-if="getUserBooks().length === 0">
+    <div v-if="user_books.length === 0">
       Você ainda não comprou nenhum livro :(
     </div>
     <!-- Realiza um for por todos os livros comprados pelo usuário-->
-    <div v-else v-for="book in getUserBooks()">
+    <div v-else v-for="book in user_books">
       <Books
           :name="book.name"
           :categories="book.categories"
@@ -101,27 +101,23 @@ export default {
     getUserBooks() {
       //Define algumas variáveis para a execução do código
       let actualUser = VueCookieNext.getCookie("account");
-      let libraries = JSON.parse(localStorage.getItem("libraries"));
       let allCategories = this.getAllCategories();
       let temp = [];
-      for (const library of libraries) {// Busca a biblioteca do usuário
-        if (library.user === actualUser.id) {
-          for (const book of this.getActualBooks()) {//Busca todos os livros do usuário
-            for (const bookLib of library.lib) {
-              if (parseInt(book.id) === parseInt(bookLib.id)) {
-                let tempCategories = [];
-                for (const category of book.categories) {//Transforma as categorias de número para texto
-                  for (const fixedCategory of allCategories) {
-                    if (category === fixedCategory.id) {
-                      tempCategories.push(fixedCategory.name);
-                      break;
-                    }
-                  }
+
+      for (const book of this.getActualBooks()) {//Busca todos os livros do usuário
+        for (const bookLib of this.library.lib) {
+          if (parseInt(book.id) === parseInt(bookLib.id)) {
+            let tempCategories = [];
+            for (const category of book.categories) {//Transforma as categorias de número para texto
+              for (const fixedCategory of allCategories) {
+                if (category === fixedCategory.id) {
+                  tempCategories.push(fixedCategory.name);
+                  break;
                 }
-                book.categories = tempCategories;
-                temp.push(book);
               }
             }
+            book.categories = tempCategories;
+            temp.push(book);
           }
         }
       }
@@ -133,15 +129,47 @@ export default {
     this.all_books = res_books.data;
     const res_cat = await axios.get("http://localhost:3000/api/category/");
     this.categories = res_cat.data;
+    let actualUser = VueCookieNext.getCookie("account")
+    console.log(actualUser);
+    if(actualUser !== ''){
+      const res_lib = await axios.get("http://localhost:3000/api/lib/?id="+actualUser._id);
+      this.library = res_lib.data;
+      let allCategories = this.getAllCategories();
+      let temp = [];
+      console.log(this.getActualBooks())
+      console.log(this.library.lib)
+      for (const book of this.getActualBooks()) {//Busca todos os livros do usuário
+        for (const bookLib of this.library.lib) {
+          if (parseInt(book.id) === parseInt(bookLib.id)) {
+            console.log(book)
+            let tempCategories = [];
+            for (const category of book.categories) {//Transforma as categorias de número para texto
+              for (const fixedCategory of allCategories) {
+                if (category === fixedCategory.id) {
+                  tempCategories.push(fixedCategory.name);
+                  break;
+                }
+              }
+            }
+            book.categories = tempCategories;
+            temp.push(book);
+          }
+        }
+      }
+      this.user_books = temp;
+      console.log("A",this.user_books);
+    }
   },
   data() {
     return {
       user: true,
       text: "Para acessar a biblioteca e visualizar seus livros faça o login",
       all_books:[],
-      categories: []
+      categories: [],
+      library:[],
+      user_books:[]
     };
-  },
+  }
 
 };
 </script>

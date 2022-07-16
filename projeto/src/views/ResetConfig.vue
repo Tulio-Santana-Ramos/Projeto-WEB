@@ -12,10 +12,8 @@ export default {
    */
   mounted() {
     VueCookieNext.setCookie("bag", '[]');
-
-    localStorage.setItem("categories",'')
-    localStorage.setItem("buys", "");
-    localStorage.setItem("libraries", '[{"user":1,"lib":[{"id":0,"eval":false},{"id":2,"eval":false}]}]');
+    localStorage.setItem("libraries", '');
+    //localStorage.setItem("libraries", '[{"user":1,"lib":[{"id":0,"eval":false},{"id":2,"eval":false}]}]');
   }
 }
 </script>
