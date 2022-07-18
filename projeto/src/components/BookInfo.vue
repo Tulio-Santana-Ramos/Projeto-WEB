@@ -439,4 +439,12 @@ export default {
   color: #257eb3;
 }
 
+
+
+.modal-dialog{
+   height: 100%; /*altura da view da modal*/
+   margin-top: 0;
+}
+
+
 </style>

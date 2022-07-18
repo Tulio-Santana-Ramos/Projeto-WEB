@@ -39,6 +39,7 @@ import {VueCookieNext} from 'vue-cookie-next'
       </button>
 
     </div>
+    <span style="color: red; text-align:center;" ref="passError"></span>
     <br>
     <div style="display: flex; justify-content:space-around; width: 500px; margin-right: auto; margin-left: auto; ">
       <div>
@@ -169,8 +170,7 @@ export default {
         VueCookieNext.setCookie("account", JSON.stringify(account));
         this.$router.push("/");
       }else{
-        // TODO: arrumar o login fail
-        console.log("Deu errado")
+        this.$refs.passError.innerText = "A senha e/ou e-mail estão incorretos";
       }
 
 
