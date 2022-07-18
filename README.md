@@ -103,28 +103,18 @@ Como administrador:
 
 ## Resultados dos testes:
 
-Em todos os testes o projeto se comportou como o esperado.
+O comportamento do site apresenta ser satisfatório com um tempo de resposta rápido (principalmente considerando que não foram gastos recursos financeiros para hospedar o banco de dados). Na entrega final, não encontramos bugs que afetassem significativamente a experiência do usuário.
 
 
 ## Building:
 
-Abrir 2 terminais:
+É necessário ter o npm e o node.js instalados.
 
-No primeiro:
+O front-end e o back-end (o site e o servidor) serão executados localmente, enquanto o banco de dados está hosteado num servidor de mongodb.
 
-```sh
-cd projeto
-```
+É necessário abrir 2 terminais um para o front e outro para o servidor:
 
-```sh
-npm install
-```
-
-```sh
-npm run dev -- --port 3001
-```
-
-No segundo:
+No primeiro :
 
 ```sh
 cd server
@@ -138,6 +128,21 @@ npm install
 npm run server
 ```
 
+No segundo:
+
+
+```sh
+cd projeto
+```
+
+```sh
+npm install
+```
+
+```sh
+npm run dev -- --port 3001
+```
+
 #### Alguns logins que vem com as configurações padrões são:
 Conta administrador:  
 Login: admin | Senha: admin  
@@ -148,3 +153,14 @@ Login: login | Senha: senha
 ## Problemas:
 
 ## Comentários:
+
+A segurança da aplicação não foi uma preocupação durante a criação do site.
+
+Alguns dos frameworks/ferramentas usados pelo grupo foram:
+
+Figma (para o mockup)
+Bootstrap (para o css)
+Vue.js (front-end)
+Mongoose (integração entre o banco de dados e o servidor)
+MongoDB Compass (para a visualização do banco de dados)
+Postman (para simular requisições HTTP)
