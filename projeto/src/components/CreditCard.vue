@@ -1,4 +1,4 @@
-<template>
+  <template>
   <span>
     Cartão de {{ name }} terminado em {{ code.substring(code.length-4) }}
   </span>

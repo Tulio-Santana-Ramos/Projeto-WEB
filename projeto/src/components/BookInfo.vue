@@ -96,8 +96,8 @@
         </div>
       </div>
     </div>
-    <div v-if="typeof (book.promotion) !== 'undefined' && book.promotion.is" class="container-promotion">
-      Quantidade promocional restante: {{ book.promotion.numberBooks }}
+    <div v-if="typeof (book.promo) !== 'undefined' && book.promo.is" class="container-promotion">
+      Quantidade promocional restante: {{ book.promo.numberBooks }}
     </div>
     <div class="book-basics">
       <img class="img-livro" v-bind:src="'/src/assets/' + id + '.jpg'"/>
@@ -106,8 +106,8 @@
         <ul v-for="category in categories" class="category">
           <li>{{ category.name }}</li>
         </ul>
-        <p class="price" v-if="typeof (promotion) !== 'undefined' && !promotion.is">R$ {{ book.price }}</p>
-        <p class="price" v-else-if="typeof (promotion) !== 'undefined'">R$ {{ promotion.tempPrice }}</p>
+        <p class="price" v-if="typeof (book.promo) !== 'undefined' && !book.promo.is">R$ {{ book.price }}</p>
+        <p class="price" v-else-if="typeof (book.promo) !== 'undefined'">R$ {{ book.promo.tempPrice }}</p>
       </div>
     </div>
     <div class="synopsis">{{ book.synopsis }}</div>
@@ -237,25 +237,27 @@ export default {
       }
       return categories;
     },
-    updateLivro(nome, preco, sinopse, editora, autor, tradutor, ano) {
-      let books = JSON.parse(localStorage.getItem("books"));
+    async updateLivro(nome, preco, sinopse, editora, autor, tradutor, ano) {
       let id = this.$route.query.id;
-      for (let i = 0; i < books.length; i++) {
-        if (parseInt(books[i].id) === parseInt(id)) {
-          books[i].name = nome.value;
-          books[i].price = preco.value;
-          books[i].synopsis = sinopse.value;
-          books[i].editor = editora.value;
-          books[i].autor = autor.value;
-          books[i].tradutor = tradutor.value;
-          books[i].year = ano.value;
-          books[i].categories = this.logicalCategoriesToNumerical();
-          console.log(books[i].categories);
-          break;
-        }
+      this.book.name = nome.value;
+      this.book.price = preco.value;
+      this.book.synopsis = sinopse.value;
+      this.book.editor = editora.value;
+      this.book.autor = autor.value;
+      this.book.tradutor = tradutor.value;
+      this.book.year = ano.value;
+      this.book.categories = this.logicalCategoriesToNumerical();
+      let res = await fetch("http://localhost:3000/api/book/id="+id, {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(this.book)
+      });
+      if (res.status !== 200) {
+        console.log("Deu errado")
+      }else{
+        this.$router.go(0);
       }
-      localStorage.setItem("books", JSON.stringify(books));
-      this.$router.go(0);
+
     },
     isAdmin() {
       let account = VueCookieNext.getCookie("account");

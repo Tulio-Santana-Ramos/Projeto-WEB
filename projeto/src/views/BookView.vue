@@ -156,17 +156,17 @@ export default {
         promo.tempPrice = valorPromocional;
         this.all_books.promo = promo;
       } else { // Se não, adiciona
-        this.all_books.promo.numberBooks = parseInt(book.promo.numberBooks) + parseInt(quantidadePromocional);
+        this.all_books.promo.numberBooks = parseInt(this.all_books.promo.numberBooks) + parseInt(quantidadePromocional);
         this.all_books.promo.tempPrice = valorPromocional;
       }
-      let res = await fetch("http://localhost:3000/api/book/?id=" + this.all_books._id, {
+      let res = await fetch("http://localhost:3000/api/book/id=" + this.all_books.id, {
         method: "PUT",
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
+        body: JSON.stringify(this.all_books)
       });
       if (res.status !== 200)
         console.log("Deu errado")
-
+      this.$router.go(0)
     },
     /**
      * Remove o livro da base de dados
@@ -191,10 +191,11 @@ export default {
         return false;
       console.log(this.lib.lib)
       console.log(id)
+
       for (const book in this.lib.lib) {
         console.log(book)
         console.log(this.lib.lib[book].id)
-        if (this.lib.lib[book].id === id) {
+        if (this.lib.lib[book].id === parseInt(id) ){
           return true;
         }
       }
@@ -209,7 +210,7 @@ export default {
       let bag = JSON.parse(VueCookieNext.getCookie("bag"));
       if(bag !== null) {
         for (const book of bag) {
-          if (book.id === id)
+          if (parseInt(book.id) === parseInt(id))
             return true;
         }
       }

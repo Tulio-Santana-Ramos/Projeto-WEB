@@ -5,8 +5,7 @@ import CreditCard from "../components/CreditCard.vue";
 import DefaultPaymentOption from "../components/DefaultPaymentOption.vue";
 import BlankLine from "../components/BlankLine.vue";
 import Books from "../components/BagBook.vue";
-import { VueCookieNext } from "vue-cookie-next";
-</script>
+import {VueCookieNext} from "vue-cookie-next";</script>
 
 <template>
   <!-- Div com toda a finalização da compra -->
@@ -49,7 +48,9 @@ import { VueCookieNext } from "vue-cookie-next";
                 v-bind:name="payment_name"
                 v-bind:value="'0 ' + index"
               />
-              <CreditCard :code="card.code" :name="card.name" />
+              <span>
+                Cartão de {{ card.name }} terminado em {{ card.code.substring(card.code.length-4) }}
+              </span>
             </div>
             <!-- Div para adicionar um cartão ao usuário -->
             <div style="padding-left: 150px">
@@ -237,7 +238,7 @@ import { VueCookieNext } from "vue-cookie-next";
               2. Confirme sua compra
             </span>
             <!-- Div com todos os livros do carrinho -->
-            <div v-for="book in getBag()" style="padding-left: 100px">
+            <div v-for="book in bag" style="padding-left: 100px">
               <Books
                 :id="book.id"
                 :Isinpromo="book.promo"
@@ -251,7 +252,7 @@ import { VueCookieNext } from "vue-cookie-next";
           </div>
           <!-- Div para mostrar o total da compra e finalizar a compra-->
           <div style="padding-left: 50px">
-            Total da compra: {{ getFullPrice() }}
+            Total da compra: {{ fullPrice }}
             <br />
             <button
               class="btn btn-primary"
@@ -285,7 +286,8 @@ export default {
       inputNumero: "",
       all_books:[],
       payment_form: [],
-      categories: []
+      categories: [],
+      fullPrice: 0
     };
   },
   watch:{
@@ -300,18 +302,22 @@ export default {
       },
       inputNumero(){
         this.onUpdateFieldCard();
+      },
+      all_books(){
+        console.log(this.all_books)
+        console.log(this.getBag())
+        this.fullPrice = this.getFullPrice()
       }
 
   },
   async mounted() {
-    this.getBag();
+
     const res_books = await axios.get("http://localhost:3000/api/book/");
     this.all_books = res_books.data;
     const res_cat = await axios.get("http://localhost:3000/api/category/");
     this.categories = res_cat.data;
     const res = await axios.get("http://localhost:3000/api/payment/")
     this.payment_form = res.data;
-
 
   },
   methods: {
@@ -377,7 +383,7 @@ export default {
      */
     getFullPrice() {
       let full = 0;
-      for (let b of this.getBag()) {
+      for (let b of this.bag) {
         if (b.promo.is) full += parseFloat(b.promo.tempPrice);
         else full += parseFloat(b.price);
       }
@@ -411,6 +417,8 @@ export default {
         this.bag = []; //Define como um vetor vazio
         let allCategories = this.getAllCategories();
         let bag = JSON.parse(VueCookieNext.getCookie("bag"));
+        console.log(bag)
+        console.log(this.all_books)
         for (const book of this.all_books) {
           //Para cada livro na lista de livros ele verifica se está no carrinho
           if (bag !== null)
@@ -432,6 +440,7 @@ export default {
           else break;
         }
       }
+      //console.log(this.bag)
       return this.bag;
     },
     /**
@@ -454,6 +463,9 @@ export default {
       if (acc === null) {
         return "";
       }
+      for(let i = 0; i < acc.cards.length; i++){
+        acc.cards[i].code = acc.cards[i].code.toString();
+      }
       return acc.cards;
     },
     /**
@@ -467,7 +479,7 @@ export default {
      */ async finishShop() {
       let user = VueCookieNext.getCookie("account");
       let updateBookList = false; // verifica se algum livro comprado é promocional
-      let bag = this.getBag(); // Se o carrinho de compras está vazio volta para a home
+      let bag = this.bag; // Se o carrinho de compras está vazio volta para a home
       if (bag === null) this.$router.push("/");
       let toAddInLib = []; // Vetor para adicionar à biblioteca
       for (const book of bag) {
@@ -494,38 +506,35 @@ export default {
         let books = this.all_books;
         for (let i = 0; i < books.length; i++) {
           for (let buyBook of bag) {
-            if (books[i].id === buyBook.id) books[i].promo = buyBook.promo;
+            if (books[i].id === buyBook.id){
+              books[i].promo = buyBook.promo;
+              let res = await fetch("http://localhost:3000/api/book/id="+books[i].id, {
+                method: "POST",
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(books[i])
+              });
+              if (res.status !== 200) {
+                console.log("Deu errado")
+              }
+            }
           }
         }
-        localStorage.setItem("books", JSON.stringify(books));
       }
-      //Adiciona os novos livros à biblioteca
-      let libs = JSON.parse(localStorage.getItem("libraries"));
-      let actualLib = null;
-      let libID = -1;
-      for (let i = 0; i < libs.length; i++) {
-        if (libs[i].user === user.id) {
-          actualLib = libs[i].lib;
-          libID = i;
+      for (const bookToAdd of toAddInLib) {
+        const toSend = {id:user.id,book:{id:bookToAdd.id, eval:false}};
+        let res = await fetch("http://localhost:3000/api/lib/", {
+          method: "POST",
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(toSend)
+        });
+        if (res.status !== 200) {
+          console.log("Deu errado")
         }
       }
-      if (actualLib === null) actualLib = [];
-      for (const bookToAdd of toAddInLib) {
-        actualLib.push(bookToAdd);
-      }
-      if (libID === -1) {
-        let newLib = {};
-        newLib.user = user.id;
-        newLib.lib = actualLib;
-        libs.push(newLib);
-      } else {
-        libs[libID].lib = actualLib;
-      }
-      localStorage.setItem("libraries", JSON.stringify(libs));
       // Salva as compras para os relatórios
       let newBuy = {};
       newBuy.name = user.name;
-      newBuy.value = this.getFullPrice().toString();
+      newBuy.value = this.fullPrice.toString();
       let res = await fetch("http://localhost:3000/api/buy/", {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -538,8 +547,7 @@ export default {
       await this.$router.push("/");
     },
     onUpdateFieldCard(){
-      let validation = this.$refs.input_nome.value == "" || this.$refs.input_validade.value  == "" || this.$refs.input_CVV.value  == "" || this.$refs.input_num.value == "" ;
-      this.$refs.btnAddCard.disabled = validation
+      this.$refs.btnAddCard.disabled = this.$refs.input_nome.value === "" || this.$refs.input_validade.value === "" || this.$refs.input_CVV.value === "" || this.$refs.input_num.value === ""
     }
   },
 };

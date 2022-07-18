@@ -52,9 +52,11 @@ router.post('/', async(req,res)=>{
 })
 
 router.put('/:id', async (req,res)=>{
-    const {id} = req.params
+    let {id} = req.params
+    id = id.split("=")[1]
+    console.log(req.body)
     try{
-        const response = await Book.findByIdAndUpdate(id,req.body)
+        const response = await Book.findOneAndUpdate({id:id},req.body)
         if (!response) throw Error("Deu errado")
         const updated = { ...response, ...req.body}
         res.status(200).json(updated)
@@ -64,8 +66,10 @@ router.put('/:id', async (req,res)=>{
 })
 
 router.delete('/:id', async (req,res)=>{
-    const {id} = req.params
+    let {id} = req.params
+    id = id.split("=")[1]
     try{
+        console.log(id)
         const response = await Book.findByIdAndDelete(id)
         if (!response) throw Error("Deu errado")
         res.status(200).json(response)

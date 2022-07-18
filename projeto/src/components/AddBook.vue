@@ -265,7 +265,7 @@ export default {
 
       let xhr = new XMLHttpRequest();
 
-      let res = await fetch("http://localhost:3000/api/acc/", {
+      let res = await fetch("http://localhost:3000/api/category/", {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(newCategory)
@@ -314,10 +314,10 @@ export default {
 
       let xhr = new XMLHttpRequest();
 
-      let res = await fetch("http://localhost:3000/api/acc/", {
+      let res = await fetch("http://localhost:3000/api/book/", {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(books)
+        body: JSON.stringify(newBook)
       });
       if (res.status !== 200) {
         console.log("Deu errado")
