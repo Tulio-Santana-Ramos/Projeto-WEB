@@ -152,6 +152,14 @@ Login: login | Senha: senha
 
 ## Problemas:
 
+Os principais problemas encontrados pelo grupo foram:
+
+1. Tamanho do projeto
+2. Necessidade de aprendizado de diversas ferramentas novas
+3. Integração com o banco de dados
+4. Problemas de responsividade
+5. Dificuldade com upload de arquivos por parte do usuário na criação de novos livros
+
 ## Comentários:
 
 A segurança da aplicação não foi uma preocupação durante a criação do site.
