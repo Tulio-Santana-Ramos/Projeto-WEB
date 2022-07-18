@@ -99,7 +99,7 @@ O comportamento do site apresenta ser satisfatório com um tempo de resposta rá
 
 ## Building:
 
-É necessário ter o npm e o node.js instalados.
+É necessário ter o npm, o node.js e o mongodb instalados.
 
 O front-end e o back-end (o site e o servidor) serão executados localmente, enquanto o banco de dados está hosteado num servidor de mongodb.
 
