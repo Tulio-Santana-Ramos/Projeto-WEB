@@ -52,7 +52,7 @@ exemplo, eles podem alterar a quantidade em estoque.
 
 Como funcionalidade extra, optamos por implementar a visualização do ebook comprado por meio da “biblioteca”, dessa forma, a leitura do produto poderá ser efetuada de maneira direta dentro do ambiente criado. E outra funcionalidade extra é o
 sistema de avaliação dos livros por parte do cliente, que pode escrever um review e dar uma nota para cada livro
-comprado, e esse review será mostrado na página juntamente com as informações do livro.
+comprado, e esse review será mostrado na página juntamente com as informações do livro. Além disso, outra funcionalidade é a pesquisa dos livros por nome e categoria.
 
 
 ## Descrição:
@@ -71,7 +71,6 @@ no [Figma](https://www.figma.com/file/q7jnpJB5LKc1Gr9y7ymZ2c/WEBOOK?node-id=0%3A
 
 ## Plano de teste:
 
-Para realizar os teste é necessario, além de iniciar o vue, rodar a pagina de configuração inicial que se encontra na rota /resetConfig, ela simula a existencia de um servidor para os dados vitais do site, sem a devida execução o site pode parecer completamente desconfigurado.
 
 O site permite várias ações, testamos todas elas:
 
