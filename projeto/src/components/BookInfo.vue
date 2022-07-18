@@ -26,7 +26,7 @@
               Preço
             </span>
               <input class="form-control" placeholder="Preço do livro" style="height: 45px;font-size: medium"
-                     type="text" ref="input_preco" v-bind:value="price">
+                     type="text" ref="input_preco" v-bind:value="book.price">
             </div>
             <br>
             <div class="input-group input-container" style="margin-right: auto; margin-left: auto;">
@@ -35,7 +35,7 @@
             </span>
               <textarea class="form-control" placeholder="Sinopse do livro"
                         style="resize: none;height: 100px;font-size: medium"
-                        type="text" ref="input_sinopse" v-bind:value="synopsis"/>
+                        type="text" ref="input_sinopse" v-bind:value="book.synopsis"/>
             </div>
             <br>
             <div class="input-group input-container" style="margin-right: auto; margin-left: auto;">
@@ -43,7 +43,7 @@
               Editora
             </span>
               <input class="form-control" placeholder="Nome da editora" style="height: 45px;font-size: medium"
-                     type="text" ref="input_editora" v-bind:value="editor">
+                     type="text" ref="input_editora" v-bind:value="book.editor">
             </div>
             <br>
             <div class="input-group input-container" style="margin-right: auto; margin-left: auto;">
@@ -51,7 +51,7 @@
               Autor
             </span>
               <input class="form-control" placeholder="Nome do autor" style="height: 45px;font-size: medium"
-                     type="text" ref="input_autor" v-bind:value="author">
+                     type="text" ref="input_autor" v-bind:value="book.author">
             </div>
             <br>
             <div class="input-group input-container" style="margin-right: auto; margin-left: auto;">
@@ -59,7 +59,7 @@
               Tradutor
             </span>
               <input class="form-control" placeholder="Nome do tradutor" style="height: 45px;font-size: medium"
-                     type="text" ref="input_tradutor" v-bind:value="tradutor">
+                     type="text" ref="input_tradutor" v-bind:value="book.tradutor">
             </div>
             <br>
             <div class="input-group input-container" style="margin-right: auto; margin-left: auto;">
@@ -67,7 +67,7 @@
               Ano
             </span>
               <input class="form-control" placeholder="Ano de publicação" style="height: 45px;font-size: medium"
-                     type="text" ref="input_ano" v-bind:value="year">
+                     type="text" ref="input_ano" v-bind:value="book.year">
             </div>
             <div v-for="(category,index) in getAllCategories()" :key="updateCategories">
               <input v-model="categoriesCheck[index]" type="checkbox">
@@ -96,21 +96,21 @@
         </div>
       </div>
     </div>
-    <div v-if="typeof (promotion) !== 'undefined' && promotion.is" class="container-promotion">
-      Quantidade promocional restante: {{ promotion.numberBooks }}
+    <div v-if="typeof (book.promotion) !== 'undefined' && book.promotion.is" class="container-promotion">
+      Quantidade promocional restante: {{ book.promotion.numberBooks }}
     </div>
     <div class="book-basics">
       <img class="img-livro" v-bind:src="'/src/assets/' + id + '.jpg'"/>
       <div class="home-book-info">
-        <p class="title">{{ name }}</p>
+        <p class="title">{{ book.name }}</p>
         <ul v-for="category in categories" class="category">
           <li>{{ category.name }}</li>
         </ul>
-        <p class="price" v-if="typeof (promotion) !== 'undefined' && !promotion.is">R$ {{ price }}</p>
+        <p class="price" v-if="typeof (promotion) !== 'undefined' && !promotion.is">R$ {{ book.price }}</p>
         <p class="price" v-else-if="typeof (promotion) !== 'undefined'">R$ {{ promotion.tempPrice }}</p>
       </div>
     </div>
-    <div class="synopsis">{{ synopsis }}</div>
+    <div class="synopsis">{{ book.synopsis }}</div>
     <button class="edit-info" v-if="isAdmin()" data-bs-target="#modalChangeInfos" data-bs-toggle="modal">
       <img class="edit-fig" src="@/components/icons/settings.png"/>Editar informações
     </button>
@@ -134,19 +134,19 @@
   <div class="book-specifics">
     <div class="info">
       <p>Editora:</p>
-      <p style="text-align: right">{{ editor }}</p>
+      <p style="text-align: right">{{ book.editor }}</p>
     </div>
     <div class="info">
       <p>Autor(a):</p>
-      <p style="text-align: right">{{ author }}</p>
+      <p style="text-align: right">{{ book.author }}</p>
     </div>
     <div class="info">
       <p>Tradutor(a):</p>
-      <p style="text-align: right">{{ tradutor }}</p>
+      <p style="text-align: right">{{ book.tradutor }}</p>
     </div>
     <div class="info">
       <p>Ano:</p>
-      <p style="text-align: right">{{ year }}</p>
+      <p style="text-align: right">{{ book.year }}</p>
     </div>
   </div>
 
@@ -169,31 +169,40 @@ import axios from "axios";
 
 export default {
   name: "BookInfo",
-  props: ["name", "categories", "price", "synopsis", "promotion", "editor", "author", "tradutor", "year", "atClick", "id", "inBag", "inLib"],
+  props: [ "atClick", "id", "inBag", "inLib"],
   data() {
     return {
       categoriesCheck: [],
       updateCategories: 0,
       inBagVar:false,
-      categories:[]
+      categories:[],
+      book:{}
     };
   },
   async mounted() {
     const res_cat = await axios.get("http://localhost:3000/api/category/");
     this.categories = res_cat.data;
+    const res_book = await axios.get("http://localhost:3000/api/book/id="+this.id);
+    this.book = res_book.data;
     this.inBagVar = this.inBag;
     for (let i = 0; i < this.categories.length; i++) {
       this.categoriesCheck[i] = this.searchInActualCategories(this.categories[i].name);
     }
   },
   methods: {
-    addCategory(newCategory) {
+    async addCategory(newCategory) {
       let categories = this.getAllCategories();
       let newCategoryObj = {};
       newCategoryObj.name = newCategory;
       newCategoryObj.id = categories[categories.length - 1].id + 1;
-      categories.push(newCategoryObj);
-      localStorage.setItem("categories", JSON.stringify(categories));
+      let res = await fetch("http://localhost:3000/api/category/", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(newCategoryObj)
+      });
+      if (res.status !== 200) {
+        console.log("Deu errado")
+      }
       this.updateCategories++;
     },
     getAllCategories() {

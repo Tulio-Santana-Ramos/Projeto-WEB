@@ -498,7 +498,6 @@ export default {
           }
         }
         localStorage.setItem("books", JSON.stringify(books));
-        localStorage.setItem("books", JSON.stringify(books));
       }
       //Adiciona os novos livros à biblioteca
       let libs = JSON.parse(localStorage.getItem("libraries"));

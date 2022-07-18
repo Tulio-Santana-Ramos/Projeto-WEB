@@ -4,10 +4,11 @@ const Lib = require('../../models/Library')
 
 const router = Router()
 
-router.get('/', async (req,res)=> {
+router.get('/:id', async (req,res)=> {
     const {id} = req.params
+    let realId = id.split("=")[1]
     try {
-        const lib = await Lib.findOne({id:id})
+        const lib = await Lib.findOne({user:realId})
         if (!lib) res.status(200).json([])
         else res.status(200).json(lib)
     } catch (error) {
@@ -17,12 +18,14 @@ router.get('/', async (req,res)=> {
 
 router.post('/', async(req,res)=>{
     if(req.body.op === 'e'){
-        const {id_user} = req.body.id;
-        console.log(id_user);
+        const id_user = req.body.id;
+        console.log(req.body);
         let response = await Lib.findOne({user: id_user});
-        for(let i = 0; i < response.length; i++){
+        console.log(response.lib);
+        for(let i = 0; i < response.lib.length; i++){
             let book = response.lib[i];
-            if(book.id === req.body.id_book){
+            console.log(book)
+            if(book.id === req.body.idbook){
                 response.lib[i].eval = true;
             }
         }
@@ -31,7 +34,7 @@ router.post('/', async(req,res)=>{
         res.status(200).json(updated)
 
     }else {
-        const {id} = req.body.id;
+        const id = req.body.id;
         try {
             let response = await Lib.findOne({user: id});
             if (response) {

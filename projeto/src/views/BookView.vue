@@ -104,25 +104,19 @@ import Evaluation from "../components/avaliationResult.vue";
   <div>
     <!-- Coloca todas as informações do livro na tela-->
     <BookInfo
-      :name="book.name"
-      :price="book.price"
-      :categories="book.categories"
-      :promotion="book.promo"
-      :synopsis="book.synopsis"
-      :editor="book.editor"
-      :author="book.autor"
-      :tradutor="book.tradutor"
-      :year="book.year"
       :atClick="addToBag"
-      :id="book.id"
-      :inBag="searchInBag(book.id)"
-      :inLib="searchInLib(book.id)"
+      :id="this.$route.query.id"
+      :inBag="searchInBag(this.$route.query.id)"
+      :inLib="searchInLib(this.$route.query.id)"
     />
   </div>
   <!-- Div para mostrar as avaliações dos livros-->
   <div class="book-stats">
-    <div v-for="book in book.evaluations">
-      <Evaluation :info="book.info" :stars="book.stars"/>
+    <div v-for="evaluation in all_books.evaluations">
+      <div class="evaluation">
+        <star-rating v-bind:rating=evaluation.stars :star-size="30" :read-only="true"></star-rating>
+        <p>{{ evaluation.info }} </p>
+      </div>
     </div>
   </div>
   <Footer/>
@@ -134,13 +128,20 @@ import axios from "axios";
 
 export default {
   name: 'app',
-  async mount(){
-    const res_books = await axios.get("http://localhost:3000/api/book/?id="+this.$route.query.id);
+  async mounted(){
+
+    const res_books = await axios.get("http://localhost:3000/api/book/id="+this.$route.query.id);
     this.all_books = res_books.data;
+
+    let acc = VueCookieNext.getCookie("account");
+    if (acc !== undefined && acc !== null) {
+      const res_lib = await axios.get("http://localhost:3000/api/lib/id="+acc.id);
+      this.lib = res_lib.data;
+      console.log(this.lib)
+    }
     const res_cat = await axios.get("http://localhost:3000/api/category/");
     this.categories = res_cat.data;
     let id = this.$route.query.id;
-    console.log(this.book)
   },
   methods: {
     /**
@@ -148,17 +149,17 @@ export default {
      * @param {string} quantidadePromocional define a promoção a ser somada
      * @param {string} valorPromocional define o novo valor promocional
      */ async addPromo(quantidadePromocional, valorPromocional) {
-      if (!this.book.promo.is) { // Se não tem promoção cria
+      if (!this.all_books.promo.is) { // Se não tem promoção cria
         let promo = {}
         promo.is = true;
         promo.numberBooks = quantidadePromocional;
         promo.tempPrice = valorPromocional;
-        this.book.promo = promo;
+        this.all_books.promo = promo;
       } else { // Se não, adiciona
-        this.book.promo.numberBooks = parseInt(book.promo.numberBooks) + parseInt(quantidadePromocional);
-        this.book.promo.tempPrice = valorPromocional;
+        this.all_books.promo.numberBooks = parseInt(book.promo.numberBooks) + parseInt(quantidadePromocional);
+        this.all_books.promo.tempPrice = valorPromocional;
       }
-      let res = await fetch("http://localhost:3000/api/book/?id=" + this.book._id, {
+      let res = await fetch("http://localhost:3000/api/book/?id=" + this.all_books._id, {
         method: "PUT",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(data)
@@ -170,7 +171,7 @@ export default {
     /**
      * Remove o livro da base de dados
      */ async remLivro() {
-      let res = await fetch("http://localhost:3000/api/book/?id=" + this.book._id, {
+      let res = await fetch("http://localhost:3000/api/book/id=" + this.all_books._id, {
         method: "DELETE",
         headers: {'Content-Type': 'application/json'},
         body: ""
@@ -188,14 +189,13 @@ export default {
       let acc = VueCookieNext.getCookie("account");
       if (acc === undefined || acc === null)
         return false;
-      let libs = JSON.parse(localStorage.getItem("libraries"));
-      for (const lib of libs) {
-        if (lib.user === acc.id) {
-          for (const book in lib.lib) {
-            if (lib.lib[book].id === id) {
-              return true;
-            }
-          }
+      console.log(this.lib.lib)
+      console.log(id)
+      for (const book in this.lib.lib) {
+        console.log(book)
+        console.log(this.lib.lib[book].id)
+        if (this.lib.lib[book].id === id) {
+          return true;
         }
       }
       return false;
@@ -250,7 +250,7 @@ export default {
             }
           }
           book.categories = tempCategories;
-          this.book = book;
+          this.all_books = book;
           return book;
         }
       }
@@ -274,9 +274,9 @@ export default {
   },
   data() {
     return {
-      book: {},//Livro que esta sendo exibido
-      all_books:[],
-      categories:[]
+      all_books: {},//Livro que esta sendo exibido
+      categories:[],
+      lib:[]
     };
   },
 };

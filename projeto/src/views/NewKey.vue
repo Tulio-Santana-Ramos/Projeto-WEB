@@ -73,15 +73,19 @@ export default {
   methods: {
     /**
      * Muda a senha dentro do banco
-     */
-    changePassword() {
-      let accounts = JSON.parse(localStorage.getItem("accounts"));
-      for (let account of accounts) {
-        if (account.email === this.$refs.email.value) {
-          account.senha = this.$refs.senha.value;
-        }
+     */ async changePassword() {
+      let newAccount = {};
+      newAccount.email = this.$refs.email.value;
+      newAccount.senha = this.$refs.senha.value;
+      newAccount.op='us';
+      let res = await fetch("http://localhost:3000/api/acc/", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(newAccount)
+      });
+      if (res.status !== 200) {
+        console.log("Deu errado")
       }
-      localStorage.setItem("accounts",JSON.stringify(accounts));
       this.$router.push("/login");
     }
   }

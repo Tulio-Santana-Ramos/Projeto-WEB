@@ -8,11 +8,17 @@
 
 
 <script>
+import axios from "axios";
+
 export default {
   name: "AvaliationResult",
-  props: ["info", "stars"],
+  props: ["id"],
   data() {
-    return {};
+    return {book:{},stars:0,info:""};
   },
+  async mounted(){
+    const res_book = await axios.get("http://localhost:3000/api/book/id="+this.id);
+    this.book = res_book.data;
+  }
 };
 </script>

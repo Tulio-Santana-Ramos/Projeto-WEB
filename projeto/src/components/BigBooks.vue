@@ -9,7 +9,7 @@
       <p class="pages">{{ pages }} páginas</p>
       <button type="button" class="btn btn-primary" @click="goToReadBook()">Ler agora</button>
       <br>
-      <button v-if="!isEvaluated()" type="button" class="btn btn-primary" v-bind:data-bs-target="'#modalEvaluate'+id"
+      <button v-if="!eval" type="button" class="btn btn-primary" v-bind:data-bs-target="'#modalEvaluate'+id"
               data-bs-toggle="modal" @click="evaluateBook(id)">Avaliar o livro
       </button>
     </div>
@@ -55,7 +55,7 @@ import axios from "axios";
 
 export default {
   name: "books",
-  props: ["name", "categories", "pages", "id"],
+  props: ["name", "categories", "pages", "id", "eval"],
   methods: {
     goToReadBook() {
 
@@ -83,24 +83,20 @@ export default {
       if (res.status !== 200) {
         console.log("Deu errado")
       }
-      let actualUser = VueCookieNext.getCookie("account");
-      let libraries = JSON.parse(localStorage.getItem("libraries"));
-      console.log(actualUser);
-      for (let i = 0; i < libraries.length; i++) {
-        console.log(libraries[i].user)
-        if (actualUser.id === libraries[i].user) {
-          for (let j = 0; j < libraries[i].lib.length; j++) {
-            if (libraries[i].lib[j].id === this.id)
-              libraries[i].lib[j].eval = true;
-          }
-        }
+      let sendObj = {id:VueCookieNext.getCookie("account").id, idbook:this.id,op:"e"};
+      res = await fetch("http://localhost:3000/api/lib/", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(sendObj)
+      });
+      if (res.status !== 200) {
+        console.log("Deu errado")
       }
-      localStorage.setItem("libraries", JSON.stringify(libraries));
-      this.eval++;
+      this.eval = true;
 
     },
     isEvaluated() {
-      for (const book in this.library.lib) {
+      for (const book of this.library.lib) {
         if (book.id === this.id) {
           return book.eval;
         }
@@ -111,7 +107,8 @@ export default {
     return {
       library:[],
       opnion:"",
-      all_books:[]
+      all_books:[],
+      eval:false
     };
   },
   async mounted() {
@@ -119,10 +116,10 @@ export default {
     this.all_books = res_books.data;
     let actualUser = VueCookieNext.getCookie("account")
     if (actualUser !== '') {
-      const res_lib = await axios.get("http://localhost:3000/api/lib/?id=" + actualUser._id);
+      const res_lib = await axios.get("http://localhost:3000/api/lib/id=" + actualUser.id);
       this.library = res_lib.data;
-      console.log(this.library)
     }
+    this.eval = this.isEvaluated();
   }
 };
 </script>

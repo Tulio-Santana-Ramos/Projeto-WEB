@@ -4,25 +4,28 @@ const Book = require('../../models/Book')
 
 const router = Router()
 
-router.get('/', async (req,res)=> {
-    const {id} = req.params
-    if(!id) {
-        try {
-            const book = await Book.find()
-            if (!book) throw  new Error('Sem livros')
-            res.status(200).json(book)
-        } catch (error) {
-            res.status(500).json({message: error.message})
-        }
-    }else{
-        try {
-            const book = await Book.findOne({id:id})
-            if (!book) throw  new Error('Sem livros')
-            res.status(200).json(book)
-        } catch (error) {
-            res.status(500).json({message: error.message})
-        }
+router.get('/:id', async (req,res)=> {
+    let {id} = req.params
+    id = id.split("=")[1]
+    try {
+        const book = await Book.findOne({id:id})
+        if (!book) throw  new Error('Sem livros')
+        res.status(200).json(book)
+    } catch (error) {
+        res.status(500).json({message: error.message})
     }
+
+})
+
+router.get('/', async (req,res)=> {
+    try {
+        const book = await Book.find()
+        if (!book) throw  new Error('Sem livros')
+        res.status(200).json(book)
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+
 })
 
 router.post('/', async(req,res)=>{

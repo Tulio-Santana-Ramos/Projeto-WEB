@@ -131,8 +131,9 @@ export default {
     this.categories = res_cat.data;
     let actualUser = VueCookieNext.getCookie("account")
     console.log(actualUser);
+    console.log("http://localhost:3000/api/lib/id="+actualUser.id)
     if(actualUser !== ''){
-      const res_lib = await axios.get("http://localhost:3000/api/lib/?id="+actualUser._id);
+      const res_lib = await axios.get("http://localhost:3000/api/lib/id="+actualUser.id);
       this.library = res_lib.data;
       let allCategories = this.getAllCategories();
       let temp = [];

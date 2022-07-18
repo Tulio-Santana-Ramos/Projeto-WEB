@@ -119,21 +119,26 @@ export default {
     validateFields(){
       this.$refs.btn.disabled = (this.nome == "" ||this.email == "" ||this.tel == "" ||this.pass1 == "" ||this.pass2 == "" );
     },
-    submit() {
+    async submit() {
       if (this.$refs.pass.value !== this.$refs.pass2.value) {
         this.$refs.passError.innerText = "As senhas não conhecidem";
-        return ;
+        return;
       }
-      let accs = JSON.parse(localStorage.getItem("accounts"));
+
       let newAccount = {};
       newAccount.email = this.$refs.email.value;
       newAccount.senha = this.$refs.pass.value;
       newAccount.admin = this.adminReg;
       newAccount.name = this.$refs.name.value;
       newAccount.phone = this.$refs.phone.value;
-      newAccount.id = accs.length;
-      accs.push(newAccount);
-      localStorage.setItem("accounts", JSON.stringify(accs));
+      let res = await fetch("http://localhost:3000/api/acc/", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(newAccount)
+      });
+      if (res.status !== 200) {
+        console.log("Deu errado")
+      }
       this.$router.push(this.nextPage);
     },
   },
