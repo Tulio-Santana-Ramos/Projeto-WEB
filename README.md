@@ -166,4 +166,4 @@ Alguns dos frameworks/ferramentas usados pelo grupo foram:
 * MongoDB Compass (para a visualização do banco de dados)
 * Postman (para simular requisições HTTP)
 * Express (para fazer as rotas)
-* VueNextCookies
+* VueNextCookies (para facilitar o gerenciamento dos cookies)
