@@ -138,7 +138,6 @@ npm install
 npm run server
 ```
 
-#### Para completar a configuração do site pela primeira vez ao rodar sem usar um servidor é necessário ir para a rota /resetConfig (ela é uma tela em branco mesmo), isso vai salvar algumas variáveis necessárias para a execução do código, após isso voltar para a rota inicial e agora sim o site está funcionando! Você pode usa-la para voltar sempre para as configurações iniciais.
 #### Alguns logins que vem com as configurações padrões são:
 Conta administrador:  
 Login: admin | Senha: admin  
